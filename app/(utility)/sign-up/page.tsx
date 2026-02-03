@@ -9,7 +9,6 @@ import { EnvelopeOpen, ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@/components/ui/link";
 import Confetti from "@/components/ui/confetti";
 import { generateMetadata } from "@/utils/metadata";
-import { EmptyState } from "@/components/ui/empty-state";
 import { Login, SignUp } from "@/components/auth/embed";
 
 export const metadata = generateMetadata({

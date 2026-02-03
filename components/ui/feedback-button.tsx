@@ -1,7 +1,12 @@
-import { MenuContent, MenuRoot, MenuTrigger } from "@/components/ui/menu";
-import { Button, HStack, VStack } from "@chakra-ui/react";
-import { Textarea } from "@chakra-ui/react";
-import { Field } from "@/components/ui/field";
+import {
+  Menu,
+  Field,
+  Button,
+  HStack,
+  VStack,
+  Textarea,
+  Portal,
+} from "@chakra-ui/react";
 import { ChatTeardropText } from "@phosphor-icons/react/dist/ssr";
 
 export const FeedbackButton = () => {
@@ -10,8 +15,8 @@ export const FeedbackButton = () => {
   };
 
   return (
-    <MenuRoot positioning={{ placement: "bottom" }}>
-      <MenuTrigger asChild>
+    <Menu.Root positioning={{ placement: "bottom" }}>
+      <Menu.Trigger asChild>
         <Button
           variant="outline"
           size="xs"
@@ -20,29 +25,34 @@ export const FeedbackButton = () => {
           Feedback?
           <ChatTeardropText weight="bold" />
         </Button>
-      </MenuTrigger>
+      </Menu.Trigger>
 
-      <MenuContent colorPalette={"primary"}>
-        <VStack p={2}>
-          <Field label="Feedback">
-            <Textarea
-              placeholder="Start typing..."
-              variant="outline"
-              h="140px"
-            />
-          </Field>
-          <HStack w="full">
-            <Button
-              variant="solid"
-              size="xs"
-              w="full"
-              onClick={() => handleSubmit}
-            >
-              Send
-            </Button>
-          </HStack>
-        </VStack>
-      </MenuContent>
-    </MenuRoot>
+      <Portal>
+        <Menu.Positioner>
+          <Menu.Content colorPalette={"primary"}>
+            <VStack p={2}>
+              <Field.Root>
+                <Field.Label>Feedback</Field.Label>
+                <Textarea
+                  placeholder="Start typing..."
+                  variant="outline"
+                  h="140px"
+                />
+              </Field.Root>
+              <HStack w="full">
+                <Button
+                  variant="solid"
+                  size="xs"
+                  w="full"
+                  onClick={() => handleSubmit}
+                >
+                  Send
+                </Button>
+              </HStack>
+            </VStack>
+          </Menu.Content>
+        </Menu.Positioner>
+      </Portal>
+    </Menu.Root>
   );
 };

@@ -11,8 +11,8 @@ import {
   Text,
   VStack,
   Group,
+  EmptyState,
 } from "@chakra-ui/react";
-import { EmptyState } from "@/components/ui/empty-state";
 import { Lock, SignIn } from "@phosphor-icons/react/dist/ssr";
 import { OutsetaUser } from "@/types/outseta";
 import { Profile, Login, SignUp } from "./embed";
@@ -107,23 +107,32 @@ export default function ProtectedRoute({
       <Box position="relative" h="100vh" w="100vw">
         <AbsoluteCenter>
           <VStack>
-            <EmptyState
-              icon={<SignIn />}
-              title="Login to continue"
-              description={`This page is available only to ${plansWithAccess
-                  ? requiredPlans.map((p) => p.label).join(" or ")
-                  : "registered"
-                } users. To continue, log in to your existing account or sign up.`}
-            >
-              <Group>
-                <Login popup>
-                  <Button>Login</Button>
-                </Login>
-                <SignUp popup>
-                  <Button variant="outline">Sign up</Button>
-                </SignUp>
-              </Group>
-            </EmptyState>
+            <EmptyState.Root paddingInline={0} paddingBlock={0} width="full">
+              <EmptyState.Content>
+                <EmptyState.Indicator>
+                  <SignIn />
+                </EmptyState.Indicator>
+                <VStack textAlign="center">
+                  <EmptyState.Title textStyle="2xl" maxWidth="lg">
+                    Login to continue
+                  </EmptyState.Title>
+                  <EmptyState.Description textStyle="md" maxWidth="sm">
+                    {`This page is available only to ${plansWithAccess
+                      ? requiredPlans.map((p) => p.label).join(" or ")
+                      : "registered"
+                      } users. To continue, log in to your existing account or sign up.`}
+                  </EmptyState.Description>
+                </VStack>
+                <Group>
+                  <Login popup>
+                    <Button>Login</Button>
+                  </Login>
+                  <SignUp popup>
+                    <Button variant="outline">Sign up</Button>
+                  </SignUp>
+                </Group>
+              </EmptyState.Content>
+            </EmptyState.Root>
           </VStack>
         </AbsoluteCenter>
       </Box>
@@ -148,16 +157,25 @@ export default function ProtectedRoute({
       <Box position="relative" h="100vh" w="100vw">
         <AbsoluteCenter>
           <VStack>
-            <EmptyState
-              icon={<Lock />}
-              title="Upgrade to unlock"
-              description={`This page is available only to users with a ${requiredPlans[0].label} plan. To continue, please upgrade to a ${requiredPlans[0].label} plan.`}
-            >
-              {/* TODO: Directly open the right plan to upgrade to */}
-              <Profile popup data-tab="planChange">
-                <Button>Change plan</Button>
-              </Profile>
-            </EmptyState>
+            <EmptyState.Root paddingInline={0} paddingBlock={0} width="full">
+              <EmptyState.Content>
+                <EmptyState.Indicator>
+                  <Lock />
+                </EmptyState.Indicator>
+                <VStack textAlign="center">
+                  <EmptyState.Title textStyle="2xl" maxWidth="lg">
+                    Upgrade to unlock
+                  </EmptyState.Title>
+                  <EmptyState.Description textStyle="md" maxWidth="sm">
+                    {`This page is available only to users with a ${requiredPlans[0].label} plan. To continue, please upgrade to a ${requiredPlans[0].label} plan.`}
+                  </EmptyState.Description>
+                </VStack>
+                {/* TODO: Directly open the right plan to upgrade to */}
+                <Profile popup data-tab="planChange">
+                  <Button>Change plan</Button>
+                </Profile>
+              </EmptyState.Content>
+            </EmptyState.Root>
           </VStack>
         </AbsoluteCenter>
       </Box>

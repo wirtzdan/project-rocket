@@ -9,22 +9,16 @@ import {
   VStack,
   StackProps,
   Box,
+  Menu,
+  Portal,
+  Button,
 } from "@chakra-ui/react";
 import { Logo } from "./logo";
-import { Button } from "@chakra-ui/react";
 import { CollapsibleTrigger } from "@/components/ui/collapsible-trigger";
 import { UserMenu } from "../ui/user-menu";
 import { Link } from "@/components/ui/link";
 import { SignedIn, SignedOut } from "../auth/protect-content";
 import { Login, SignUp } from "../auth/embed";
-import {
-  MenuContent,
-  MenuItem,
-  MenuItemGroup,
-  MenuRoot,
-  MenuSeparator,
-  MenuTrigger,
-} from "../ui/menu";
 
 export const MenuLink = (props) => {
   return (
@@ -46,8 +40,8 @@ export const NavbarLinkMenu = (props: StackProps) => {
   return (
     <>
       <MenuLink href="/docs">Docs</MenuLink>
-      <MenuRoot>
-        <MenuTrigger asChild>
+      <Menu.Root>
+        <Menu.Trigger asChild>
           <Button
             colorPalette="gray"
             width={{ base: "full", md: "auto" }}
@@ -56,62 +50,66 @@ export const NavbarLinkMenu = (props: StackProps) => {
           >
             Demo
           </Button>
-        </MenuTrigger>
-        <MenuContent>
-          <MenuItemGroup title="Pages">
-            <Link href="/pricing">
-              <MenuItem value="pricing">Pricing</MenuItem>
-            </Link>
-            <Link href="/contact">
-              <MenuItem value="contact">Contact</MenuItem>
-            </Link>
-            <Link href="/support">
-              <MenuItem value="contact">Contact</MenuItem>
-            </Link>
-          </MenuItemGroup>
-          <MenuSeparator />
-          <MenuItemGroup title="Utility">
-            <Link href="/thank-you">
-              <MenuItem value="thank-you">Thank you</MenuItem>
-            </Link>
-            <Link href="/not-found">
-              <MenuItem value="not-found">Not found</MenuItem>
-            </Link>
-            <Link href="/javascript">
-              <MenuItem value="javascript">Javascript</MenuItem>
-            </Link>
-            <Link href="/legal/terms-and-conditions">
-              <MenuItem value="terms-and-conditions">
-                Terms & Conditions
-              </MenuItem>
-            </Link>
-          </MenuItemGroup>
-          <MenuSeparator />
-          <MenuItemGroup title="Auth">
-            <Link href="/app/basic">
-              <MenuItem value="basic">Protected Page (Basic plan)</MenuItem>
-            </Link>
-            <Link href="/app/pro">
-              <MenuItem value="pro">Protected Page (Pro plan)</MenuItem>
-            </Link>
-          </MenuItemGroup>
-          <MenuSeparator />
-          <MenuItemGroup title="Embeds">
-            <Link href="/embed/login">
-              <MenuItem value="login">Login</MenuItem>
-            </Link>
-            <Link href="/embed/sign-up">
-              <MenuItem value="login">Sign up</MenuItem>
-            </Link>
-            <Link href="/embed/lead-capture">
-              <MenuItem value="lead-capture">Lead Capture</MenuItem>
-            </Link>
-            <Link href="/embed/email-list">
-              <MenuItem value="email-list">Email List</MenuItem>
-            </Link>
-          </MenuItemGroup>
-        </MenuContent>
-      </MenuRoot>
+        </Menu.Trigger>
+        <Portal>
+          <Menu.Positioner>
+            <Menu.Content>
+              <Menu.ItemGroup title="Pages">
+                <Link href="/pricing">
+                  <Menu.Item value="pricing">Pricing</Menu.Item>
+                </Link>
+                <Link href="/contact">
+                  <Menu.Item value="contact">Contact</Menu.Item>
+                </Link>
+                <Link href="/support">
+                  <Menu.Item value="contact">Contact</Menu.Item>
+                </Link>
+              </Menu.ItemGroup>
+              <Menu.Separator />
+              <Menu.ItemGroup title="Utility">
+                <Link href="/thank-you">
+                  <Menu.Item value="thank-you">Thank you</Menu.Item>
+                </Link>
+                <Link href="/not-found">
+                  <Menu.Item value="not-found">Not found</Menu.Item>
+                </Link>
+                <Link href="/javascript">
+                  <Menu.Item value="javascript">Javascript</Menu.Item>
+                </Link>
+                <Link href="/legal/terms-and-conditions">
+                  <Menu.Item value="terms-and-conditions">
+                    Terms & Conditions
+                  </Menu.Item>
+                </Link>
+              </Menu.ItemGroup>
+              <Menu.Separator />
+              <Menu.ItemGroup title="Auth">
+                <Link href="/app/basic">
+                  <Menu.Item value="basic">Protected Page (Basic plan)</Menu.Item>
+                </Link>
+                <Link href="/app/pro">
+                  <Menu.Item value="pro">Protected Page (Pro plan)</Menu.Item>
+                </Link>
+              </Menu.ItemGroup>
+              <Menu.Separator />
+              <Menu.ItemGroup title="Embeds">
+                <Link href="/embed/login">
+                  <Menu.Item value="login">Login</Menu.Item>
+                </Link>
+                <Link href="/embed/sign-up">
+                  <Menu.Item value="login">Sign up</Menu.Item>
+                </Link>
+                <Link href="/embed/lead-capture">
+                  <Menu.Item value="lead-capture">Lead Capture</Menu.Item>
+                </Link>
+                <Link href="/embed/email-list">
+                  <Menu.Item value="email-list">Email List</Menu.Item>
+                </Link>
+              </Menu.ItemGroup>
+            </Menu.Content>
+          </Menu.Positioner>
+        </Portal>
+      </Menu.Root>
     </>
   );
 };

@@ -1,7 +1,6 @@
-import { Box, VStack, AbsoluteCenter } from "@chakra-ui/react";
+import { Box, VStack, AbsoluteCenter, EmptyState } from "@chakra-ui/react";
 import { Code } from "@phosphor-icons/react/dist/ssr";
 import { generateMetadata } from "@/utils/metadata";
-import { EmptyState } from "@/components/ui/empty-state";
 
 export const metadata = generateMetadata({
   title: "JavaScript Required",
@@ -14,11 +13,21 @@ export default function ActivateJavaScriptPage() {
     <Box p="relative" h="100vh" w="100vw">
       <AbsoluteCenter>
         <VStack>
-          <EmptyState
-            icon={<Code />}
-            title="JavaScript is required"
-            description="This website requires JavaScript to function properly. Please enable JavaScript in your browser settings and reload the page."
-          ></EmptyState>
+          <EmptyState.Root paddingInline={0} paddingBlock={0} width="full">
+            <EmptyState.Content>
+              <EmptyState.Indicator>
+                <Code />
+              </EmptyState.Indicator>
+              <VStack textAlign="center">
+                <EmptyState.Title textStyle="2xl" maxWidth="lg">
+                  JavaScript is required
+                </EmptyState.Title>
+                <EmptyState.Description textStyle="md" maxWidth="sm">
+                  This website requires JavaScript to function properly. Please enable JavaScript in your browser settings and reload the page.
+                </EmptyState.Description>
+              </VStack>
+            </EmptyState.Content>
+          </EmptyState.Root>
         </VStack>
       </AbsoluteCenter>
     </Box>
