@@ -13,7 +13,7 @@ import {
   Group,
   EmptyState,
 } from "@chakra-ui/react";
-import { Lock, SignIn } from "@phosphor-icons/react/dist/ssr";
+import { PiLock, PiSignIn } from "react-icons/pi";
 import { OutsetaUser } from "@/types/outseta";
 import { Profile, Login, SignUp } from "./embed";
 
@@ -110,7 +110,7 @@ export default function ProtectedRoute({
             <EmptyState.Root paddingInline={0} paddingBlock={0} width="full">
               <EmptyState.Content>
                 <EmptyState.Indicator>
-                  <SignIn />
+                  <PiSignIn />
                 </EmptyState.Indicator>
                 <VStack textAlign="center">
                   <EmptyState.Title textStyle="2xl" maxWidth="lg">
@@ -160,7 +160,7 @@ export default function ProtectedRoute({
             <EmptyState.Root paddingInline={0} paddingBlock={0} width="full">
               <EmptyState.Content>
                 <EmptyState.Indicator>
-                  <Lock />
+                  <PiLock />
                 </EmptyState.Indicator>
                 <VStack textAlign="center">
                   <EmptyState.Title textStyle="2xl" maxWidth="lg">

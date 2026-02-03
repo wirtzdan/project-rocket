@@ -9,7 +9,7 @@ import {
   HStack,
   Portal,
 } from "@chakra-ui/react";
-import { Question, SignOut, User, Star } from "@phosphor-icons/react/dist/ssr";
+import { PiQuestion, PiSignOut, PiUser, PiStar } from "react-icons/pi";
 import { useAuth } from "../provider/auth-provider";
 import { SignedIn } from "../auth/protect-content";
 import { Profile, Support, LogOut } from "../auth/embed";
@@ -47,7 +47,7 @@ export const UserMenu = () => {
                 <SignedIn plan="LmJZpYmP">
                   <Tag.Root colorPalette="purple" size="sm">
                     <Tag.StartElement>
-                      <Star />
+                      <PiStar />
                     </Tag.StartElement>
                     <Tag.Label>Pro</Tag.Label>
                   </Tag.Root>
@@ -55,7 +55,7 @@ export const UserMenu = () => {
                 <SignedIn plan="L9nqaeQZ">
                   <Tag.Root colorPalette="gray" size="sm">
                     <Tag.StartElement>
-                      <Star />
+                      <PiStar />
                     </Tag.StartElement>
                     <Tag.Label>Basic</Tag.Label>
                   </Tag.Root>
@@ -69,20 +69,20 @@ export const UserMenu = () => {
 
             <Profile popup>
               <Menu.Item value="account">
-                <User weight="bold" />
+                <PiUser />
                 Account
               </Menu.Item>
             </Profile>
             <Support popup>
               <Menu.Item value="help">
-                <Question weight="bold" />
+                <PiQuestion />
                 Help & Support
               </Menu.Item>
             </Support>
             <Menu.Separator />
             <LogOut>
               <Menu.Item value="logout">
-                <SignOut weight="bold" />
+                <PiSignOut />
                 Logout
               </Menu.Item>
             </LogOut>

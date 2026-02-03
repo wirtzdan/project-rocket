@@ -5,11 +5,11 @@ import {
 } from "@chakra-ui/react";
 import { type LinkProps as NextLinkProps } from "next/link";
 import {
-  ArrowSquareOut,
-  Headset,
-  DownloadSimple,
-  EnvelopeSimple,
-} from "@phosphor-icons/react/dist/ssr";
+  PiArrowSquareOut,
+  PiHeadset,
+  PiDownloadSimple,
+  PiEnvelopeSimple,
+} from "react-icons/pi";
 
 export type LinkProps = Omit<ChakraLinkProps, "asChild"> & {
   href: NextLinkProps["href"];
@@ -42,7 +42,7 @@ export const Link = ({
       <ChakraLink asChild {...props}>
         <NextLink href={href}>
           {props.children}
-          <ArrowSquareOut />
+          <PiArrowSquareOut />
         </NextLink>
       </ChakraLink>
     );
@@ -53,7 +53,7 @@ export const Link = ({
       <ChakraLink asChild {...props}>
         <NextLink href={href}>
           {props.children}
-          <EnvelopeSimple />
+          <PiEnvelopeSimple />
         </NextLink>
       </ChakraLink>
     );
@@ -64,7 +64,7 @@ export const Link = ({
       <ChakraLink asChild {...props}>
         <NextLink href={href}>
           {props.children}
-          <Headset />
+          <PiHeadset />
         </NextLink>
       </ChakraLink>
     );
@@ -75,7 +75,7 @@ export const Link = ({
       <ChakraLink asChild {...props}>
         <NextLink href={href}>
           {props.children}
-          <DownloadSimple />
+          <PiDownloadSimple />
         </NextLink>
       </ChakraLink>
     );

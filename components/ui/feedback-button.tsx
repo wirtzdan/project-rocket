@@ -7,7 +7,7 @@ import {
   Textarea,
   Portal,
 } from "@chakra-ui/react";
-import { ChatTeardropText } from "@phosphor-icons/react/dist/ssr";
+import { PiChatTeardropText } from "react-icons/pi";
 
 export const FeedbackButton = () => {
   const handleSubmit = (feedback: string) => {
@@ -23,7 +23,7 @@ export const FeedbackButton = () => {
           data-o-account-activity="Open Feedback Form"
         >
           Feedback?
-          <ChatTeardropText weight="bold" />
+          <PiChatTeardropText />
         </Button>
       </Menu.Trigger>
 

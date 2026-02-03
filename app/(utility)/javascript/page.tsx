@@ -1,5 +1,5 @@
 import { Box, VStack, AbsoluteCenter, EmptyState } from "@chakra-ui/react";
-import { Code } from "@phosphor-icons/react/dist/ssr";
+import { PiCode } from "react-icons/pi";
 import { generateMetadata } from "@/utils/metadata";
 
 export const metadata = generateMetadata({
@@ -16,7 +16,7 @@ export default function ActivateJavaScriptPage() {
           <EmptyState.Root paddingInline={0} paddingBlock={0} width="full">
             <EmptyState.Content>
               <EmptyState.Indicator>
-                <Code />
+                <PiCode />
               </EmptyState.Indicator>
               <VStack textAlign="center">
                 <EmptyState.Title textStyle="2xl" maxWidth="lg">

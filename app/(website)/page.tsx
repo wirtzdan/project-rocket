@@ -13,15 +13,15 @@ import { Section } from "@/components/layout/section";
 import { generateMetadata } from "@/utils/metadata";
 import { Link } from "@/components/ui/link";
 import {
-  ArrowSquareOut,
-  UserCircle,
-  CreditCard,
-  Palette,
-  EnvelopeSimple,
-  Lifebuoy,
-  Cube,
-  ArrowRight,
-} from "@phosphor-icons/react/dist/ssr";
+  PiArrowSquareOut,
+  PiUserCircle,
+  PiCreditCard,
+  PiPalette,
+  PiEnvelopeSimple,
+  PiLifebuoy,
+  PiCube,
+  PiArrowRight,
+} from "react-icons/pi";
 
 export const metadata = generateMetadata({
   title: "Home",
@@ -65,12 +65,12 @@ export default async function Page() {
           >
             <Link href="/docs">
               <Button size="xl">
-                Get started <ArrowRight />
+                Get started <PiArrowRight />
               </Button>
             </Link>
             <Link href="https://github.com/wirtzdan/project-rocket">
               <Button variant="ghost" size="xl">
-                Github <ArrowSquareOut />
+                Github <PiArrowSquareOut />
               </Button>
             </Link>
           </Stack>
@@ -116,36 +116,36 @@ export default async function Page() {
 
 const features = [
   {
-    icon: <UserCircle />,
+    icon: <PiUserCircle />,
     title: "Authentication",
     description: "Securly login in users and protect pages and elements",
   },
   {
-    icon: <CreditCard />,
+    icon: <PiCreditCard />,
     title: "Payments",
     description:
       "Setup one-time, subscription or usage billing for individual or teams",
   },
   {
-    icon: <Palette />,
+    icon: <PiPalette />,
     title: "Theming",
     description:
       "Customizable theme to quickly change the look and feel of your app",
   },
   {
-    icon: <EnvelopeSimple />,
+    icon: <PiEnvelopeSimple />,
     title: "Email Marketing",
     description:
       "Automated emails, broadcasts and drip campaigns to nurture users and drive sales",
   },
   {
-    icon: <Lifebuoy />,
+    icon: <PiLifebuoy />,
     title: "Support Desk",
     description:
       "Build-in support ticket system to make customers smile and keep them engaged",
   },
   {
-    icon: <Cube />,
+    icon: <PiCube />,
     title: "Design System",
     description: "Component library by Chakra UI to build anything you want",
   },

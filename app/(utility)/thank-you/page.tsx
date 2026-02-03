@@ -5,7 +5,7 @@ import {
   AbsoluteCenter,
   EmptyState,
 } from "@chakra-ui/react";
-import { EnvelopeOpen, ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
+import { PiEnvelopeOpen, PiArrowSquareOut } from "react-icons/pi";
 import { Link } from "@/components/ui/link";
 import Confetti from "@/components/ui/confetti";
 import { generateMetadata } from "@/utils/metadata";
@@ -27,7 +27,7 @@ export default function ThankYouPage() {
             <EmptyState.Root paddingInline={0} paddingBlock={0} width="full">
               <EmptyState.Content>
                 <EmptyState.Indicator>
-                  <EnvelopeOpen />
+                  <PiEnvelopeOpen />
                 </EmptyState.Indicator>
                 <VStack textAlign="center">
                   <EmptyState.Title textStyle="2xl" maxWidth="lg">
@@ -42,7 +42,7 @@ export default function ThankYouPage() {
                 <Box pt="4">
                   <Link href="https://mail.google.com">
                     <Button size="sm">
-                      <ArrowSquareOut weight="duotone" />
+                      <PiArrowSquareOut />
                       Open Gmail
                     </Button>
                   </Link>

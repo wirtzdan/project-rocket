@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Button } from "@chakra-ui/react";
-import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
+import { PiArrowLeft } from "react-icons/pi";
 import { Link } from "@/components/ui/link";
 
 export default function WebsiteLayout({
@@ -21,7 +21,7 @@ export default function WebsiteLayout({
       >
         <Link href="/">
           <Button colorPalette="gray" variant="outline">
-            <ArrowLeft />
+            <PiArrowLeft />
             Back home
           </Button>
         </Link>

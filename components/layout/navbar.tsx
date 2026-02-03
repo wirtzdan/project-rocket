@@ -13,7 +13,7 @@ import {
   Icon,
   useCollapsibleContext,
 } from "@chakra-ui/react";
-import { List, X } from "@phosphor-icons/react/dist/ssr";
+import { PiList, PiX } from "react-icons/pi";
 import { Logo } from "./logo";
 import { UserMenu } from "../ui/user-menu";
 import { Link } from "@/components/ui/link";
@@ -151,7 +151,7 @@ const CollapsibleTriggerButton = () => {
         colorPalette="gray"
         hideFrom="md"
       >
-        <Icon size="lg">{context.open ? <X /> : <List />}</Icon>
+        <Icon size="lg">{context.open ? <PiX /> : <PiList />}</Icon>
       </IconButton>
     </Collapsible.Trigger>
   );

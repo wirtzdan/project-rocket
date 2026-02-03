@@ -10,7 +10,7 @@ import { Button } from "@chakra-ui/react";
 import { Link } from "@/components/ui/link";
 import { projectConfig } from "@/config";
 import { generateMetadata } from "@/utils/metadata";
-import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
+import { PiArrowLeft } from "react-icons/pi";
 
 export const metadata = generateMetadata({
   title: "Page Not Found",
@@ -54,7 +54,7 @@ export default function NotFound() {
           <Box pt="4">
             <Link href="/">
               <Button variant="outline" size="sm">
-                <ArrowLeft />
+                <PiArrowLeft />
                 Back to home
               </Button>
             </Link>

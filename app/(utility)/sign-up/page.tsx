@@ -5,7 +5,6 @@ import {
   AbsoluteCenter,
   Container,
 } from "@chakra-ui/react";
-import { EnvelopeOpen, ArrowSquareOut } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@/components/ui/link";
 import Confetti from "@/components/ui/confetti";
 import { generateMetadata } from "@/utils/metadata";
