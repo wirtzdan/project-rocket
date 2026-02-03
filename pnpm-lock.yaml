@@ -13,7 +13,7 @@ importers:
   .:
     dependencies:
       '@chakra-ui/react':
-        specifier: ^3.2.2
+        specifier: ^3.32.0
         version: 3.32.0(@emotion/react@11.14.0(@types/react@19.0.1)(react@19.0.0))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@emotion/react':
         specifier: ^11.13.5
