@@ -37,7 +37,7 @@ Run the following command on your local environment:
 ```bash
 git clone --depth=1 https://github.com/wirtzdan/project-rocket.git my-project-name
 cd my-project-name
-npm install
+pnpm install
 ```
 
 ### 3. Configure app in site config
@@ -54,9 +54,7 @@ Open the codebase and navigate to `config/site.ts`.
 Run the following command on your local environment:
 
 ```bash
-npm run dev
-or
-yarn dev
+pnpm dev
 ```
 
 Visit `http://localhost:3000` to see and test the app.

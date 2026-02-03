@@ -6,7 +6,7 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc"
+    "typecheck": "tsc"
   },
   "dependencies": {
     "@chakra-ui/react": "^3.32.0",
@@ -31,8 +31,10 @@
   "devDependencies": {
     "@chakra-ui/cli": "^3.2.2"
   },
-  "resolutions": {
-    "@types/react": "19.0.1",
-    "@types/react-dom": "19.0.1"
+  "pnpm": {
+    "overrides": {
+      "@types/react": "19.0.1",
+      "@types/react-dom": "19.0.1"
+    }
   }
 }
