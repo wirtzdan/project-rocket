@@ -2,19 +2,19 @@
 
 import {
   Center,
-  CollapsibleContent,
-  CollapsibleRoot,
+  Collapsible,
   Container,
   HStack,
-  VStack,
-  StackProps,
   Box,
   Menu,
   Portal,
   Button,
+  IconButton,
+  Icon,
+  useCollapsibleContext,
 } from "@chakra-ui/react";
+import { List, X } from "@phosphor-icons/react/dist/ssr";
 import { Logo } from "./logo";
-import { CollapsibleTrigger } from "@/components/ui/collapsible-trigger";
 import { UserMenu } from "../ui/user-menu";
 import { Link } from "@/components/ui/link";
 import { SignedIn, SignedOut } from "../auth/protect-content";
@@ -36,7 +36,7 @@ export const MenuLink = (props) => {
 };
 
 // TODO: Improve nav links
-export const NavbarLinkMenu = (props: StackProps) => {
+export const NavbarLinkMenu = () => {
   return (
     <>
       <MenuLink href="/docs">Docs</MenuLink>
@@ -128,7 +128,7 @@ export const NavbarActionMenu = ({ type }: { type: "website" | "app" }) => {
         </SignUp>
       </SignedOut>
       <SignedIn>
-        {type == "app" ? (
+        {type === "app" ? (
           <UserMenu />
         ) : (
           <>
@@ -137,6 +137,23 @@ export const NavbarActionMenu = ({ type }: { type: "website" | "app" }) => {
         )}
       </SignedIn>
     </>
+  );
+};
+
+const CollapsibleTriggerButton = () => {
+  const context = useCollapsibleContext();
+  return (
+    <Collapsible.Trigger asChild>
+      <IconButton
+        aria-label="Open Menu"
+        variant="ghost"
+        size="sm"
+        colorPalette="gray"
+        hideFrom="md"
+      >
+        <Icon size="lg">{context.open ? <X /> : <List />}</Icon>
+      </IconButton>
+    </Collapsible.Trigger>
   );
 };
 
@@ -159,9 +176,9 @@ export const Navbar = ({ type }: { type: "website" | "app" }) => {
           background="bg.panel"
           borderRadius="l3"
         >
-          <CollapsibleRoot>
+          <Collapsible.Root>
             <HStack gap={{ base: "3", md: "8" }} justify="space-between">
-              <CollapsibleTrigger />
+              <CollapsibleTriggerButton />
               <Link href="/">
                 <Logo />
               </Link>
@@ -173,10 +190,10 @@ export const Navbar = ({ type }: { type: "website" | "app" }) => {
                 <NavbarActionMenu type="app" />
               </HStack>
             </HStack>
-            <CollapsibleContent hideFrom="md" mt={4}>
+            <Collapsible.Content hideFrom="md" mt={4}>
               <NavbarLinkMenu />
-            </CollapsibleContent>
-          </CollapsibleRoot>
+            </Collapsible.Content>
+          </Collapsible.Root>
         </Box>
       </Container>
     </Center>
