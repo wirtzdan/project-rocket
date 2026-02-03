@@ -1,10 +1,10 @@
-import { promises as fs } from "fs";
-import { join } from "path";
+import { promises as fs } from "node:fs";
+import { join } from "node:path";
+import { Heading, VStack } from "@chakra-ui/react";
+import Markdown from "react-markdown";
 import { Section } from "@/components/layout/section";
 import { Prose } from "@/components/ui/prose";
 import { generateMetadata } from "@/utils/metadata";
-import Markdown from "react-markdown";
-import { Heading, VStack, Text } from "@chakra-ui/react";
 
 export const metadata = generateMetadata({
   title: "Documentation",

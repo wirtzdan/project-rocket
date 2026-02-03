@@ -1,8 +1,8 @@
 import { Heading, Text } from "@chakra-ui/react";
-import { generateMetadata } from "@/utils/metadata";
-import { Section } from "@/components/layout/section";
-import { SignedIn } from "../../components/auth/protect-content";
 import ProtectedRoute from "@/components/auth/protect-route";
+import { Section } from "@/components/layout/section";
+import { generateMetadata } from "@/utils/metadata";
+import { SignedIn } from "../../components/auth/protect-content";
 
 export const metadata = generateMetadata({
   title: "Dashboard",

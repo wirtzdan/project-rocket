@@ -1,27 +1,26 @@
 import {
-  Heading,
-  Stack,
-  VStack,
-  Text,
+  Button,
   Card,
+  Heading,
   Icon,
   SimpleGrid,
+  Stack,
+  Text,
+  VStack,
 } from "@chakra-ui/react";
-
-import { Button } from "@chakra-ui/react";
-import { Section } from "@/components/layout/section";
-import { generateMetadata } from "@/utils/metadata";
-import { Link } from "@/components/ui/link";
 import {
+  PiArrowRight,
   PiArrowSquareOut,
-  PiUserCircle,
   PiCreditCard,
-  PiPalette,
+  PiCube,
   PiEnvelopeSimple,
   PiLifebuoy,
-  PiCube,
-  PiArrowRight,
+  PiPalette,
+  PiUserCircle,
 } from "react-icons/pi";
+import { Section } from "@/components/layout/section";
+import { Link } from "@/components/ui/link";
+import { generateMetadata } from "@/utils/metadata";
 
 export const metadata = generateMetadata({
   title: "Home",

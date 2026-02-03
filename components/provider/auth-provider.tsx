@@ -1,17 +1,17 @@
 "use client";
 
+import { importX509, jwtVerify } from "jose";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
-  useEffect,
-  useState,
   createContext,
-  useContext,
-  useRef,
   Suspense,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
 } from "react";
-import { useSearchParams, useRouter, usePathname } from "next/navigation";
-import { jwtVerify, importX509 } from "jose";
 import { projectConfig } from "@/config";
-import { OutsetaUser } from "@/types/outseta";
+import type { OutsetaUser } from "@/types/outseta";
 
 interface AuthContextType {
   user: OutsetaUser | null;
@@ -115,7 +115,7 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     outseta.on("subscription.update", handleUserUpdate);
     outseta.on("profile.update", handleUserUpdate);
     outseta.on("account.update", handleUserUpdate);
-  }, [searchParams, pathname]);
+  }, [searchParams, pathname, router, updateUser, verifyAndSetToken]);
 
   const logout = () => {
     outsetaRef.current?.setAccessToken("");

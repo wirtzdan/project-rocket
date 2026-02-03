@@ -1,7 +1,7 @@
 import { Heading, Text, VStack } from "@chakra-ui/react";
+import Markdown from "react-markdown";
 import { Section } from "@/components/layout/section";
 import { Prose } from "@/components/ui/prose";
-import Markdown from "react-markdown";
 
 export default function AboutPage() {
   return (

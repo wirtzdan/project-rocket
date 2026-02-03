@@ -1,5 +1,5 @@
-import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
 import { projectConfig } from "@/config";
 import { isUrlMatchingPattern } from "@/utils/url-matcher";
 
@@ -11,7 +11,7 @@ export function useChatVisibility() {
 
     const shouldShowChat = isUrlMatchingPattern(
       pathname,
-      projectConfig.outsetaExtraOptions.showChatOn
+      projectConfig.outsetaExtraOptions.showChatOn,
     );
 
     if (shouldShowChat) {

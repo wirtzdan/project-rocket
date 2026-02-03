@@ -1,4 +1,4 @@
-import { Metadata } from "next";
+import type { Metadata } from "next";
 import { projectConfig } from "@/config";
 
 interface GenerateMetadataProps {
@@ -15,7 +15,7 @@ export function generateMetadata({
   noIndex = false,
 }: GenerateMetadataProps): Metadata {
   const fullTitle = title
-    ? title + " | " + projectConfig.general.name
+    ? `${title} | ${projectConfig.general.name}`
     : projectConfig.seo.defaultTitle;
 
   const fullDescription = description || projectConfig.seo.defaultDescription;

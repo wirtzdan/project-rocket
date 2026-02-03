@@ -1,7 +1,6 @@
-import { createSystem, defineConfig, defaultConfig } from "@chakra-ui/react";
+import { createSystem, defaultConfig, defineConfig } from "@chakra-ui/react";
 import { projectConfig } from "@/config";
-import { neutralPalettes } from "@/theme/colors";
-import { colorPalettes } from "@/theme/colors";
+import { colorPalettes, neutralPalettes } from "@/theme/colors";
 
 const fallback = `-apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`;
 
@@ -317,7 +316,7 @@ function getBorderRadiusValue(selected: string, offset: number) {
   const selectedIndex = values.indexOf(selected);
   const targetIndex = Math.max(
     0,
-    Math.min(values.length - 1, selectedIndex + offset)
+    Math.min(values.length - 1, selectedIndex + offset),
   );
   return `{radii.${values[targetIndex]}}`;
 }

@@ -1,6 +1,6 @@
 import { Card, Heading, Text, VStack } from "@chakra-ui/react";
-import { Section } from "@/components/layout/section";
 import { Support } from "@/components/auth/embed";
+import { Section } from "@/components/layout/section";
 import "@/styles/contact-page-styles.css";
 
 export default function SupportPage() {

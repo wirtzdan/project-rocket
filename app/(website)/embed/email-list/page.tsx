@@ -1,8 +1,7 @@
-import { Button } from "@chakra-ui/react";
+import { Box, Button, Heading, VStack } from "@chakra-ui/react";
+import { EmailList } from "@/components/auth/embed";
 import { Section } from "@/components/layout/section";
 import { generateMetadata } from "@/utils/metadata";
-import { Heading, VStack, Box, Container } from "@chakra-ui/react";
-import { EmailList } from "@/components/auth/embed";
 
 export const metadata = generateMetadata({
   title: "Email List Embed Demo",

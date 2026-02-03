@@ -7,9 +7,9 @@ import {
   type TextProps,
 } from "@chakra-ui/react";
 import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
-import { Logo } from "./logo";
 import { projectConfig } from "@/config";
 import { Link } from "../ui/link";
+import { Logo } from "./logo";
 
 const Copyright = (props: TextProps) => {
   return (

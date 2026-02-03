@@ -1,10 +1,10 @@
 "use client";
 
-import { ChakraProvider, Box } from "@chakra-ui/react";
-import { system } from "@/theme/theme";
+import { Box, ChakraProvider } from "@chakra-ui/react";
 import AuthProvider from "@/components/provider/auth-provider";
-import { ColorModeProvider } from "./color-mode-provider";
 import { projectConfig } from "@/config";
+import { system } from "@/theme/theme";
+import { ColorModeProvider } from "./color-mode-provider";
 
 export default function Provider(props: { children: React.ReactNode }) {
   return (

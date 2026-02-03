@@ -1,39 +1,38 @@
 "use client";
 
-import { useAuth } from "../provider/auth-provider";
-import { Button } from "@chakra-ui/react";
-import { projectConfig } from "@/config";
-
 import {
   AbsoluteCenter,
   Box,
+  Button,
+  EmptyState,
+  Group,
   Spinner,
   Text,
   VStack,
-  Group,
-  EmptyState,
 } from "@chakra-ui/react";
 import { PiLock, PiSignIn } from "react-icons/pi";
-import { OutsetaUser } from "@/types/outseta";
-import { Profile, Login, SignUp } from "./embed";
+import { projectConfig } from "@/config";
+import type { OutsetaUser } from "@/types/outseta";
+import { useAuth } from "../provider/auth-provider";
+import { Login, Profile, SignUp } from "./embed";
 
 // Add readonly to prevent accidental mutations
 interface Plan
   extends Readonly<{
     uid: string;
     label: string;
-  }> { }
+  }> {}
 
 interface ProtectedRouteProps
   extends Readonly<{
     children: React.ReactNode;
     plansWithAccess?: string;
     fallback?: React.ReactNode;
-  }> { }
+  }> {}
 
 function userHasAccessToPlans(
   plans: Plan[],
-  user: OutsetaUser | null
+  user: OutsetaUser | null,
 ): boolean {
   if (!user?.Account) return false;
   const planIdForUser = user.Account.CurrentSubscription?.Plan?.Uid;
@@ -63,7 +62,7 @@ export default function ProtectedRoute({
       .map((planName) => {
         const configPlan =
           projectConfig.auth.plans[
-          planName as keyof typeof projectConfig.auth.plans
+            planName as keyof typeof projectConfig.auth.plans
           ];
         if (!configPlan) {
           console.warn(`Unknown plan: ${planName}`);
@@ -75,7 +74,7 @@ export default function ProtectedRoute({
 
     console.log(
       "Required Plans:",
-      plans.map((p) => ({ uid: p.uid, label: p.label }))
+      plans.map((p) => ({ uid: p.uid, label: p.label })),
     );
     return plans;
   })();
@@ -117,10 +116,11 @@ export default function ProtectedRoute({
                     Login to continue
                   </EmptyState.Title>
                   <EmptyState.Description textStyle="md" maxWidth="sm">
-                    {`This page is available only to ${plansWithAccess
-                      ? requiredPlans.map((p) => p.label).join(" or ")
-                      : "registered"
-                      } users. To continue, log in to your existing account or sign up.`}
+                    {`This page is available only to ${
+                      plansWithAccess
+                        ? requiredPlans.map((p) => p.label).join(" or ")
+                        : "registered"
+                    } users. To continue, log in to your existing account or sign up.`}
                   </EmptyState.Description>
                 </VStack>
                 <Group>

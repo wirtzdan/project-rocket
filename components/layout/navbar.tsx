@@ -1,24 +1,24 @@
 "use client";
 
 import {
+  Box,
+  Button,
   Center,
   Collapsible,
   Container,
   HStack,
-  Box,
+  Icon,
+  IconButton,
   Menu,
   Portal,
-  Button,
-  IconButton,
-  Icon,
   useCollapsibleContext,
 } from "@chakra-ui/react";
 import { PiList, PiX } from "react-icons/pi";
-import { Logo } from "./logo";
-import { UserMenu } from "../ui/user-menu";
 import { Link } from "@/components/ui/link";
-import { SignedIn, SignedOut } from "../auth/protect-content";
 import { Login, SignUp } from "../auth/embed";
+import { SignedIn, SignedOut } from "../auth/protect-content";
+import { UserMenu } from "../ui/user-menu";
+import { Logo } from "./logo";
 
 export const MenuLink = (props) => {
   return (
@@ -85,7 +85,9 @@ export const NavbarLinkMenu = () => {
               <Menu.Separator />
               <Menu.ItemGroup title="Auth">
                 <Link href="/app/basic">
-                  <Menu.Item value="basic">Protected Page (Basic plan)</Menu.Item>
+                  <Menu.Item value="basic">
+                    Protected Page (Basic plan)
+                  </Menu.Item>
                 </Link>
                 <Link href="/app/pro">
                   <Menu.Item value="pro">Protected Page (Pro plan)</Menu.Item>
@@ -128,13 +130,7 @@ export const NavbarActionMenu = ({ type }: { type: "website" | "app" }) => {
         </SignUp>
       </SignedOut>
       <SignedIn>
-        {type === "app" ? (
-          <UserMenu />
-        ) : (
-          <>
-            <Button size="sm">Go to app</Button>
-          </>
-        )}
+        {type === "app" ? <UserMenu /> : <Button size="sm">Go to app</Button>}
       </SignedIn>
     </>
   );

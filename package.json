@@ -6,7 +6,13 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc"
+    "typecheck": "tsc",
+    "lint": "biome lint .",
+    "lint:fix": "biome lint --write .",
+    "format": "biome format --write .",
+    "format:check": "biome format .",
+    "check": "biome check .",
+    "check:fix": "biome check --write ."
   },
   "dependencies": {
     "@chakra-ui/react": "^3.32.0",
@@ -28,6 +34,7 @@
   },
   "license": "MIT",
   "devDependencies": {
+    "@biomejs/biome": "^2.3.14",
     "@chakra-ui/cli": "^3.2.2"
   },
   "pnpm": {

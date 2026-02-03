@@ -1,16 +1,16 @@
 import {
   Box,
+  Button,
+  Center,
   Container,
   Heading,
-  VStack,
   Text,
-  Center,
+  VStack,
 } from "@chakra-ui/react";
-import { Button } from "@chakra-ui/react";
+import { PiArrowLeft } from "react-icons/pi";
 import { Link } from "@/components/ui/link";
 import { projectConfig } from "@/config";
 import { generateMetadata } from "@/utils/metadata";
-import { PiArrowLeft } from "react-icons/pi";
 
 export const metadata = generateMetadata({
   title: "Page Not Found",

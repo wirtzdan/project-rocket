@@ -1,7 +1,7 @@
 import { Heading } from "@chakra-ui/react";
-import { generateMetadata } from "@/utils/metadata";
-import { Section } from "@/components/layout/section";
 import ProtectedRoute from "@/components/auth/protect-route";
+import { Section } from "@/components/layout/section";
+import { generateMetadata } from "@/utils/metadata";
 
 export const metadata = generateMetadata({
   title: "Dashboard",

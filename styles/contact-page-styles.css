@@ -1,16 +1,16 @@
 #contact-form
   .o--SupportRequestForm--supportRequestForm
   > .o--SectionGroup--sectionGroup {
-  display: none !important;
+  display: none;
 }
 
 #contact-form
   .o--SupportRequestForm--supportRequestForm
   form
   > div:nth-child(2) {
-  display: none !important;
+  display: none;
 }
 
 #contact-form .o--Widget--widget .o--Button--btn {
-  width: 100% !important;
+  width: 100%;
 }

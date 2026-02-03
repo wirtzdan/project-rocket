@@ -2,17 +2,17 @@
 
 import {
   Avatar,
+  HStack,
   Menu,
+  Portal,
   Tag,
   Text,
   VStack,
-  HStack,
-  Portal,
 } from "@chakra-ui/react";
-import { PiQuestion, PiSignOut, PiUser, PiStar } from "react-icons/pi";
-import { useAuth } from "../provider/auth-provider";
+import { PiQuestion, PiSignOut, PiStar, PiUser } from "react-icons/pi";
+import { LogOut, Profile, Support } from "../auth/embed";
 import { SignedIn } from "../auth/protect-content";
-import { Profile, Support, LogOut } from "../auth/embed";
+import { useAuth } from "../provider/auth-provider";
 
 function getInitials(name: string | undefined): string {
   if (!name) return "";
@@ -32,9 +32,7 @@ export const UserMenu = () => {
       <Menu.Trigger>
         <Avatar.Root size="sm">
           <Avatar.Image src={user?.ProfileImageS3Url} />
-          <Avatar.Fallback>
-            {getInitials(user?.FullName)}
-          </Avatar.Fallback>
+          <Avatar.Fallback>{getInitials(user?.FullName)}</Avatar.Fallback>
         </Avatar.Root>
       </Menu.Trigger>
 

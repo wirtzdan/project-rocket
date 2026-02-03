@@ -55,7 +55,7 @@
 }
 
 .pm__section--toggle.pm__section--expandable {
-  border: 1px solid var(--global-color-border) !important;
+  border: 1px solid var(--global-color-border);
 }
 
 #cc-main .section__toggle:disabled {
@@ -64,11 +64,11 @@
 }
 
 #cc-main .toggle__icon-off svg {
-  stroke: var(--chakra-colors-fg-muted) !important;
+  stroke: var(--chakra-colors-fg-muted);
 }
 
 #cc-main .pm__section--expandable .pm__section-arrow {
-  background: transparent !important;
+  background: transparent;
 }
 
 #cc-main .pm__section {
@@ -85,49 +85,49 @@
 }
 
 #cc-main .pm__close-btn {
-  background: transparent !important;
+  background: transparent;
   border: none;
 }
 
 #cc-main .cm__btn--secondary,
 .pm__btn.pm__btn--secondary {
-  box-shadow: 0 0 0px 1px var(--chakra-colors-color-palette-muted) !important;
+  box-shadow: 0 0 0px 1px var(--chakra-colors-color-palette-muted);
 }
 
 #cc-main .cm__btns {
-  border: none !important;
-  padding-top: 0 !important;
+  border: none;
+  padding-top: 0;
 }
 
 .cm__btns .cm__btn-group:first-of-type {
-  display: flex !important;
-  flex-direction: row !important;
-  justify-content: stretch !important;
-  flex-direction: row-reverse !important;
-  width: 100% !important;
-  gap: 0.5em !important;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  flex-direction: row-reverse;
+  width: 100%;
+  gap: 0.5em;
 }
 
 .cm__btns .cm__btn-group:first-of-type .cm__btn {
-  width: 100% !important;
+  width: 100%;
 }
 
 #cc-main .cm__btn + .cm__btn,
 #cc-main .cm__btn-group + .cm__btn-group {
-  margin: 0 !important;
+  margin: 0;
 }
 
 #cc-main .cc__link,
 #cc-main a,
 #cc-main .cc__link,
 #cc-main a {
-  background-image: none !important;
+  background-image: none;
   font-weight: normal;
   position: relative;
   transition:
     background-size 0.25s,
     color 0.25s ease;
-  color: var(--chakra-colors-primary-fg) !important;
+  color: var(--chakra-colors-primary-fg);
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-thickness: auto;
@@ -137,14 +137,14 @@
 }
 
 #cc-main .cm__link-group a {
-  color: var(--chakra-colors-fg-muted) !important;
+  color: var(--chakra-colors-fg-muted);
 }
 
 #cc-main .cm__link-group a:hover {
-  color: var(--chakra-colors-fg-muted) !important;
-  overflow: visible !important;
+  color: var(--chakra-colors-fg-muted);
+  overflow: visible;
 }
 
 #cc-main .cm__link-group > * + * {
-  margin-left: 1rem !important;
+  margin-left: 1rem;
 }

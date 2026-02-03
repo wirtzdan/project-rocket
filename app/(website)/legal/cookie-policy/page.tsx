@@ -1,7 +1,7 @@
+import Markdown from "react-markdown";
 import { Section } from "@/components/layout/section";
 import { Prose } from "@/components/ui/prose";
 import { generateMetadata } from "@/utils/metadata";
-import Markdown from "react-markdown";
 
 export const metadata = generateMetadata({
   title: "Cookie Policy",

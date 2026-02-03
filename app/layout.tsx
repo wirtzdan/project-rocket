@@ -1,16 +1,16 @@
 "use client";
 
 import { Inter } from "next/font/google";
-import Provider from "@/components/provider/provider";
 import Head from "next/head";
+import Provider from "@/components/provider/provider";
 import { projectConfig } from "@/config";
 import { useChatVisibility } from "@/utils/use-chat-visibility";
 import "vanilla-cookieconsent/dist/cookieconsent.css";
 import "@/styles/cookie-banner-styles.css";
 import "@/styles/outseta-styles.css";
-import * as CookieConsent from "vanilla-cookieconsent";
-import { useEffect } from "react";
 import Script from "next/script";
+import { useEffect } from "react";
+import * as CookieConsent from "vanilla-cookieconsent";
 
 // TODO: How could fonts be set in a better way? Best case it would be from the projectConfig.
 const inter = Inter({

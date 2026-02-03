@@ -62,7 +62,7 @@ export function SignedIn({
   if (addOn) {
     const addOnUids = addOn.split(",").map((a) => a.trim());
     const hasAddOn = user.Account.CurrentSubscription?.SubscriptionAddOns?.some(
-      (subscription) => addOnUids.includes(subscription.AddOn.Uid)
+      (subscription) => addOnUids.includes(subscription.AddOn.Uid),
     );
     if (!hasAddOn) return null;
   }
@@ -83,7 +83,7 @@ export function SignedOut({ children }: { children: React.ReactNode }) {
 
 export function Show({ children, condition, fallback }: ShowProps) {
   if (!condition) {
-    return fallback ? <>{fallback}</> : null;
+    return fallback ? fallback : null;
   }
   return <>{children}</>;
 }

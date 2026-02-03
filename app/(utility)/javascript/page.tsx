@@ -1,4 +1,4 @@
-import { Box, VStack, AbsoluteCenter, EmptyState } from "@chakra-ui/react";
+import { AbsoluteCenter, Box, EmptyState, VStack } from "@chakra-ui/react";
 import { PiCode } from "react-icons/pi";
 import { generateMetadata } from "@/utils/metadata";
 
@@ -23,7 +23,9 @@ export default function ActivateJavaScriptPage() {
                   JavaScript is required
                 </EmptyState.Title>
                 <EmptyState.Description textStyle="md" maxWidth="sm">
-                  This website requires JavaScript to function properly. Please enable JavaScript in your browser settings and reload the page.
+                  This website requires JavaScript to function properly. Please
+                  enable JavaScript in your browser settings and reload the
+                  page.
                 </EmptyState.Description>
               </VStack>
             </EmptyState.Content>

@@ -1,18 +1,18 @@
 /* Utility Classes */
 .o--Widget--widget .o--color-accent {
-  color: var(--chakra-colors-primary-solid) !important;
+  color: var(--chakra-colors-primary-solid);
 }
 
 .o--Widget--widget .o--color-danger,
 .o--Widget--widget .o--color-danger:hover {
-  color: var(--chakra-colors-fg-error) !important;
+  color: var(--chakra-colors-fg-error);
 }
 
 .o--Widget--widget .o--text-sm {
-  font-size: var(--chakra-font-sizes-sm) !important;
+  font-size: var(--chakra-font-sizes-sm);
 }
 .o--Widget--widget .o--text-xs {
-  font-size: var(--chakra-font-sizes-xs) !important;
+  font-size: var(--chakra-font-sizes-xs);
 }
 
 .o--Widget--cornerShape-square {
@@ -21,27 +21,27 @@
 
 .o--Widget--cornerShape-rounded,
 .o--Widget--cornerShape-pill {
-  border-radius: var(--chakra-radii-l2) !important;
+  border-radius: var(--chakra-radii-l2);
 }
 
 /* Popup Widget */
 .o--Widget--widget {
-  background: transparent !important;
+  background: transparent;
 }
 
 .o--App--profileWidget .o--Widget--widgetBody,
 .o--App--authWidget .o--Widget--widgetBody,
 .o--App--emailListWidget .o--Widget--widgetBody,
 .o--App--leadCaptureWidget .o--Widget--widgetBody {
-  border-radius: var(--chakra-radii-l3) !important;
-  font-size: var(--chakra-font-sizes-sm) !important;
-  line-height: 1.25rem !important;
-  background: var(--chakra-colors-bg-panel-panel) !important;
-  box-shadow: var(--chakra-shadows-lg) !important;
+  border-radius: var(--chakra-radii-l3);
+  font-size: var(--chakra-font-sizes-sm);
+  line-height: 1.25rem;
+  background: var(--chakra-colors-bg-panel-panel);
+  box-shadow: var(--chakra-shadows-lg);
 }
 
 .o--Widget--popupBg {
-  background: var(--chakra-colors-black-alpha-500) !important;
+  background: var(--chakra-colors-black-alpha-500);
 }
 
 .o--Widget--popupBg .false {
@@ -57,38 +57,38 @@
 /* Display-mode */
 .o--Widget--displayMode-light,
 .o--Widget--widget.o--Widget--displayMode-auto {
-  background: var(--chakra-colors-bg-panel) !important;
+  background: var(--chakra-colors-bg-panel);
 }
 .o--Widget--displayMode-light,
 .o--Widget--displayMode-light *,
 .o--Widget--widget.o--Widget--displayMode-auto,
 .o--Widget--widget.o--Widget--displayMode-auto * {
-  color: var(--chakra-colors-fg) !important;
+  color: var(--chakra-colors-fg);
 }
 
 .o--Widget--displayMode-dark {
-  background: var(--chakra-colors-bg-panel) !important;
+  background: var(--chakra-colors-bg-panel);
 }
 .o--Widget--displayMode-dark,
 .o--Widget--displayMode-dark * {
-  color: var(--chakra-colors-fg) !important;
+  color: var(--chakra-colors-fg);
 }
 /* Odd Chrome default-style-sheet issue */
 .o--Widget--displayMode-dark table {
-  color: var(--chakra-colors-fg) !important;
+  color: var(--chakra-colors-fg);
 }
 
 @media (prefers-color-scheme: dark) {
   .o--Widget--widget.o--Widget--displayMode-auto {
-    background: var(--chakra-colors-bg-panel) !important;
+    background: var(--chakra-colors-bg-panel);
   }
   .o--Widget--widget.o--Widget--displayMode-auto,
   .o--Widget--widget.o--Widget--displayMode-auto * {
-    color: var(--chakra-colors-fg) !important;
+    color: var(--chakra-colors-fg);
   }
   /* Odd Chrome default-style-sheet issue */
   .o--Widget--widget.o--Widget--displayMode-auto table {
-    color: var(--chakra-colors-fg) !important;
+    color: var(--chakra-colors-fg);
   }
 }
 
@@ -101,7 +101,7 @@
 .o--Widget--widget h4,
 .o--Widget--widget h5,
 .o--Widget--widget h6 {
-  font-family: var(--chakra-fonts-body) !important;
+  font-family: var(--chakra-fonts-body);
 }
 
 /* Headings */
@@ -109,20 +109,20 @@
   font-size: 32px;
   font-weight: bold;
   line-height: 40px;
-  font-family: var(--chakra-fonts-heading) !important;
+  font-family: var(--chakra-fonts-heading);
 }
 
 .o--Widget--widget .o--Widget--widgetBody h2 {
   font-size: 22px;
   font-weight: bold;
   line-height: 30px;
-  font-family: var(--chakra-fonts-heading) !important;
+  font-family: var(--chakra-fonts-heading);
 }
 
 /* General Links */
 .o--Widget--widget a,
 .o--Widget--widget a *:not(.material-icons) {
-  color: var(--chakra-colors-primary-fg) !important;
+  color: var(--chakra-colors-primary-fg);
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-thickness: auto;
@@ -132,85 +132,86 @@
 }
 
 .o--Widget--widget a:hover {
-  color: var(--chakra-colors-primary-fg) !important;
+  color: var(--chakra-colors-primary-fg);
 }
 
 /* Labels */
 .o--Widget--widget .o--Widget--widgetBody label.o--Label--label {
-  display: flex !important;
-  -moz-box-align: center !important;
-  align-items: center !important;
-  text-align: start !important;
-  font-size: var(--chakra-font-sizes-sm) !important;
-  line-height: 1.25rem !important;
-  font-weight: var(--chakra-font-weights-medium) !important;
-  gap: var(--chakra-spacing-1) !important;
-  user-select: none !important;
+  display: flex;
+  -moz-box-align: center;
+  align-items: center;
+  text-align: start;
+  font-size: var(--chakra-font-sizes-sm);
+  line-height: 1.25rem;
+  font-weight: var(--chakra-font-weights-medium);
+  gap: var(--chakra-spacing-1);
+  user-select: none;
 }
 
 /* Inputs */
 .o--Widget--widget .o--Widget--widgetBody .o--Input--input {
-  width: 100% !important;
-  min-width: var(--input-height) !important;
-  outline: 0px !important;
-  position: relative !important;
-  appearance: none !important;
-  text-align: start !important;
-  border-radius: var(--chakra-radii-l2) !important;
-  height: var(--input-height) !important;
-  --focus-color: var(--chakra-colors-primary-focus-ring) !important;
-  --error-color: var(--chakra-colors-border-error) !important;
-  font-size: var(--chakra-font-sizes-sm) !important;
-  line-height: 1.25rem !important;
-  padding-inline: var(--chakra-spacing-3) !important;
-  --input-height: var(--chakra-sizes-10) !important;
-  background: var(--chakra-colors-transparent) !important;
-  --bg-currentcolor: var(--chakra-colors-transparent) !important;
-  border-width: 1px !important;
-  border-color: var(--chakra-colors-border) !important;
-  --focus-ring-color: var(--chakra-colors-primary-focus-ring) !important;
+  width: 100%;
+  min-width: var(--input-height);
+  outline: 0px;
+  position: relative;
+  appearance: none;
+  text-align: start;
+  border-radius: var(--chakra-radii-l2);
+  height: var(--input-height);
+  --focus-color: var(--chakra-colors-primary-focus-ring);
+  --error-color: var(--chakra-colors-border-error);
+  font-size: var(--chakra-font-sizes-sm);
+  line-height: 1.25rem;
+  padding-inline: var(--chakra-spacing-3);
+  --input-height: var(--chakra-sizes-10);
+  background: var(--chakra-colors-transparent);
+  --bg-currentcolor: var(--chakra-colors-transparent);
+  border-width: 1px;
+  border-color: var(--chakra-colors-border);
+  --focus-ring-color: var(--chakra-colors-primary-focus-ring);
 }
 
 .o--Widget--widget
   .o--Widget--widgetBody
   .o--Input--input:is(:focus-visible, [data-focus-visible]) {
-  outline-offset: 0px !important;
-  outline-width: var(--focus-ring-width, 1px) !important;
-  outline-color: var(--focus-ring-color) !important;
-  outline-style: var(--focus-ring-style, solid) !important;
-  border-color: var(--focus-ring-color) !important;
+  outline-offset: 0px;
+  outline-width: var(--focus-ring-width, 1px);
+  outline-color: var(--focus-ring-color);
+  outline-style: var(--focus-ring-style, solid);
+  border-color: var(--focus-ring-color);
 }
 
 /* Buttons */
 .o--Widget--widget .o--Widget--widgetBody .o--Button--btn {
-  display: -webkit-inline-box !important;
-  display: inline-flex !important;
-  appearance: none !important;
-  align-items: center !important;
-  justify-content: center !important;
-  user-select: none !important;
-  white-space: nowrap !important;
-  vertical-align: middle !important;
-  border-width: 1px !important;
-  flex-shrink: 0 !important;
-  outline: 0 !important;
-  line-height: 1.5rem !important;
-  isolation: isolate !important;
-  transition-property: background-color, border-color, color, fill, stroke,
-    opacity, box-shadow, translate, transform !important;
-  transition-duration: var(--chakra-durations-moderate) !important;
-  --focus-ring-color: var(--chakra-colors-primary-focus-ring) !important;
-  height: var(--chakra-sizes-12) !important;
-  min-width: var(--chakra-sizes-12) !important;
-  font-size: var(--chakra-font-sizes-md) !important;
-  padding-inline: var(--chakra-spacing-5) !important;
-  gap: var(--chakra-spacing-2\.5) !important;
-  border-radius: var(--chakra-radii-l2) !important;
-  border-color: var(--chakra-colors-transparent) !important;
-  cursor: var(--chakra-cursor-button) !important;
-  font-weight: var(--chakra-font-weights-medium) !important;
-  background: var(--chakra-colors-primary-solid) !important;
-  color: var(--chakra-colors-primary-contrast) !important;
+  display: -webkit-inline-box;
+  display: inline-flex;
+  appearance: none;
+  align-items: center;
+  justify-content: center;
+  user-select: none;
+  white-space: nowrap;
+  vertical-align: middle;
+  border-width: 1px;
+  flex-shrink: 0;
+  outline: 0;
+  line-height: 1.5rem;
+  isolation: isolate;
+  transition-property:
+    background-color, border-color, color, fill, stroke, opacity, box-shadow,
+    translate, transform;
+  transition-duration: var(--chakra-durations-moderate);
+  --focus-ring-color: var(--chakra-colors-primary-focus-ring);
+  height: var(--chakra-sizes-12);
+  min-width: var(--chakra-sizes-12);
+  font-size: var(--chakra-font-sizes-md);
+  padding-inline: var(--chakra-spacing-5);
+  gap: var(--chakra-spacing-2\.5);
+  border-radius: var(--chakra-radii-l2);
+  border-color: var(--chakra-colors-transparent);
+  cursor: var(--chakra-cursor-button);
+  font-weight: var(--chakra-font-weights-medium);
+  background: var(--chakra-colors-primary-solid);
+  color: var(--chakra-colors-primary-contrast);
 }
 
 .o--Widget--widget
@@ -219,7 +220,7 @@
 .o--Widget--widget
   .o--Button--buttonType-cancel.o--Button--buttonStyle-solid.o--Button--displayMode-auto
   .o--Button--children {
-  color: var(--chakra-colors-primary-contrast) !important;
+  color: var(--chakra-colors-primary-contrast);
 }
 
 .o--Widget--widget
@@ -229,15 +230,9 @@
     in srgb,
     var(--chakra-colors-primary-solid) 90%,
     transparent
-  ) !important;
-  background: var(
-    --mix-background,
-    var(--chakra-colors-primary-solid)
-  ) !important;
-  --bg-currentcolor: var(
-    --mix-background,
-    var(--chakra-colors-primary-solid)
-  ) !important;
+  );
+  background: var(--mix-background, var(--chakra-colors-primary-solid));
+  --bg-currentcolor: var(--mix-background, var(--chakra-colors-primary-solid));
 }
 
 .o--Widget--widget a.btn-link {
@@ -257,8 +252,8 @@
     [data-disabled],
     [aria-disabled="true"]
   ) {
-  opacity: 0.5 !important;
-  cursor: not-allowed !important;
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 /* Profile Navigation (Desktop) */
@@ -267,24 +262,24 @@
     li.o--NavDesktop--active::before,
   .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-auto
     li.o--NavDesktop--active::before {
-    background: var(--chakra-colors-color-palette-subtle) !important;
-    opacity: 1 !important;
+    background: var(--chakra-colors-color-palette-subtle);
+    opacity: 1;
   }
 
   .o--NavDesktop--navDesktop ul li a {
-    color: var(--chakra-colors-color-palette-fg) !important;
-    font-weight: var(--chakra-font-weights-medium) !important;
-    text-decoration-line: none !important;
+    color: var(--chakra-colors-color-palette-fg);
+    font-weight: var(--chakra-font-weights-medium);
+    text-decoration-line: none;
   }
 
   .o--NavDesktop--navDesktop ul li.a:hover {
-    color: var(--chakra-colors-color-palette-fg) !important;
+    color: var(--chakra-colors-color-palette-fg);
   }
 
   .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-light li:hover::before,
   .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-auto li:hover::before {
-    background: var(--chakra-colors-color-palette-subtle) !important;
-    opacity: 0.75 !important;
+    background: var(--chakra-colors-color-palette-subtle);
+    opacity: 0.75;
   }
 }
 
@@ -292,19 +287,19 @@
   .o--StickyActionRow--stickyActionRow.o--StickyActionRow--displayMode-light,
 .o--Widget--widget
   .o--StickyActionRow--stickyActionRow.o--StickyActionRow--displayMode-auto {
-  background: var(--chakra-colors-bg-panel) !important;
-  border-color: var(--global-color-border) !important;
+  background: var(--chakra-colors-bg-panel);
+  border-color: var(--global-color-border);
 }
 
 .o--Widget--widget .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-light,
 .o--Widget--widget .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-auto {
-  border-color: var(--global-color-border) !important;
+  border-color: var(--global-color-border);
 }
 
 /* Chat Trigger */
 .o--Trigger--trigger .Open_svg__w-fill-dark,
 .o--Trigger--trigger .Close_svg__w-fill-dark {
-  fill: var(--chakra-colors-primary-solid) !important;
+  fill: var(--chakra-colors-primary-solid);
 }
 
 .o--Chat--chat .o--Chat--header,
@@ -312,8 +307,8 @@
   .o--ChatMessage--chatMessage.o--ChatMessage--in
   .o--ChatMessage--body
   .o--ChatMessage--content {
-  background-color: var(--chakra-colors-primary-solid) !important;
-  color: var(--chakra-colors-primary-contrast) !important;
+  background-color: var(--chakra-colors-primary-solid);
+  color: var(--chakra-colors-primary-contrast);
 }
 
 .o--Widget--widget
@@ -321,22 +316,22 @@
   .o--ChatMessage--body
   .o--ChatMessage--content
   span {
-  color: var(--chakra-colors-primary-contrast) !important;
+  color: var(--chakra-colors-primary-contrast);
 }
 
 .o--Chat--chat .o--Chat--header h4 {
-  color: var(--chakra-colors-primary-contrast) !important;
+  color: var(--chakra-colors-primary-contrast);
 }
 
 .o--Chat--chat .o--ChatMessage--body .o--ChatMessage--content {
-  color: white !important;
+  color: white;
 }
 
 #widget-Outseta_chat .chatMessage.in .body .content {
   background: var(--accent-color);
 }
 #widget-Outseta_chat .chatMessage.in .body .content * {
-  color: #fff !important;
+  color: #fff;
 }
 
 .o--Widget--widget
@@ -347,7 +342,7 @@
   .o--Chat--chat.o--Chat--displayMode-auto
   .o--Chat--body
   .o--Chat--fileUploadOverlay {
-  border: 2px dashed var(--global-color-border) !important;
+  border: 2px dashed var(--global-color-border);
 }
 
 /* ****************************************
@@ -361,7 +356,7 @@
 
 #widget-Outseta_chat.cornerShape-rounded,
 #widget-Outseta_chat.cornerShape-pill {
-  border-radius: var(--chakra-radii-l2) !important;
+  border-radius: var(--chakra-radii-l2);
 }
 #widget-Outseta_chat.cornerShape-rounded .header,
 #widget-Outseta_chat.cornerShape-pill .header {
@@ -381,50 +376,50 @@
 
 .o--Widget--widget .o--Chat--chat.o--Chat--displayMode-light,
 .o--Widget--widget .o--Chat--chat.o--Chat--displayMode-auto {
-  background: var(--chakra-colors-bg-panel) !important;
-  box-shadow: var(--chakra-shadows-lg) !important;
+  background: var(--chakra-colors-bg-panel);
+  box-shadow: var(--chakra-shadows-lg);
 }
 
 .o--Widget--widget .o--Chat--chat.displayMode-light,
 .o--Widget--widget .o--Chat--chat.displayMode-auto {
-  background: var(--chakra-colors-bg-panel) !important;
-  box-shadow: var(--chakra-shadows-lg) !important;
+  background: var(--chakra-colors-bg-panel);
+  box-shadow: var(--chakra-shadows-lg);
 }
 
 #widget-Outseta_chat.displayMode-light .body .fileUploadOverlay,
 #widget-Outseta_chat.displayMode-auto .body .fileUploadOverlay {
   background: var(--chakra-colors-bg-panel);
-  border-color: var(--global-color-border) !important;
+  border-color: var(--global-color-border);
 }
 #widget-Outseta_chat.displayMode-light .body .input textarea,
 #widget-Outseta_chat.displayMode-auto .body .input textarea {
-  border-color: var(--global-color-border) !important;
+  border-color: var(--global-color-border);
 }
 
 #widget-Outseta_chat.displayMode-dark {
-  background: var(--chakra-colors-bg-panel) !important;
-  box-shadow: var(--chakra-shadows-lg) !important;
+  background: var(--chakra-colors-bg-panel);
+  box-shadow: var(--chakra-shadows-lg);
 }
 
 #widget-Outseta_chat.displayMode-dark .body .fileUploadOverlay {
-  background: var(--dark-mode-bg-color) !important;
-  border-color: var(--global-color-border) !important;
+  background: var(--dark-mode-bg-color);
+  border-color: var(--global-color-border);
 }
 #widget-Outseta_chat.displayMode-dark .body .input textarea {
-  border-color: var(--global-color-border) !important;
+  border-color: var(--global-color-border);
 }
 @media (prefers-color-scheme: dark) {
   #widget-Outseta_chat.displayMode-auto {
-    background: var(--chakra-colors-bg-panel) !important;
-    box-shadow: var(--chakra-shadows-lg) !important;
+    background: var(--chakra-colors-bg-panel);
+    box-shadow: var(--chakra-shadows-lg);
   }
 
   #widget-Outseta_chat.displayMode-auto .body .fileUploadOverlay {
-    background: var(--dark-mode-bg-color) !important;
-    border-color: var(--global-color-border) !important;
+    background: var(--dark-mode-bg-color);
+    border-color: var(--global-color-border);
   }
 
   #widget-Outseta_chat.displayMode-auto .body .input textarea {
-    border-color: var(--global-color-border) !important;
+    border-color: var(--global-color-border);
   }
 }

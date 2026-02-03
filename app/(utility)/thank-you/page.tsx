@@ -1,13 +1,13 @@
 import {
+  AbsoluteCenter,
   Box,
   Button,
-  VStack,
-  AbsoluteCenter,
   EmptyState,
+  VStack,
 } from "@chakra-ui/react";
-import { PiEnvelopeOpen, PiArrowSquareOut } from "react-icons/pi";
-import { Link } from "@/components/ui/link";
+import { PiArrowSquareOut, PiEnvelopeOpen } from "react-icons/pi";
 import Confetti from "@/components/ui/confetti";
+import { Link } from "@/components/ui/link";
 import { generateMetadata } from "@/utils/metadata";
 
 export const metadata = generateMetadata({
@@ -34,9 +34,9 @@ export default function ThankYouPage() {
                     Almost there! Check your inbox.
                   </EmptyState.Title>
                   <EmptyState.Description textStyle="md" maxWidth="sm">
-                    We've sent you an email to complete your sign-up and set your
-                    password. If you don't see it shortly, please check your spam
-                    folder.
+                    We've sent you an email to complete your sign-up and set
+                    your password. If you don't see it shortly, please check
+                    your spam folder.
                   </EmptyState.Description>
                 </VStack>
                 <Box pt="4">

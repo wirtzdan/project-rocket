@@ -1,9 +1,9 @@
-import NextImage from "next/image";
 import {
   Image as ChakraImage,
   type ImageProps as ChakraImageProps,
   defaultSystem,
 } from "@chakra-ui/react";
+import NextImage from "next/image";
 
 export type ImageProps = Omit<ChakraImageProps, "src" | "alt"> & {
   src: string;
@@ -33,7 +33,7 @@ export const Image = ({
 
     // Get value from defaultSystem tokens - Updated comparison
     const sizeToken = Array.from(
-      defaultSystem.tokens.categoryMap.get("sizes")?.values() ?? []
+      defaultSystem.tokens.categoryMap.get("sizes")?.values() ?? [],
     ).find((token) => token.name === `sizes.${size}`);
 
     if (!sizeToken?.value) return 100;
@@ -68,7 +68,7 @@ export const Image = ({
           return 100; // Default fallback for special values
         default:
           if (value.endsWith("ch")) {
-            return parseInt(value) * 8; // Approximate ch to pixels
+            return parseInt(value, 10) * 8; // Approximate ch to pixels
           }
       }
     }

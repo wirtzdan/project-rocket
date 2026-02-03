@@ -1,14 +1,13 @@
-import NextLink from "next/link";
 import {
   Link as ChakraLink,
   type LinkProps as ChakraLinkProps,
 } from "@chakra-ui/react";
-import { type LinkProps as NextLinkProps } from "next/link";
+import NextLink, { type LinkProps as NextLinkProps } from "next/link";
 import {
   PiArrowSquareOut,
-  PiHeadset,
   PiDownloadSimple,
   PiEnvelopeSimple,
+  PiHeadset,
 } from "react-icons/pi";
 
 export type LinkProps = Omit<ChakraLinkProps, "asChild"> & {
