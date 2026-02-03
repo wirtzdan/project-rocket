@@ -6,7 +6,7 @@ import {
   Text,
   Center,
 } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Button } from "@chakra-ui/react";
 import { Link } from "@/components/ui/link";
 import { projectConfig } from "@/config";
 import { generateMetadata } from "@/utils/metadata";

@@ -8,7 +8,7 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 
-import { Button } from "@/components/ui/button";
+import { Button } from "@chakra-ui/react";
 import { Section } from "@/components/layout/section";
 import { generateMetadata } from "@/utils/metadata";
 import { Link } from "@/components/ui/link";

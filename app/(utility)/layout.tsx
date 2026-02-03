@@ -1,7 +1,6 @@
 "use client";
 
-import { Box } from "@chakra-ui/react";
-import { Button } from "@/components/ui/button";
+import { Box, Button } from "@chakra-ui/react";
 import { ArrowLeft } from "@phosphor-icons/react/dist/ssr";
 import { Link } from "@/components/ui/link";
 

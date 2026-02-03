@@ -1,6 +1,5 @@
 import { MenuContent, MenuRoot, MenuTrigger } from "@/components/ui/menu";
-import { Button } from "@/components/ui/button";
-import { HStack, VStack } from "@chakra-ui/react";
+import { Button, HStack, VStack } from "@chakra-ui/react";
 import { Textarea } from "@chakra-ui/react";
 import { Field } from "@/components/ui/field";
 import { ChatTeardropText } from "@phosphor-icons/react/dist/ssr";

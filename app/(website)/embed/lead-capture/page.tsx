@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@chakra-ui/react";
 import { Section } from "@/components/layout/section";
 import { generateMetadata } from "@/utils/metadata";
 import { Heading, VStack, Box, Container } from "@chakra-ui/react";

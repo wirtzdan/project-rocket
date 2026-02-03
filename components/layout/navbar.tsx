@@ -11,7 +11,7 @@ import {
   Box,
 } from "@chakra-ui/react";
 import { Logo } from "./logo";
-import { Button } from "@/components/ui/button";
+import { Button } from "@chakra-ui/react";
 import { CollapsibleTrigger } from "@/components/ui/collapsible-trigger";
 import { UserMenu } from "../ui/user-menu";
 import { Link } from "@/components/ui/link";

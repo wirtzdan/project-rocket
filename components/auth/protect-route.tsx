@@ -1,7 +1,7 @@
 "use client";
 
 import { useAuth } from "../provider/auth-provider";
-import { Button } from "@/components/ui/button";
+import { Button } from "@chakra-ui/react";
 import { projectConfig } from "@/config";
 
 import {
@@ -22,14 +22,14 @@ interface Plan
   extends Readonly<{
     uid: string;
     label: string;
-  }> {}
+  }> { }
 
 interface ProtectedRouteProps
   extends Readonly<{
     children: React.ReactNode;
     plansWithAccess?: string;
     fallback?: React.ReactNode;
-  }> {}
+  }> { }
 
 function userHasAccessToPlans(
   plans: Plan[],
@@ -63,7 +63,7 @@ export default function ProtectedRoute({
       .map((planName) => {
         const configPlan =
           projectConfig.auth.plans[
-            planName as keyof typeof projectConfig.auth.plans
+          planName as keyof typeof projectConfig.auth.plans
           ];
         if (!configPlan) {
           console.warn(`Unknown plan: ${planName}`);
@@ -110,11 +110,10 @@ export default function ProtectedRoute({
             <EmptyState
               icon={<SignIn />}
               title="Login to continue"
-              description={`This page is available only to ${
-                plansWithAccess
+              description={`This page is available only to ${plansWithAccess
                   ? requiredPlans.map((p) => p.label).join(" or ")
                   : "registered"
-              } users. To continue, log in to your existing account or sign up.`}
+                } users. To continue, log in to your existing account or sign up.`}
             >
               <Group>
                 <Login popup>
