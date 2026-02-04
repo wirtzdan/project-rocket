@@ -1,7 +1,6 @@
 "use client";
 
-// TODO: Add similiar logic to protect-route.tsx
-
+import { userHasAddOnAccess, userHasPlanAccess } from "@/utils/auth-helpers";
 import { useAuth } from "../provider/auth-provider";
 
 const billingStages = {
@@ -54,21 +53,14 @@ export function SignedIn({
   // Check plans (any match)
   if (plan) {
     const planUids = plan.split(",").map((p) => p.trim());
-    const currentPlanUid = user.Account.CurrentSubscription?.Plan?.Uid;
-    if (!(currentPlanUid && planUids.includes(currentPlanUid))) {
+    if (!userHasPlanAccess(user, planUids)) {
       return null;
     }
   }
 
   // Check add-ons (any match)
-  if (addOn) {
-    const addOnUids = addOn.split(",").map((a) => a.trim());
-    const hasAddOn = user.Account.CurrentSubscription?.SubscriptionAddOns?.some(
-      (subscription) => addOnUids.includes(subscription.AddOn.Uid)
-    );
-    if (!hasAddOn) {
-      return null;
-    }
+  if (addOn && !userHasAddOnAccess(user, addOn)) {
+    return null;
   }
 
   // Check primary contact

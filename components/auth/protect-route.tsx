@@ -11,17 +11,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { PiLock, PiSignIn } from "react-icons/pi";
-import { projectConfig } from "@/config";
-import type { OutsetaUser } from "@/types/outseta";
+import { parsePlansFromConfig, userHasPlanAccess } from "@/utils/auth-helpers";
 import { useAuth } from "../provider/auth-provider";
 import { Login, Profile, SignUp } from "./embed";
-
-// Add readonly to prevent accidental mutations
-interface Plan
-  extends Readonly<{
-    uid: string;
-    label: string;
-  }> {}
 
 interface ProtectedRouteProps
   extends Readonly<{
@@ -30,49 +22,15 @@ interface ProtectedRouteProps
     fallback?: React.ReactNode;
   }> {}
 
-function userHasAccessToPlans(
-  plans: Plan[],
-  user: OutsetaUser | null
-): boolean {
-  if (!user?.Account) {
-    return false;
-  }
-  const planIdForUser = user.Account.CurrentSubscription?.Plan?.Uid;
-  // If no specific plans are required, any plan is valid
-  if (plans.length === 0) {
-    return true;
-  }
-  return !!plans.find((plan) => plan.uid === planIdForUser);
-}
-
 export default function ProtectedRoute({
   children,
   plansWithAccess,
 }: ProtectedRouteProps): React.ReactElement {
   const { user, isLoading } = useAuth();
 
-  const requiredPlans = (() => {
-    if (!plansWithAccess) {
-      return [];
-    }
-    const plans = plansWithAccess
-      .split(",")
-      .map((p) => p.trim().toLowerCase())
-      .map((planName) => {
-        const configPlan =
-          projectConfig.auth.plans[
-            planName as keyof typeof projectConfig.auth.plans
-          ];
-        if (!configPlan) {
-          console.warn(`Unknown plan: ${planName}`);
-          return null;
-        }
-        return configPlan;
-      })
-      .filter((p): p is Plan => p !== null);
-
-    return plans;
-  })();
+  const requiredPlans = plansWithAccess
+    ? parsePlansFromConfig(plansWithAccess)
+    : [];
 
   if (isLoading) {
     return (
@@ -136,7 +94,7 @@ export default function ProtectedRoute({
     return children as React.ReactElement;
   }
 
-  const allowAccess = userHasAccessToPlans(requiredPlans, user);
+  const allowAccess = userHasPlanAccess(user, requiredPlans);
 
   if (!allowAccess) {
     return (
