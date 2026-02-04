@@ -108,12 +108,21 @@ export type OutsetaProfileOpenOptions = {
     | "planChange"
     | "purchaseAddOn"
     | string;
+  /** Widget display mode */
+  mode?: "popup" | "embedded";
   /** Plan UID for planChange tab */
   planUid?: string;
-  /** Add-on UID for purchaseAddOn tab */
+  /** Add-on UID for purchaseAddOn tab (legacy, use stateProps instead) */
   purchaseAddOnUid?: string;
-  /** Billing renewal term for add-on purchase (default: "Month") */
+  /** Billing renewal term for add-on purchase (legacy, use stateProps instead) */
   purchaseAddOnBillingRenewalTerm?: OutsetaBillingRenewalTerm;
+  /** State properties for widget initialization */
+  stateProps?: {
+    /** Add-on UID for purchaseAddOn tab */
+    addOnUid?: string;
+    /** Billing renewal term ID (number, e.g., 4 for one-time purchase) */
+    billingRenewalTerm?: number;
+  };
 } & Record<string, unknown>;
 
 export interface OutsetaSDK {

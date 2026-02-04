@@ -33,7 +33,7 @@ interface AuthContextType {
   openPlanUpgrade: (planUid: string) => void;
   openPurchaseAddOn: (
     addOnUid: string,
-    billingRenewalTerm?: OutsetaBillingRenewalTerm
+    billingRenewalTerm?: number | OutsetaBillingRenewalTerm
   ) => void;
 }
 
@@ -289,12 +289,31 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
 
   const openPurchaseAddOn = (
     addOnUid: string,
-    billingRenewalTerm: OutsetaBillingRenewalTerm = "Month"
+    billingRenewalTerm?: number | OutsetaBillingRenewalTerm
   ) => {
+    const stateProps: {
+      addOnUid: string;
+      billingRenewalTerm?: number;
+    } = {
+      addOnUid,
+    };
+
+    // If billingRenewalTerm is a number, use it directly
+    // Otherwise, convert string terms to numbers (Month=1, Year=12, OneTime=4)
+    if (typeof billingRenewalTerm === "number") {
+      stateProps.billingRenewalTerm = billingRenewalTerm;
+    } else if (billingRenewalTerm === "Year") {
+      stateProps.billingRenewalTerm = 12;
+    } else if (billingRenewalTerm === "OneTime") {
+      stateProps.billingRenewalTerm = 4;
+    } else if (billingRenewalTerm === "Month") {
+      stateProps.billingRenewalTerm = 1;
+    }
+
     outsetaRef.current?.profile.open({
+      mode: "popup",
       tab: "purchaseAddOn",
-      purchaseAddOnUid: addOnUid,
-      purchaseAddOnBillingRenewalTerm: billingRenewalTerm,
+      stateProps,
     });
   };
 

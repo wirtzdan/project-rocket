@@ -48,7 +48,7 @@ export const NavbarLinkMenu = () => {
             variant={{ base: "ghost", md: "plain" }}
             width={{ base: "full", md: "auto" }}
           >
-            Demo
+            Demos
           </Button>
         </Menu.Trigger>
         <Portal>
@@ -99,13 +99,16 @@ export const NavbarLinkMenu = () => {
                   <Menu.Item value="login">Login</Menu.Item>
                 </Link>
                 <Link href="/embed/sign-up">
-                  <Menu.Item value="sogn-up">Sign up</Menu.Item>
+                  <Menu.Item value="sign-up">Sign up</Menu.Item>
                 </Link>
                 <Link href="/embed/lead-capture">
                   <Menu.Item value="lead-capture">Lead Capture</Menu.Item>
                 </Link>
                 <Link href="/embed/email-list">
                   <Menu.Item value="email-list">Email List</Menu.Item>
+                </Link>
+                <Link href="/embed/add-on">
+                  <Menu.Item value="add-on">Add-on</Menu.Item>
                 </Link>
               </Menu.ItemGroup>
             </Menu.Content>
