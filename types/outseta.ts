@@ -1,3 +1,9 @@
+/**
+ * Claims contained in an Outseta JWT token.
+ * Re-exported from utils/outseta-utils.ts for convenience.
+ */
+export type { OutsetaClaims } from "@/utils/outseta-utils";
+
 export interface OutsetaAddress {
   AddressLine1: string | null;
   AddressLine2: string | null;
