@@ -1,13 +1,46 @@
 import { usePathname } from "next/navigation";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { projectConfig } from "@/config";
 import { isUrlMatchingPattern } from "@/utils/url-matcher";
 
 export function useChatVisibility() {
   const pathname = usePathname();
+  const [isChatAvailable, setIsChatAvailable] = useState(false);
 
   useEffect(() => {
-    if (typeof window === "undefined" || !window.Outseta?.chat) {
+    const checkChatAvailability = () => {
+      if (typeof window !== "undefined" && window.Outseta?.chat) {
+        setIsChatAvailable(true);
+        return true;
+      }
+      return false;
+    };
+
+    // Check if chat is already available
+    if (checkChatAvailability()) {
+      return;
+    }
+
+    // Listen for Outseta loading event
+    const handleOutsetaLoaded = () => {
+      if (checkChatAvailability()) {
+        // Chat is now available, visibility will be handled by pathname effect
+      }
+    };
+
+    window.addEventListener("outseta:loaded", handleOutsetaLoaded);
+
+    return () => {
+      window.removeEventListener("outseta:loaded", handleOutsetaLoaded);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (
+      !isChatAvailable ||
+      typeof window === "undefined" ||
+      !window.Outseta?.chat
+    ) {
       return;
     }
 
@@ -18,10 +51,8 @@ export function useChatVisibility() {
 
     if (shouldShowChat) {
       window.Outseta.chat.show();
-      console.log("Showing chat ");
     } else {
       window.Outseta.chat.hide();
-      console.log("Hiding chat ");
     }
-  }, [pathname]);
+  }, [pathname, isChatAvailable]);
 }

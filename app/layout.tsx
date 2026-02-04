@@ -58,6 +58,10 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
           }}
           onLoad={() => {
             console.log("[Outseta] Script loaded successfully");
+            // Dispatch custom event for components waiting for Outseta
+            if (typeof window !== "undefined") {
+              window.dispatchEvent(new Event("outseta:loaded"));
+            }
           }}
           src="https://cdn.outseta.com/outseta.min.js"
           strategy="beforeInteractive"

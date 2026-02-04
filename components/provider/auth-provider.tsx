@@ -104,7 +104,7 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     [updateUser, logout]
   );
 
-  useEffect(() => {
+  const initializeOutseta = useCallback(() => {
     if (initializingRef.current) {
       return;
     }
@@ -112,29 +112,8 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
 
     const outseta = getOutseta();
     if (!outseta) {
-      // Wait for Outseta to be available
-      const checkOutseta = setInterval(() => {
-        const availableOutseta = getOutseta();
-        if (availableOutseta) {
-          clearInterval(checkOutseta);
-          initializingRef.current = false;
-          // Retry initialization
-          return;
-        }
-      }, 100);
-
-      // Cleanup after 10 seconds
-      setTimeout(() => {
-        clearInterval(checkOutseta);
-        if (!outsetaRef.current) {
-          console.warn("[Auth] Outseta SDK not available after 10 seconds");
-          setStatus("ready");
-        }
-      }, 10_000);
-
-      return () => {
-        clearInterval(checkOutseta);
-      };
+      initializingRef.current = false;
+      return;
     }
 
     outsetaRef.current = outseta;
@@ -231,12 +210,32 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     } catch {
       // Modules not ready yet, wait for events
     }
+  }, [searchParams, pathname, router, updateUser, verifyAndSetToken, logout]);
+
+  useEffect(() => {
+    // Try to initialize immediately if Outseta is available
+    initializeOutseta();
+
+    // Listen for Outseta loading event
+    const handleOutsetaLoaded = () => {
+      initializeOutseta();
+    };
+
+    window.addEventListener("outseta:loaded", handleOutsetaLoaded);
+
+    // Fallback timeout: if Outseta doesn't load within 10 seconds, set status to ready
+    const timeoutId = setTimeout(() => {
+      if (!outsetaRef.current) {
+        console.warn("[Auth] Outseta SDK not available after 10 seconds");
+        setStatus("ready");
+      }
+    }, 10_000);
 
     return () => {
-      // Cleanup event listeners if needed
-      // Note: Outseta doesn't provide off() method, so we rely on component unmount
+      window.removeEventListener("outseta:loaded", handleOutsetaLoaded);
+      clearTimeout(timeoutId);
     };
-  }, [searchParams, pathname, router, updateUser, verifyAndSetToken, logout]);
+  }, [initializeOutseta]);
 
   const openLogin = (options?: Partial<OutsetaAuthOpenOptions>) => {
     outsetaRef.current?.auth.open({
