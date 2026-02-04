@@ -81,6 +81,8 @@ export interface OutsetaUser {
 
 export type OutsetaEventName =
   | "subscription.update"
+  | "subscription.cancel"
+  | "subscription.reopen"
   | "profile.update"
   | "account.update"
   | "accessToken.set"
@@ -88,7 +90,9 @@ export type OutsetaEventName =
   | "nocode.initialized"
   | "nocode.expired"
   | "logout"
-  | "nocode.accessDenied";
+  | "nocode.accessDenied"
+  | "signup"
+  | "signup.preRegister";
 
 export type OutsetaAuthWidgetMode = "login|register" | "register";
 

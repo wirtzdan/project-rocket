@@ -230,10 +230,57 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     // Listen to accessToken.set event for automatic user updates
     outseta.on("accessToken.set", handleAccessTokenSet);
 
-    // Listen to user update events
-    outseta.on("subscription.update", handleUserUpdate);
-    outseta.on("profile.update", handleUserUpdate);
-    outseta.on("account.update", handleUserUpdate);
+    // Listen to user update events with PostHog tracking
+    outseta.on("subscription.update", (subscription) => {
+      const sub = subscription as { Plan?: { Uid?: string; Name?: string } };
+      posthog.capture("subscription_updated", {
+        plan_uid: sub?.Plan?.Uid,
+        plan_name: sub?.Plan?.Name,
+      });
+      handleUserUpdate();
+    });
+    outseta.on("profile.update", () => {
+      posthog.capture("profile_updated");
+      handleUserUpdate();
+    });
+    outseta.on("account.update", () => {
+      posthog.capture("account_updated");
+      handleUserUpdate();
+    });
+
+    // Signup events
+    outseta.on("signup", (account) => {
+      const acc = account as {
+        Uid?: string;
+        CurrentSubscription?: { Plan?: { Uid?: string; Name?: string } };
+      };
+      posthog.capture("user_signed_up", {
+        account_uid: acc?.Uid,
+        plan_uid: acc?.CurrentSubscription?.Plan?.Uid,
+        plan_name: acc?.CurrentSubscription?.Plan?.Name,
+      });
+    });
+    outseta.on("signup.preRegister", () => {
+      posthog.capture("signup_started");
+    });
+
+    // Subscription lifecycle events
+    outseta.on("subscription.cancel", (cancellation) => {
+      const cancel = cancellation as { CancellationReason?: string };
+      posthog.capture("subscription_cancelled", {
+        reason: cancel?.CancellationReason,
+      });
+    });
+    outseta.on("subscription.reopen", () => {
+      posthog.capture("subscription_reopened");
+    });
+
+    // Access denied event
+    outseta.on("nocode.accessDenied", () => {
+      posthog.capture("access_denied", {
+        path: window.location.pathname,
+      });
+    });
 
     // Handle token expiration
     outseta.on("nocode.expired", handleTokenExpired);
