@@ -62,11 +62,12 @@ export default async function Page() {
             direction={{ base: "column", md: "row" }}
             gap="3"
           >
-            <Link href="/docs">
-              <Button size="xl">
+            <Button asChild size="xl">
+              <Link href="/docs">
                 Get started <PiArrowRight />
-              </Button>
-            </Link>
+              </Link>
+            </Button>
+
             <Link href="https://github.com/wirtzdan/project-rocket">
               <Button size="xl" variant="ghost">
                 Github <PiArrowSquareOut />

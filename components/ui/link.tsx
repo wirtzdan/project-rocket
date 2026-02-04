@@ -81,7 +81,12 @@ export const Link = ({
   }
 
   return (
-    <ChakraLink asChild {...props}>
+    <ChakraLink
+      asChild
+      {...props}
+      _hover={{ textDecoration: "none" }}
+      textDecoration="none"
+    >
       <NextLink href={href}>{props.children}</NextLink>
     </ChakraLink>
   );

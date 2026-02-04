@@ -114,7 +114,6 @@ export default function ProtectedRoute({
                     {`This page is available only to users with a ${requiredPlans[0].label} plan. To continue, please upgrade to a ${requiredPlans[0].label} plan.`}
                   </EmptyState.Description>
                 </VStack>
-                {/* TODO: Directly open the right plan to upgrade to */}
                 <Profile data-tab="planChange" popup>
                   <Button>Change plan</Button>
                 </Profile>
