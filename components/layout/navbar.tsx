@@ -62,7 +62,7 @@ export const NavbarLinkMenu = () => {
                   <Menu.Item value="contact">Contact</Menu.Item>
                 </Link>
                 <Link href="/support">
-                  <Menu.Item value="contact">Contact</Menu.Item>
+                  <Menu.Item value="support">Support</Menu.Item>
                 </Link>
               </Menu.ItemGroup>
               <Menu.Separator />
@@ -99,7 +99,7 @@ export const NavbarLinkMenu = () => {
                   <Menu.Item value="login">Login</Menu.Item>
                 </Link>
                 <Link href="/embed/sign-up">
-                  <Menu.Item value="login">Sign up</Menu.Item>
+                  <Menu.Item value="sogn-up">Sign up</Menu.Item>
                 </Link>
                 <Link href="/embed/lead-capture">
                   <Menu.Item value="lead-capture">Lead Capture</Menu.Item>
