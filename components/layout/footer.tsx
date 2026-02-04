@@ -13,7 +13,7 @@ import { Logo } from "./logo";
 
 const Copyright = (props: TextProps) => {
   return (
-    <Text fontSize="sm" color="fg.muted" {...props}>
+    <Text color="fg.muted" fontSize="sm" {...props}>
       &copy; {new Date().getFullYear()} {projectConfig.general.name}. All rights
       reserved.
     </Text>
@@ -30,11 +30,11 @@ const socialLinks = [
 export const Footer = () => (
   <Container as="footer" py={{ base: "10", md: "12" }}>
     <Stack gap="6">
-      <Stack direction="row" justify="space-between" align="center">
+      <Stack align="center" direction="row" justify="space-between">
         <Logo height="32" />
         <HStack gap="4">
-          {socialLinks.map(({ href, icon }, index) => (
-            <Link key={index} href={href} colorPalette="gray">
+          {socialLinks.map(({ href, icon }) => (
+            <Link colorPalette="gray" href={href} key={href}>
               <Icon size="md">{icon}</Icon>
             </Link>
           ))}

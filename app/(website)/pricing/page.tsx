@@ -32,15 +32,15 @@ export default function PricingPage() {
             <VStack gap="1">
               <Text
                 color="fg.muted"
-                textStyle={{ base: "lg", md: "xl" }}
                 maxW="lg"
+                textStyle={{ base: "lg", md: "xl" }}
               >
                 Transparent pricing with no hidden fees.
               </Text>
               <Text
                 color="fg.muted"
-                textStyle={{ base: "lg", md: "xl" }}
                 maxW="lg"
+                textStyle={{ base: "lg", md: "xl" }}
               >
                 Cancel anytime.
               </Text>
@@ -48,8 +48,8 @@ export default function PricingPage() {
           </VStack>
         </VStack>
         <VStack gap="6">
-          <VStack gap="8" alignSelf="stretch">
-            <Tabs.Root variant="enclosed" defaultValue={"annual"}>
+          <VStack alignSelf="stretch" gap="8">
+            <Tabs.Root defaultValue={"annual"} variant="enclosed">
               <Center>
                 <Tabs.List>
                   <Tabs.Trigger value="month">Monthly</Tabs.Trigger>
@@ -59,26 +59,26 @@ export default function PricingPage() {
                 </Tabs.List>
               </Center>
               <Tabs.Content value="annual">
-                <SimpleGrid w="full" columns={{ base: 1, md: 2 }} gap="6">
+                <SimpleGrid columns={{ base: 1, md: 2 }} gap="6" w="full">
                   <For each={plans}>
                     {(plan) => (
                       <PricingCard
+                        data={plan}
                         key={plan.value}
                         planPaymentTerms="annual"
-                        data={plan}
                       />
                     )}
                   </For>
                 </SimpleGrid>
               </Tabs.Content>
               <Tabs.Content value="month">
-                <SimpleGrid w="full" columns={{ base: 1, md: 2 }} gap="6">
+                <SimpleGrid columns={{ base: 1, md: 2 }} gap="6" w="full">
                   <For each={plans}>
                     {(plan) => (
                       <PricingCard
+                        data={plan}
                         key={plan.value}
                         planPaymentTerms="month"
-                        data={plan}
                       />
                     )}
                   </For>

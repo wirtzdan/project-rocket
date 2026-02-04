@@ -4,7 +4,7 @@
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,
     "isolatedModules": true,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "lib": ["dom", "esnext"],
     "module": "ESNext",
     "moduleResolution": "Bundler",
@@ -17,12 +17,22 @@
     "allowSyntheticDefaultImports": true,
     "incremental": true,
     "customConditions": ["source"],
-    "plugins": [{ "name": "next" }],
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
     "paths": {
       "@chakra-ui/react": ["../../packages/react/src"],
       "@/*": ["./*"]
-    }
+    },
+    "strictNullChecks": true
   },
   "exclude": ["node_modules"],
-  "include": ["**/*.ts", "**/*.tsx", ".next/types/**/*.ts"]
+  "include": [
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ]
 }

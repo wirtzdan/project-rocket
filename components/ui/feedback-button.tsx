@@ -18,9 +18,9 @@ export const FeedbackButton = () => {
     <Menu.Root positioning={{ placement: "bottom" }}>
       <Menu.Trigger asChild>
         <Button
-          variant="outline"
-          size="xs"
           data-o-account-activity="Open Feedback Form"
+          size="xs"
+          variant="outline"
         >
           Feedback?
           <PiChatTeardropText />
@@ -34,17 +34,17 @@ export const FeedbackButton = () => {
               <Field.Root>
                 <Field.Label>Feedback</Field.Label>
                 <Textarea
+                  h="140px"
                   placeholder="Start typing..."
                   variant="outline"
-                  h="140px"
                 />
               </Field.Root>
               <HStack w="full">
                 <Button
-                  variant="solid"
-                  size="xs"
-                  w="full"
                   onClick={() => handleSubmit}
+                  size="xs"
+                  variant="solid"
+                  w="full"
                 >
                   Send
                 </Button>

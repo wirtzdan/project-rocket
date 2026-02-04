@@ -10,8 +10,8 @@ export const metadata = generateMetadata({
 
 export default function SignUpPage() {
   return (
-    <Box p="relative" h="100vh" w="100vw" bg="bg.muted">
-      <AbsoluteCenter w="full" maxW="lg">
+    <Box bg="bg.muted" h="100vh" p="relative" w="100vw">
+      <AbsoluteCenter maxW="lg" w="full">
         <Container w="full">
           <SignUp />
         </Container>

@@ -23,10 +23,10 @@ export default async function DocsPage() {
   return (
     <>
       <Section
-        header
         bg="bg.muted"
         borderBottomColor="border"
         borderBottomWidth="1px"
+        header
       >
         <VStack gap={{ base: "6", md: "8" }} textAlign="center">
           <VStack gap={{ base: "5", md: "6" }}>

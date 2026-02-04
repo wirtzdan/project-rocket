@@ -32,12 +32,16 @@ interface ProtectedRouteProps
 
 function userHasAccessToPlans(
   plans: Plan[],
-  user: OutsetaUser | null,
+  user: OutsetaUser | null
 ): boolean {
-  if (!user?.Account) return false;
+  if (!user?.Account) {
+    return false;
+  }
   const planIdForUser = user.Account.CurrentSubscription?.Plan?.Uid;
   // If no specific plans are required, any plan is valid
-  if (plans.length === 0) return true;
+  if (plans.length === 0) {
+    return true;
+  }
   return !!plans.find((plan) => plan.uid === planIdForUser);
 }
 
@@ -55,7 +59,9 @@ export default function ProtectedRoute({
   });
 
   const requiredPlans = (() => {
-    if (!plansWithAccess) return [];
+    if (!plansWithAccess) {
+      return [];
+    }
     const plans = plansWithAccess
       .split(",")
       .map((p) => p.trim().toLowerCase())
@@ -74,7 +80,7 @@ export default function ProtectedRoute({
 
     console.log(
       "Required Plans:",
-      plans.map((p) => ({ uid: p.uid, label: p.label })),
+      plans.map((p) => ({ uid: p.uid, label: p.label }))
     );
     return plans;
   })();
@@ -82,16 +88,16 @@ export default function ProtectedRoute({
   if (isLoading) {
     console.log("ProtectedRoute: Loading state");
     return (
-      <Box position="relative" h="100vh" w="100vw">
+      <Box h="100vh" position="relative" w="100vw">
         <AbsoluteCenter>
           <VStack>
             <Spinner
-              color="primary.600"
-              size="xl"
               borderWidth="4px"
+              color="primary.600"
               css={{ "--spinner-track-color": "colors.neutral.200" }}
+              size="xl"
             />
-            <Text textStyle="lg" color="fg.subtle">
+            <Text color="fg.subtle" textStyle="lg">
               Loading...
             </Text>
           </VStack>
@@ -103,19 +109,19 @@ export default function ProtectedRoute({
   if (!user) {
     console.log("ProtectedRoute: No user - showing login screen");
     return (
-      <Box position="relative" h="100vh" w="100vw">
+      <Box h="100vh" position="relative" w="100vw">
         <AbsoluteCenter>
           <VStack>
-            <EmptyState.Root paddingInline={0} paddingBlock={0} width="full">
+            <EmptyState.Root paddingBlock={0} paddingInline={0} width="full">
               <EmptyState.Content>
                 <EmptyState.Indicator>
                   <PiSignIn />
                 </EmptyState.Indicator>
                 <VStack textAlign="center">
-                  <EmptyState.Title textStyle="2xl" maxWidth="lg">
+                  <EmptyState.Title maxWidth="lg" textStyle="2xl">
                     Login to continue
                   </EmptyState.Title>
-                  <EmptyState.Description textStyle="md" maxWidth="sm">
+                  <EmptyState.Description maxWidth="sm" textStyle="md">
                     {`This page is available only to ${
                       plansWithAccess
                         ? requiredPlans.map((p) => p.label).join(" or ")
@@ -154,24 +160,24 @@ export default function ProtectedRoute({
   if (!allowAccess) {
     console.log("ProtectedRoute: Access denied - showing upgrade screen");
     return (
-      <Box position="relative" h="100vh" w="100vw">
+      <Box h="100vh" position="relative" w="100vw">
         <AbsoluteCenter>
           <VStack>
-            <EmptyState.Root paddingInline={0} paddingBlock={0} width="full">
+            <EmptyState.Root paddingBlock={0} paddingInline={0} width="full">
               <EmptyState.Content>
                 <EmptyState.Indicator>
                   <PiLock />
                 </EmptyState.Indicator>
                 <VStack textAlign="center">
-                  <EmptyState.Title textStyle="2xl" maxWidth="lg">
+                  <EmptyState.Title maxWidth="lg" textStyle="2xl">
                     Upgrade to unlock
                   </EmptyState.Title>
-                  <EmptyState.Description textStyle="md" maxWidth="sm">
+                  <EmptyState.Description maxWidth="sm" textStyle="md">
                     {`This page is available only to users with a ${requiredPlans[0].label} plan. To continue, please upgrade to a ${requiredPlans[0].label} plan.`}
                   </EmptyState.Description>
                 </VStack>
                 {/* TODO: Directly open the right plan to upgrade to */}
-                <Profile popup data-tab="planChange">
+                <Profile data-tab="planChange" popup>
                   <Button>Change plan</Button>
                 </Profile>
               </EmptyState.Content>

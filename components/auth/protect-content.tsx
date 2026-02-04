@@ -39,7 +39,9 @@ export function SignedIn({
 }: SignedInProps) {
   const { user } = useAuth();
 
-  if (!user?.Account) return null;
+  if (!user?.Account) {
+    return null;
+  }
 
   // Check account stage
   if (
@@ -53,7 +55,7 @@ export function SignedIn({
   if (plan) {
     const planUids = plan.split(",").map((p) => p.trim());
     const currentPlanUid = user.Account.CurrentSubscription?.Plan?.Uid;
-    if (!currentPlanUid || !planUids.includes(currentPlanUid)) {
+    if (!(currentPlanUid && planUids.includes(currentPlanUid))) {
       return null;
     }
   }
@@ -62,9 +64,11 @@ export function SignedIn({
   if (addOn) {
     const addOnUids = addOn.split(",").map((a) => a.trim());
     const hasAddOn = user.Account.CurrentSubscription?.SubscriptionAddOns?.some(
-      (subscription) => addOnUids.includes(subscription.AddOn.Uid),
+      (subscription) => addOnUids.includes(subscription.AddOn.Uid)
     );
-    if (!hasAddOn) return null;
+    if (!hasAddOn) {
+      return null;
+    }
   }
 
   // Check primary contact
@@ -77,7 +81,9 @@ export function SignedIn({
 
 export function SignedOut({ children }: { children: React.ReactNode }) {
   const { user } = useAuth();
-  if (user?.Account) return null;
+  if (user?.Account) {
+    return null;
+  }
   return <>{children}</>;
 }
 

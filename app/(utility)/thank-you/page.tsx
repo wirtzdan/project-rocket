@@ -21,19 +21,19 @@ export default function ThankYouPage() {
   return (
     <>
       <Confetti type="fireworks" />
-      <Box p="relative" h="100vh" w="100vw">
+      <Box h="100vh" p="relative" w="100vw">
         <AbsoluteCenter>
           <VStack>
-            <EmptyState.Root paddingInline={0} paddingBlock={0} width="full">
+            <EmptyState.Root paddingBlock={0} paddingInline={0} width="full">
               <EmptyState.Content>
                 <EmptyState.Indicator>
                   <PiEnvelopeOpen />
                 </EmptyState.Indicator>
                 <VStack textAlign="center">
-                  <EmptyState.Title textStyle="2xl" maxWidth="lg">
+                  <EmptyState.Title maxWidth="lg" textStyle="2xl">
                     Almost there! Check your inbox.
                   </EmptyState.Title>
-                  <EmptyState.Description textStyle="md" maxWidth="sm">
+                  <EmptyState.Description maxWidth="sm" textStyle="md">
                     We've sent you an email to complete your sign-up and set
                     your password. If you don't see it shortly, please check
                     your spam folder.

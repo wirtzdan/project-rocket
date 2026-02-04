@@ -10,7 +10,7 @@ import "@/styles/cookie-banner-styles.css";
 import "@/styles/outseta-styles.css";
 import Script from "next/script";
 import { useEffect } from "react";
-import * as CookieConsent from "vanilla-cookieconsent";
+import { run as runCookieConsent } from "vanilla-cookieconsent";
 
 // TODO: How could fonts be set in a better way? Best case it would be from the projectConfig.
 const inter = Inter({
@@ -23,40 +23,44 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     if (projectConfig.cookieBannerOptions) {
-      CookieConsent.run(projectConfig.cookieBannerOptions as any);
+      runCookieConsent(projectConfig.cookieBannerOptions);
     } else {
       console.warn("Cookie banner options are not defined in projectConfig.");
     }
   }, []);
 
   return (
-    <html suppressHydrationWarning className="cc--theme light">
+    <html className="cc--theme light" lang="en" suppressHydrationWarning>
       <Head>
         <title>Project Starter</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta content="width=device-width, initial-scale=1" name="viewport" />
         <noscript>
-          <meta httpEquiv="refresh" content="0; url=/javascript" />
+          <meta content="0; url=/javascript" httpEquiv="refresh" />
         </noscript>
       </Head>
       <body className={inter.className}>
         <Script
-          id="outseta-config"
-          strategy="beforeInteractive"
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: Safe - JSON.stringify escapes all user input and projectConfig.outsetaOptions is a controlled config object
           dangerouslySetInnerHTML={{
             __html: `var o_options = ${JSON.stringify(projectConfig.outsetaOptions)};`,
           }}
+          id="outseta-config"
+          strategy="beforeInteractive"
         />
         <Script
-          id="outseta-script"
-          src="https://cdn.outseta.com/outseta.min.js"
           data-options="o_options"
-          strategy="beforeInteractive"
-          onLoad={() => {
-            console.log("Outseta loaded successfully");
-          }}
+          id="outseta-script"
           onError={(e) => {
-            console.error("Error loading Outseta:", e);
+            console.error(
+              "[Outseta] Failed to load Outseta script. Some features may not work.",
+              e
+            );
           }}
+          onLoad={() => {
+            console.log("[Outseta] Script loaded successfully");
+          }}
+          src="https://cdn.outseta.com/outseta.min.js"
+          strategy="beforeInteractive"
         />
         <Provider>{children}</Provider>
       </body>

@@ -7,18 +7,18 @@ export default function AboutPage() {
   return (
     <>
       <Section
-        header
         bg="bg.muted"
         borderBottomColor="border"
         borderBottomWidth="1px"
+        header
       >
         <VStack gap={{ base: "6", md: "8" }} textAlign="center">
           <VStack gap={{ base: "5", md: "6" }}>
             <VStack gap={{ base: "3", md: "4" }}>
               <Text
-                textStyle={{ base: "sm", md: "md" }}
-                fontWeight="medium"
                 color="colorPalette.fg"
+                fontWeight="medium"
+                textStyle={{ base: "sm", md: "md" }}
               >
                 About
               </Text>
@@ -28,8 +28,8 @@ export default function AboutPage() {
             </VStack>
             <Text
               color="fg.muted"
-              textStyle={{ base: "lg", md: "xl" }}
               maxW="3xl"
+              textStyle={{ base: "lg", md: "xl" }}
             >
               Eu veniam aliquip sint Lorem nostrud.
             </Text>

@@ -7,10 +7,10 @@ export default function ContactPage() {
   return (
     <>
       <Section
-        header
         bg="bg.muted"
         borderBottomColor="border"
         borderBottomWidth="1px"
+        header
         pb={28}
       >
         <VStack gap={{ base: "6", md: "8" }} textAlign="center">
@@ -22,8 +22,8 @@ export default function ContactPage() {
             </VStack>
             <Text
               color="fg.muted"
-              textStyle={{ base: "lg", md: "xl" }}
               maxW="lg"
+              textStyle={{ base: "lg", md: "xl" }}
             >
               Send us a message if you have question, feedback or an idea. We
               typically reply in 24 hours.
@@ -32,7 +32,7 @@ export default function ContactPage() {
         </VStack>
       </Section>
       <Section>
-        <Card.Root mt={{ base: "-40", md: "-44" }} id="contact-form">
+        <Card.Root id="contact-form" mt={{ base: "-40", md: "-44" }}>
           <Support />
         </Card.Root>
       </Section>

@@ -7,10 +7,10 @@ export default function SupportPage() {
   return (
     <>
       <Section
-        header
         bg="bg.muted"
         borderBottomColor="border"
         borderBottomWidth="1px"
+        header
         pb={28}
       >
         <VStack gap={{ base: "6", md: "8" }} textAlign="center">
@@ -22,8 +22,8 @@ export default function SupportPage() {
             </VStack>
             <Text
               color="fg.muted"
-              textStyle={{ base: "lg", md: "xl" }}
               maxW="lg"
+              textStyle={{ base: "lg", md: "xl" }}
             >
               Send us a message if you need help. We typically reply in 24
               hours.

@@ -1,6 +1,6 @@
 import { projectConfig } from "@/config";
 
-export default async function sitemap() {
+export default function sitemap() {
   const baseUrl = projectConfig.general.siteUrl;
 
   // Add your public routes here

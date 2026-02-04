@@ -1,4 +1,6 @@
-export const cookieBannerConfig = {
+import type { CookieConsentConfig } from "vanilla-cookieconsent";
+
+export const cookieBannerConfig: CookieConsentConfig = {
   root: "body",
   guiOptions: {
     consentModal: {

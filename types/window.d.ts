@@ -1,16 +1,7 @@
-interface OutsetaChat {
-  show: () => void;
-  hide: () => void;
-}
-
-interface Outseta {
-  chat: OutsetaChat;
-}
+import type { OutsetaSDK } from "./outseta";
 
 declare global {
   interface Window {
-    Outseta?: Outseta;
+    Outseta?: OutsetaSDK;
   }
 }
-
-export {};

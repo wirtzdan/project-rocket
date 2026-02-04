@@ -316,7 +316,7 @@ function getBorderRadiusValue(selected: string, offset: number) {
   const selectedIndex = values.indexOf(selected);
   const targetIndex = Math.max(
     0,
-    Math.min(values.length - 1, selectedIndex + offset),
+    Math.min(values.length - 1, selectedIndex + offset)
   );
   return `{radii.${values[targetIndex]}}`;
 }

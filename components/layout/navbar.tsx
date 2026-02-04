@@ -25,9 +25,9 @@ export const MenuLink = (props) => {
     <Link href={props.href} w="full">
       <Button
         colorPalette="gray"
+        justifyContent={{ base: "flex-start", md: "center" }}
         variant={{ base: "ghost", md: "plain" }}
         width={{ base: "full", md: "auto" }}
-        justifyContent={{ base: "flex-start", md: "center" }}
       >
         {props.children}
       </Button>
@@ -44,9 +44,9 @@ export const NavbarLinkMenu = () => {
         <Menu.Trigger asChild>
           <Button
             colorPalette="gray"
-            width={{ base: "full", md: "auto" }}
-            variant={{ base: "ghost", md: "plain" }}
             justifyContent={{ base: "flex-start", md: "center" }}
+            variant={{ base: "ghost", md: "plain" }}
+            width={{ base: "full", md: "auto" }}
           >
             Demo
           </Button>
@@ -121,7 +121,7 @@ export const NavbarActionMenu = ({ type }: { type: "website" | "app" }) => {
     <>
       <SignedOut>
         <Login popup>
-          <Button size="sm" variant="outline" colorPalette="gray">
+          <Button colorPalette="gray" size="sm" variant="outline">
             Login
           </Button>
         </Login>
@@ -142,10 +142,10 @@ const CollapsibleTriggerButton = () => {
     <Collapsible.Trigger asChild>
       <IconButton
         aria-label="Open Menu"
-        variant="ghost"
-        size="sm"
         colorPalette="gray"
         hideFrom="md"
+        size="sm"
+        variant="ghost"
       >
         <Icon size="lg">{context.open ? <PiX /> : <PiList />}</Icon>
       </IconButton>
@@ -159,18 +159,18 @@ export const Navbar = ({ type }: { type: "website" | "app" }) => {
     <Center
       as="header"
       position="fixed"
-      zIndex="docked"
       top={{ base: "4", md: "6" }}
       w="full"
+      zIndex="docked"
     >
       <Container maxW={{ base: "full", md: "3xl" }}>
         <Box
-          w="full"
-          px="4"
-          py="3"
-          boxShadow="xs"
           background="bg.panel"
           borderRadius="l3"
+          boxShadow="xs"
+          px="4"
+          py="3"
+          w="full"
         >
           <Collapsible.Root>
             <HStack gap={{ base: "3", md: "8" }} justify="space-between">
@@ -178,7 +178,7 @@ export const Navbar = ({ type }: { type: "website" | "app" }) => {
               <Link href="/">
                 <Logo />
               </Link>
-              <HStack justify="flex-end" w="full" hideFrom="md">
+              <HStack hideFrom="md" justify="flex-end" w="full">
                 <NavbarActionMenu type="app" />
               </HStack>
               <HStack gap="2" hideBelow="md">

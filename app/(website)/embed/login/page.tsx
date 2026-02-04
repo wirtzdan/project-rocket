@@ -12,10 +12,10 @@ export default function LoginEmbedPage() {
   return (
     <>
       <Section
-        header
         bg="bg.muted"
         borderBottomColor="border"
         borderBottomWidth="1px"
+        header
       >
         <VStack gap={{ base: "6", md: "8" }} textAlign="center">
           <VStack gap={{ base: "5", md: "6" }}>
@@ -34,7 +34,7 @@ export default function LoginEmbedPage() {
             <Button size="lg">Open Login Popup</Button>
           </Login>
           <Heading size="3xl">On page</Heading>
-          <Box w="full" p={6} borderWidth="1px" borderRadius="lg" bg="bg.muted">
+          <Box bg="bg.muted" borderRadius="lg" borderWidth="1px" p={6} w="full">
             <Login />
           </Box>
         </VStack>

@@ -15,10 +15,12 @@ import { SignedIn } from "../auth/protect-content";
 import { useAuth } from "../provider/auth-provider";
 
 function getInitials(name: string | undefined): string {
-  if (!name) return "";
+  if (!name) {
+    return "";
+  }
   const names = name.trim().split(" ");
   const firstName = names[0] ?? "";
-  const lastName = names.length > 1 ? names[names.length - 1] : "";
+  const lastName = names.length > 1 ? names.at(-1) : "";
   return firstName && lastName
     ? `${firstName.charAt(0)}${lastName.charAt(0)}`
     : firstName.charAt(0);
@@ -31,7 +33,7 @@ export const UserMenu = () => {
     <Menu.Root positioning={{ placement: "bottom" }}>
       <Menu.Trigger>
         <Avatar.Root size="sm">
-          <Avatar.Image src={user?.ProfileImageS3Url} />
+          <Avatar.Image src={user?.ProfileImageS3Url ?? undefined} />
           <Avatar.Fallback>{getInitials(user?.FullName)}</Avatar.Fallback>
         </Avatar.Root>
       </Menu.Trigger>
@@ -39,7 +41,7 @@ export const UserMenu = () => {
       <Portal>
         <Menu.Positioner>
           <Menu.Content>
-            <VStack py={2} px="14px" align="start" gap="0">
+            <VStack align="start" gap="0" px="14px" py={2}>
               <HStack>
                 <Text fontSize="sm">{user?.FullName}</Text>
                 <SignedIn plan="LmJZpYmP">
@@ -59,7 +61,7 @@ export const UserMenu = () => {
                   </Tag.Root>
                 </SignedIn>
               </HStack>
-              <Text fontSize="sm" color="fg.muted">
+              <Text color="fg.muted" fontSize="sm">
                 {user?.Email}
               </Text>
             </VStack>

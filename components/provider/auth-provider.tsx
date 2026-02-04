@@ -5,21 +5,27 @@ import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import {
   createContext,
   Suspense,
+  useCallback,
   useContext,
   useEffect,
   useRef,
   useState,
 } from "react";
 import { projectConfig } from "@/config";
-import type { OutsetaUser } from "@/types/outseta";
+import type {
+  OutsetaAuthOpenOptions,
+  OutsetaProfileOpenOptions,
+  OutsetaSDK,
+  OutsetaUser,
+} from "@/types/outseta";
 
 interface AuthContextType {
   user: OutsetaUser | null;
   isLoading: boolean;
   logout: () => void;
-  openLogin: (options?: any) => void;
-  openSignup: (options?: any) => void;
-  openProfile: (options?: any) => void;
+  openLogin: (options?: Partial<OutsetaAuthOpenOptions>) => void;
+  openSignup: (options?: Partial<OutsetaAuthOpenOptions>) => void;
+  openProfile: (options?: OutsetaProfileOpenOptions) => void;
 }
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
@@ -28,9 +34,11 @@ export function useAuth() {
   return useContext(AuthContext);
 }
 
-function getOutseta() {
-  if (typeof window === "undefined") return null;
-  return (window as any).Outseta;
+function getOutseta(): OutsetaSDK | null {
+  if (typeof window === "undefined") {
+    return null;
+  }
+  return window.Outseta ?? null;
 }
 
 export default function AuthProvider({
@@ -51,10 +59,19 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [status, setStatus] = useState("init");
   const [user, setUser] = useState<OutsetaUser | null>(null);
-  const outsetaRef = useRef<any>(null);
+  const outsetaRef = useRef<OutsetaSDK | null>(null);
   const initializingRef = useRef(false);
 
-  const updateUser = async () => {
+  const logout = useCallback(() => {
+    outsetaRef.current?.setAccessToken("");
+    setUser(null);
+    setStatus("ready");
+  }, []);
+
+  const updateUser = useCallback(async () => {
+    if (!outsetaRef.current) {
+      throw new Error("Outseta SDK not initialized");
+    }
     try {
       const outsetaUser = await outsetaRef.current.getUser();
       setUser(outsetaUser);
@@ -65,65 +82,163 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
       setStatus("error");
       throw error;
     }
-  };
+  }, []);
 
-  const verifyAndSetToken = async (token: string) => {
-    const certificate = projectConfig.outsetaOptions.auth.publicKey;
-    try {
-      const publicKey = await importX509(certificate, "RS256");
-      await jwtVerify(token, publicKey);
-      outsetaRef.current.setAccessToken(token);
-      return await updateUser();
-    } catch (error) {
-      console.error("[Auth] Token verification failed:", error);
-      logout();
-      throw error;
-    }
-  };
+  const verifyAndSetToken = useCallback(
+    async (token: string) => {
+      if (!outsetaRef.current) {
+        throw new Error("Outseta SDK not initialized");
+      }
+      const certificate = projectConfig.outsetaOptions.auth.publicKey;
+      try {
+        const publicKey = await importX509(certificate, "RS256");
+        await jwtVerify(token, publicKey);
+        outsetaRef.current.setAccessToken(token);
+        return await updateUser();
+      } catch (error) {
+        console.error("[Auth] Token verification failed:", error);
+        logout();
+        throw error;
+      }
+    },
+    [updateUser, logout]
+  );
 
   useEffect(() => {
-    if (initializingRef.current) return;
+    if (initializingRef.current) {
+      return;
+    }
     initializingRef.current = true;
 
     const outseta = getOutseta();
-    if (!outseta) return;
+    if (!outseta) {
+      // Wait for Outseta to be available
+      const checkOutseta = setInterval(() => {
+        const availableOutseta = getOutseta();
+        if (availableOutseta) {
+          clearInterval(checkOutseta);
+          initializingRef.current = false;
+          // Retry initialization
+          return;
+        }
+      }, 100);
+
+      // Cleanup after 10 seconds
+      setTimeout(() => {
+        clearInterval(checkOutseta);
+        if (!outsetaRef.current) {
+          console.warn("[Auth] Outseta SDK not available after 10 seconds");
+          setStatus("ready");
+        }
+      }, 10_000);
+
+      return () => {
+        clearInterval(checkOutseta);
+      };
+    }
 
     outsetaRef.current = outseta;
 
-    const accessToken = searchParams.get("access_token");
-    if (accessToken) {
-      verifyAndSetToken(accessToken).then(() => {
-        const params = new URLSearchParams(searchParams);
-        params.delete("access_token");
-        const newUrl =
-          pathname + (params.toString() ? `?${params.toString()}` : "");
-        router.replace(newUrl);
-      });
-    } else if (outseta.getAccessToken()) {
-      updateUser();
-    } else {
-      setStatus("ready");
-    }
+    // Wait for Outseta modules to initialize before using SDK
+    let authInitialized = false;
+    let nocodeInitialized = false;
+
+    const checkInitialization = () => {
+      if (authInitialized && nocodeInitialized) {
+        initializeAuth();
+      }
+    };
+
+    const initializeAuth = () => {
+      const accessToken = searchParams.get("access_token");
+      if (accessToken) {
+        verifyAndSetToken(accessToken)
+          .then(() => {
+            const params = new URLSearchParams(searchParams);
+            params.delete("access_token");
+            const newUrl =
+              pathname + (params.toString() ? `?${params.toString()}` : "");
+            router.replace(newUrl);
+          })
+          .catch((error) => {
+            console.error("[Auth] Error verifying token:", error);
+            setStatus("ready");
+          });
+      } else if (outseta.getAccessToken()) {
+        updateUser().catch((error) => {
+          console.error("[Auth] Error updating user:", error);
+          setStatus("ready");
+        });
+      } else {
+        setStatus("ready");
+      }
+    };
 
     // Event handlers
     const handleUserUpdate = () => {
       if (outsetaRef.current?.getAccessToken()) {
-        updateUser();
+        updateUser().catch((error) => {
+          console.error("[Auth] Error updating user from event:", error);
+        });
       }
     };
 
+    const handleAccessTokenSet = () => {
+      if (outsetaRef.current?.getAccessToken()) {
+        updateUser().catch((error) => {
+          console.error(
+            "[Auth] Error updating user from accessToken.set:",
+            error
+          );
+        });
+      }
+    };
+
+    const handleTokenExpired = () => {
+      logout();
+    };
+
+    // Listen to initialization events
+    outseta.on("auth.initialized", () => {
+      authInitialized = true;
+      checkInitialization();
+    });
+
+    outseta.on("nocode.initialized", () => {
+      nocodeInitialized = true;
+      checkInitialization();
+    });
+
+    // Listen to accessToken.set event for automatic user updates
+    outseta.on("accessToken.set", handleAccessTokenSet);
+
+    // Listen to user update events
     outseta.on("subscription.update", handleUserUpdate);
     outseta.on("profile.update", handleUserUpdate);
     outseta.on("account.update", handleUserUpdate);
-  }, [searchParams, pathname, router, updateUser, verifyAndSetToken]);
 
-  const logout = () => {
-    outsetaRef.current?.setAccessToken("");
-    setUser(null);
-    setStatus("ready");
-  };
+    // Handle token expiration
+    outseta.on("nocode.expired", handleTokenExpired);
 
-  const openLogin = (options?: any) => {
+    // If modules are already initialized, proceed immediately
+    // Check if we can access getUser without errors (indicates initialization)
+    try {
+      if (typeof outseta.getUser === "function") {
+        authInitialized = true;
+        nocodeInitialized = true;
+        checkInitialization();
+      }
+    } catch {
+      // Modules not ready yet, wait for events
+    }
+
+    return () => {
+      // Cleanup event listeners if needed
+      // Note: Outseta doesn't provide off() method, so we rely on component unmount
+    };
+  }, [searchParams, pathname, router, updateUser, verifyAndSetToken, logout]);
+
+  const openLogin = (options?: Partial<OutsetaAuthOpenOptions>) => {
     outsetaRef.current?.auth.open({
       widgetMode: "login|register",
       authenticationCallbackUrl: window.location.href,
@@ -131,7 +246,7 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const openSignup = (options?: any) => {
+  const openSignup = (options?: Partial<OutsetaAuthOpenOptions>) => {
     outsetaRef.current?.auth.open({
       widgetMode: "register",
       authenticationCallbackUrl: window.location.href,
@@ -139,7 +254,7 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     });
   };
 
-  const openProfile = (options?: any) => {
+  const openProfile = (options?: OutsetaProfileOpenOptions) => {
     outsetaRef.current?.profile.open({ tab: "profile", ...options });
   };
 

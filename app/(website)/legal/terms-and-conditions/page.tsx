@@ -12,7 +12,7 @@ export const metadata = generateMetadata({
 export default function TermsAndConditions() {
   return (
     <Section>
-      <Prose mx="auto" size="lg" mt="28">
+      <Prose mt="28" mx="auto" size="lg">
         <Markdown>
           {`
 # Terms and Conditions

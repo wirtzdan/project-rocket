@@ -7,11 +7,13 @@ export function useChatVisibility() {
   const pathname = usePathname();
 
   useEffect(() => {
-    if (typeof window === "undefined" || !window.Outseta?.chat) return;
+    if (typeof window === "undefined" || !window.Outseta?.chat) {
+      return;
+    }
 
     const shouldShowChat = isUrlMatchingPattern(
       pathname,
-      projectConfig.outsetaExtraOptions.showChatOn,
+      projectConfig.outsetaExtraOptions.showChatOn
     );
 
     if (shouldShowChat) {

@@ -14,6 +14,60 @@ export type ImageProps = Omit<ChakraImageProps, "src" | "alt"> & {
   sizes?: string;
 };
 
+const parsePixelValue = (size: string): number | null => {
+  if (size.endsWith("px")) {
+    return Number.parseInt(size, 10);
+  }
+  return null;
+};
+
+const getTokenValue = (size: string | number): string | number | null => {
+  const sizeToken = Array.from(
+    defaultSystem.tokens.categoryMap.get("sizes")?.values() ?? []
+  ).find((token) => token.name === `sizes.${size}`);
+  return sizeToken?.value ?? null;
+};
+
+const parseRemValue = (value: string): number | null => {
+  if (value.endsWith("rem")) {
+    return Number.parseFloat(value) * 16;
+  }
+  return null;
+};
+
+const parsePercentageValue = (value: string): number | null => {
+  if (value.endsWith("%")) {
+    return 100;
+  }
+  return null;
+};
+
+const parseSpecialValue = (value: string): number | null => {
+  const specialValues = [
+    "max-content",
+    "min-content",
+    "fit-content",
+    "100vh",
+    "100vw",
+    "100dvh",
+    "100svh",
+    "100lvh",
+    "100dvw",
+    "100svw",
+    "100lvw",
+  ];
+
+  if (specialValues.includes(value)) {
+    return 100;
+  }
+
+  if (value.endsWith("ch")) {
+    return Number.parseInt(value, 10) * 8;
+  }
+
+  return null;
+};
+
 export const Image = ({
   src,
   alt,
@@ -24,68 +78,54 @@ export const Image = ({
   ...props
 }: ImageProps) => {
   const getValue = (size: string | number | undefined): number => {
-    if (!size) return 100;
-
-    // Handle pixel values directly (e.g. "640px")
-    if (typeof size === "string" && size.endsWith("px")) {
-      return parseInt(size, 10);
-    }
-
-    // Get value from defaultSystem tokens - Updated comparison
-    const sizeToken = Array.from(
-      defaultSystem.tokens.categoryMap.get("sizes")?.values() ?? [],
-    ).find((token) => token.name === `sizes.${size}`);
-
-    if (!sizeToken?.value) return 100;
-
-    const value = sizeToken.value;
-
-    // Handle rem values (e.g. "0.125rem")
-    if (typeof value === "string" && value.endsWith("rem")) {
-      return parseFloat(value) * 16; // Convert rem to pixels (1rem = 16px)
-    }
-
-    // Handle percentage values
-    if (typeof value === "string" && value.endsWith("%")) {
-      // For images, we'll return a default size for percentage values
+    if (!size) {
       return 100;
     }
 
-    // Handle special values
-    if (typeof value === "string") {
-      switch (value) {
-        case "max-content":
-        case "min-content":
-        case "fit-content":
-        case "100vh":
-        case "100vw":
-        case "100dvh":
-        case "100svh":
-        case "100lvh":
-        case "100dvw":
-        case "100svw":
-        case "100lvw":
-          return 100; // Default fallback for special values
-        default:
-          if (value.endsWith("ch")) {
-            return parseInt(value, 10) * 8; // Approximate ch to pixels
-          }
+    if (typeof size === "string") {
+      const pixelValue = parsePixelValue(size);
+      if (pixelValue !== null) {
+        return pixelValue;
       }
     }
 
-    return 100; // Default fallback
+    const tokenValue = getTokenValue(size);
+    if (!tokenValue) {
+      return 100;
+    }
+
+    if (typeof tokenValue === "number") {
+      return tokenValue;
+    }
+
+    const remValue = parseRemValue(tokenValue);
+    if (remValue !== null) {
+      return remValue;
+    }
+
+    const percentageValue = parsePercentageValue(tokenValue);
+    if (percentageValue !== null) {
+      return percentageValue;
+    }
+
+    const specialValue = parseSpecialValue(tokenValue);
+    if (specialValue !== null) {
+      return specialValue;
+    }
+
+    return 100;
   };
 
   if (fill) {
     return (
       <ChakraImage
         asChild
+        height={height}
         position="relative"
         width={width}
-        height={height}
         {...props}
       >
-        <NextImage src={src} alt={alt} fill={true} sizes={sizes} />
+        <NextImage alt={alt} fill={true} sizes={sizes} src={src} />
       </ChakraImage>
     );
   }
@@ -93,10 +133,10 @@ export const Image = ({
   return (
     <ChakraImage asChild {...props}>
       <NextImage
-        src={src}
         alt={alt}
-        width={getValue(width)}
         height={getValue(height)}
+        src={src}
+        width={getValue(width)}
       />
     </ChakraImage>
   );

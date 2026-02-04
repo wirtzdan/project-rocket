@@ -41,8 +41,8 @@ export const PricingCard = (props: PricingCardProps) => {
       : data.yearlyPrice.price;
   return (
     <Card.Root
-      size="lg"
       borderColor={data.recommended ? "colorPalette.solid" : undefined}
+      size="lg"
       {...rest}
     >
       {data.recommended && (
@@ -54,30 +54,31 @@ export const PricingCard = (props: PricingCardProps) => {
         <Stack gap="5">
           <Card.Title fontWeight="normal">{data.title}</Card.Title>
           <Stack gap="1">
-            <Span textStyle="5xl" lineHeight="1" fontWeight="medium">
+            <Span fontWeight="medium" lineHeight="1" textStyle="5xl">
               {data.priceSymbol}
               {price}
             </Span>
-            <Span textStyle="sm" color="fg.muted">
+            <Span color="fg.muted" textStyle="sm">
               per month
             </Span>
           </Stack>
           <Card.Description color="fg">{data.description}</Card.Description>
           <Stack gap="2">
             <Button
-              size="xl"
-              variant={data.recommended ? "solid" : "outline"}
-              colorPalette={!data.recommended ? "gray" : undefined}
-              bg={!data.recommended ? "bg.panel" : undefined}
-              data-o-auth="1"
+              bg={data.recommended ? undefined : "bg.panel"}
+              colorPalette={data.recommended ? undefined : "gray"}
               data-mode="popup"
-              data-widget-mode="register"
-              data-plan-uid={data.uid}
+              data-o-auth="1"
               data-plan-payment-term={planPaymentTerms}
+              data-plan-uid={data.uid}
+              data-widget-mode="register"
+              size="xl"
+              suppressHydrationWarning
+              variant={data.recommended ? "solid" : "outline"}
             >
               Get Started <LuArrowRight />
             </Button>
-            <Text textStyle="xs" color="fg.muted" textAlign="center">
+            <Text color="fg.muted" textAlign="center" textStyle="xs">
               7-day free trial
             </Text>
           </Stack>
@@ -85,7 +86,7 @@ export const PricingCard = (props: PricingCardProps) => {
       </Card.Body>
       <Separator variant="dashed" />
       <Card.Body gap="6" roundedBottom="l3">
-        <List.Root variant="plain" align="center" textStyle="sm" gap="3">
+        <List.Root align="center" gap="3" textStyle="sm" variant="plain">
           <For each={data.features}>
             {(item) => (
               <List.Item alignItems="center" key={item.title}>

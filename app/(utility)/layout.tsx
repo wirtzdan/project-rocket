@@ -13,11 +13,11 @@ export default function WebsiteLayout({
     <>
       <Box
         as="header"
-        position="fixed"
-        zIndex="docked"
-        top="6"
         left="6"
+        position="fixed"
+        top="6"
         w="full"
+        zIndex="docked"
       >
         <Link href="/">
           <Button colorPalette="gray" variant="outline">

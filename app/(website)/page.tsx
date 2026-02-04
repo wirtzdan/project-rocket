@@ -32,25 +32,25 @@ export default async function Page() {
   return (
     <>
       <Section
-        header
-        size="lg"
         bg="bg.subtle"
         borderBottom="1px solid"
         borderColor="border"
+        header
+        size="lg"
       >
         <VStack gap="10">
           <Stack gap="4" textAlign="center">
             <Heading
               as="h1"
-              textStyle={{ base: "2xl", md: "5xl" }}
+              lineHeight="tighter"
               maxW={{ md: "lg" }}
               mx="auto"
-              lineHeight="tighter"
+              textStyle={{ base: "2xl", md: "5xl" }}
             >
               Publish your next project without the usual headaches
             </Heading>
 
-            <Text color="fg.muted" textStyle="lg" maxW={{ md: "lg" }} mx="auto">
+            <Text color="fg.muted" maxW={{ md: "lg" }} mx="auto" textStyle="lg">
               Project Rocket is a starter/boilerplate template with all engines
               ready to quickly build and publish your next project, whatever it
               might be.
@@ -68,27 +68,27 @@ export default async function Page() {
               </Button>
             </Link>
             <Link href="https://github.com/wirtzdan/project-rocket">
-              <Button variant="ghost" size="xl">
+              <Button size="xl" variant="ghost">
                 Github <PiArrowSquareOut />
               </Button>
             </Link>
           </Stack>
         </VStack>
       </Section>
-      <Section size="lg" bg="bg">
+      <Section bg="bg" size="lg">
         <VStack gap="12">
           <Stack gap="4" textAlign="center">
             <Heading
               as="h1"
-              textStyle={{ base: "2xl", md: "4xl" }}
+              lineHeight="tighter"
               maxW={{ md: "md" }}
               mx="auto"
-              lineHeight="tighter"
+              textStyle={{ base: "2xl", md: "4xl" }}
             >
               Minimal tooling with powerful features
             </Heading>
 
-            <Text color="fg.muted" textStyle="lg" maxW={{ md: "lg" }} mx="auto">
+            <Text color="fg.muted" maxW={{ md: "lg" }} mx="auto" textStyle="lg">
               This templates leverages Outsetas, NextJs and ChakraUIs core
               functionality to save time and focus on shipping code that
               actually matters.
