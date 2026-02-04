@@ -29,7 +29,11 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   }, []);
 
   return (
-    <html className="cc--theme light" lang="en" suppressHydrationWarning>
+    <html
+      className="cc--theme light"
+      lang={projectConfig.general.language}
+      suppressHydrationWarning
+    >
       <Head>
         <title>{projectConfig.general.name}</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />

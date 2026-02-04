@@ -1,4 +1,5 @@
 import type { CookieConsentConfig } from "vanilla-cookieconsent";
+import { generalConfig } from "./general-config";
 
 export const cookieBannerConfig: CookieConsentConfig = {
   root: "body",
@@ -42,7 +43,7 @@ export const cookieBannerConfig: CookieConsentConfig = {
     },
   },
   language: {
-    default: "en",
+    default: generalConfig.language,
     translations: {
       en: {
         consentModal: {

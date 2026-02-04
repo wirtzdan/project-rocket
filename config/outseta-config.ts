@@ -1,3 +1,5 @@
+import { generalConfig } from "./general-config";
+
 /**
  * Outseta Configuration
  *
@@ -32,7 +34,7 @@ export const outsetaConfig = {
    * Optional: Language for Outseta widgets.
    * Set to 'auto' to honor Accept-Language header, or specific language code (e.g., 'en')
    */
-  translationLang: "en",
+  translationLang: generalConfig.language,
   auth: {
     /**
      * Optional: URL to redirect after successful registration.
