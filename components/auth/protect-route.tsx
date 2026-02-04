@@ -51,13 +51,6 @@ export default function ProtectedRoute({
 }: ProtectedRouteProps): React.ReactElement {
   const { user, isLoading } = useAuth();
 
-  console.log("ProtectedRoute:", {
-    isLoading,
-    hasUser: !!user,
-    userPlan: user?.Account?.CurrentSubscription?.Plan?.Uid,
-    plansWithAccess,
-  });
-
   const requiredPlans = (() => {
     if (!plansWithAccess) {
       return [];
@@ -78,15 +71,10 @@ export default function ProtectedRoute({
       })
       .filter((p): p is Plan => p !== null);
 
-    console.log(
-      "Required Plans:",
-      plans.map((p) => ({ uid: p.uid, label: p.label }))
-    );
     return plans;
   })();
 
   if (isLoading) {
-    console.log("ProtectedRoute: Loading state");
     return (
       <Box h="100vh" position="relative" w="100vw">
         <AbsoluteCenter>
@@ -107,7 +95,6 @@ export default function ProtectedRoute({
   }
 
   if (!user) {
-    console.log("ProtectedRoute: No user - showing login screen");
     return (
       <Box h="100vh" position="relative" w="100vw">
         <AbsoluteCenter>
@@ -146,19 +133,12 @@ export default function ProtectedRoute({
   }
 
   if (!plansWithAccess) {
-    console.log("ProtectedRoute: No plans required - allowing access");
     return children as React.ReactElement;
   }
 
   const allowAccess = userHasAccessToPlans(requiredPlans, user);
-  console.log("ProtectedRoute: Plan check result:", {
-    allowAccess,
-    userPlan: user.Account?.CurrentSubscription?.Plan?.Uid,
-    requiredPlans: requiredPlans.map((p) => p.uid),
-  });
 
   if (!allowAccess) {
-    console.log("ProtectedRoute: Access denied - showing upgrade screen");
     return (
       <Box h="100vh" position="relative" w="100vw">
         <AbsoluteCenter>
@@ -188,6 +168,5 @@ export default function ProtectedRoute({
     );
   }
 
-  console.log("ProtectedRoute: Access granted");
   return children as React.ReactElement;
 }

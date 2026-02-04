@@ -20,12 +20,11 @@ const Copyright = (props: TextProps) => {
   );
 };
 
-// TODO: Map only which are available
 const socialLinks = [
   { href: projectConfig.links.twitter, icon: <SiX /> },
   { href: projectConfig.links.github, icon: <SiGithub /> },
   { href: projectConfig.links.linkedin, icon: <SiLinkedin /> },
-];
+].filter((link) => link.href);
 
 export const Footer = () => (
   <Container as="footer" py={{ base: "10", md: "12" }}>

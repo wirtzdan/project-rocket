@@ -12,7 +12,6 @@ import Script from "next/script";
 import { useEffect } from "react";
 import { run as runCookieConsent } from "vanilla-cookieconsent";
 
-// TODO: How could fonts be set in a better way? Best case it would be from the projectConfig.
 const inter = Inter({
   subsets: ["latin"],
   display: "swap",
@@ -32,7 +31,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <html className="cc--theme light" lang="en" suppressHydrationWarning>
       <Head>
-        <title>Project Starter</title>
+        <title>{projectConfig.general.name}</title>
         <meta content="width=device-width, initial-scale=1" name="viewport" />
         <noscript>
           <meta content="0; url=/javascript" httpEquiv="refresh" />
