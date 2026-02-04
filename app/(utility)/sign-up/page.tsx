@@ -1,11 +1,11 @@
 import { AbsoluteCenter, Box, Container } from "@chakra-ui/react";
 import { SignUp } from "@/components/auth/embed";
+import { projectConfig } from "@/config";
 import { generateMetadata } from "@/utils/metadata";
 
 export const metadata = generateMetadata({
-  title: "Login",
-  // TODO: Add product name variable
-  description: "Login to Greety",
+  title: "Sign up",
+  description: `Sign up to ${projectConfig.general.name}`,
 });
 
 export default function SignUpPage() {
