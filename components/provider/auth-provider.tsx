@@ -18,17 +18,33 @@ import type {
   OutsetaSDK,
   OutsetaUser,
 } from "@/types/outseta";
+import { isAdminUser } from "@/utils/outseta-utils";
 
 interface AuthContextType {
   user: OutsetaUser | null;
+  isAuthenticated: boolean;
+  isAdmin: boolean;
   isLoading: boolean;
+  getAccessToken: () => string | null;
   logout: () => void;
   openLogin: (options?: Partial<OutsetaAuthOpenOptions>) => void;
   openSignup: (options?: Partial<OutsetaAuthOpenOptions>) => void;
   openProfile: (options?: OutsetaProfileOpenOptions) => void;
 }
 
-const AuthContext = createContext<AuthContextType>({} as AuthContextType);
+const defaultContext: AuthContextType = {
+  user: null,
+  isAuthenticated: false,
+  isAdmin: false,
+  isLoading: true,
+  getAccessToken: () => null,
+  logout: () => undefined,
+  openLogin: () => undefined,
+  openSignup: () => undefined,
+  openProfile: () => undefined,
+};
+
+const AuthContext = createContext<AuthContextType>(defaultContext);
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -257,11 +273,21 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     outsetaRef.current?.profile.open({ tab: "profile", ...options });
   };
 
+  const getAccessToken = useCallback(() => {
+    return outsetaRef.current?.getAccessToken() ?? null;
+  }, []);
+
+  const isAuthenticated = !!user;
+  const isAdmin = isAdminUser(user?.Uid ?? null);
+
   return (
     <AuthContext.Provider
       value={{
         user,
+        isAuthenticated,
+        isAdmin,
         isLoading: status !== "ready",
+        getAccessToken,
         logout,
         openLogin,
         openSignup,
