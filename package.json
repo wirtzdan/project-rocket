@@ -25,6 +25,7 @@
     "jwt-decode": "^4.0.0",
     "next": "^16.1.6",
     "next-themes": "^0.4.4",
+    "posthog-js": "^1.341.0",
     "react": "19.0.0",
     "react-canvas-confetti": "^2.0.7",
     "react-dom": "19.0.0",

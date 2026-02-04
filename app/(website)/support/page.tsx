@@ -1,4 +1,5 @@
 import { Card, Heading, Text, VStack } from "@chakra-ui/react";
+import { PageViewTracker } from "@/components/analytics/page-view-tracker";
 import { Support } from "@/components/auth/embed";
 import { Section } from "@/components/layout/section";
 import "@/styles/contact-page-styles.css";
@@ -6,6 +7,10 @@ import "@/styles/contact-page-styles.css";
 export default function SupportPage() {
   return (
     <>
+      <PageViewTracker
+        eventName="support_form_viewed"
+        properties={{ source: "support_page" }}
+      />
       <Section
         bg="bg.muted"
         borderBottomColor="border"

@@ -13,6 +13,7 @@ import {
   Portal,
   useCollapsibleContext,
 } from "@chakra-ui/react";
+import posthog from "posthog-js";
 import { PiList, PiX } from "react-icons/pi";
 import { Link } from "@/components/ui/link";
 import { Login, SignUp } from "../auth/embed";
@@ -37,9 +38,24 @@ export const MenuLink = (props) => {
 
 // TODO: Improve nav links
 export const NavbarLinkMenu = () => {
+  const handleDocsClick = () => {
+    posthog.capture("docs_link_clicked", {
+      source: "navbar",
+    });
+  };
+
   return (
     <>
-      <MenuLink href="/docs">Docs</MenuLink>
+      <Link href="/docs" onClick={handleDocsClick} w="full">
+        <Button
+          colorPalette="gray"
+          justifyContent={{ base: "flex-start", md: "center" }}
+          variant={{ base: "ghost", md: "plain" }}
+          width={{ base: "full", md: "auto" }}
+        >
+          Docs
+        </Button>
+      </Link>
       <Menu.Root>
         <Menu.Trigger asChild>
           <Button
@@ -120,16 +136,35 @@ export const NavbarLinkMenu = () => {
 };
 
 export const NavbarActionMenu = ({ type }: { type: "website" | "app" }) => {
+  const handleLoginClick = () => {
+    posthog.capture("login_popup_opened", {
+      source: "navbar",
+    });
+  };
+
+  const handleSignupClick = () => {
+    posthog.capture("signup_popup_opened", {
+      source: "navbar",
+    });
+  };
+
   return (
     <>
       <SignedOut>
         <Login popup>
-          <Button colorPalette="gray" size="sm" variant="outline">
+          <Button
+            colorPalette="gray"
+            onClick={handleLoginClick}
+            size="sm"
+            variant="outline"
+          >
             Login
           </Button>
         </Login>
         <SignUp popup>
-          <Button size="sm">Sign up</Button>
+          <Button onClick={handleSignupClick} size="sm">
+            Sign up
+          </Button>
         </SignUp>
       </SignedOut>
       <SignedIn>

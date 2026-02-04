@@ -1,5 +1,4 @@
 import {
-  Button,
   Card,
   Heading,
   Icon,
@@ -9,8 +8,6 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import {
-  PiArrowRight,
-  PiArrowSquareOut,
   PiCreditCard,
   PiCube,
   PiEnvelopeSimple,
@@ -19,7 +16,7 @@ import {
   PiUserCircle,
 } from "react-icons/pi";
 import { Section } from "@/components/layout/section";
-import { Link } from "@/components/ui/link";
+import { HomepageCTA } from "@/components/ui/homepage-cta";
 import { generateMetadata } from "@/utils/metadata";
 
 export const metadata = generateMetadata({
@@ -57,23 +54,7 @@ export default async function Page() {
             </Text>
           </Stack>
 
-          <Stack
-            align="center"
-            direction={{ base: "column", md: "row" }}
-            gap="3"
-          >
-            <Button asChild size="xl">
-              <Link href="/docs">
-                Get started <PiArrowRight />
-              </Link>
-            </Button>
-
-            <Link href="https://github.com/wirtzdan/project-rocket">
-              <Button size="xl" variant="ghost">
-                Github <PiArrowSquareOut />
-              </Button>
-            </Link>
-          </Stack>
+          <HomepageCTA />
         </VStack>
       </Section>
       <Section bg="bg" size="lg">

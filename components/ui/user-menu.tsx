@@ -9,6 +9,7 @@ import {
   Text,
   VStack,
 } from "@chakra-ui/react";
+import posthog from "posthog-js";
 import { PiQuestion, PiSignOut, PiStar, PiUser } from "react-icons/pi";
 import { LogOut, Profile, Support } from "../auth/embed";
 import { SignedIn } from "../auth/protect-content";
@@ -28,6 +29,13 @@ function getInitials(name: string | undefined): string {
 
 export const UserMenu = () => {
   const { user } = useAuth();
+
+  const handleMenuAction = (action: string) => {
+    posthog.capture("user_menu_action", {
+      action,
+      source: "user_menu",
+    });
+  };
 
   return (
     <Menu.Root positioning={{ placement: "bottom" }}>
@@ -68,20 +76,26 @@ export const UserMenu = () => {
             <Menu.Separator />
 
             <Profile popup>
-              <Menu.Item value="account">
+              <Menu.Item
+                onClick={() => handleMenuAction("account")}
+                value="account"
+              >
                 <PiUser />
                 Account
               </Menu.Item>
             </Profile>
             <Support popup>
-              <Menu.Item value="help">
+              <Menu.Item onClick={() => handleMenuAction("help")} value="help">
                 <PiQuestion />
                 Help & Support
               </Menu.Item>
             </Support>
             <Menu.Separator />
             <LogOut>
-              <Menu.Item value="logout">
+              <Menu.Item
+                onClick={() => handleMenuAction("logout")}
+                value="logout"
+              >
                 <PiSignOut />
                 Logout
               </Menu.Item>

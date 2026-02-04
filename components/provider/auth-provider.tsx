@@ -2,6 +2,7 @@
 
 import { importX509, jwtVerify } from "jose";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import posthog from "posthog-js";
 import {
   createContext,
   Suspense,
@@ -14,6 +15,7 @@ import {
 import { projectConfig } from "@/config";
 import type {
   OutsetaAuthOpenOptions,
+  OutsetaBillingRenewalTerm,
   OutsetaProfileOpenOptions,
   OutsetaSDK,
   OutsetaUser,
@@ -86,6 +88,10 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
   const initializingRef = useRef(false);
 
   const logout = useCallback(() => {
+    // Capture logout event before resetting PostHog
+    posthog.capture("user_logged_out");
+    posthog.reset();
+
     outsetaRef.current?.setAccessToken("");
     setUser(null);
     setStatus("ready");
@@ -99,9 +105,19 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
       const outsetaUser = await outsetaRef.current.getUser();
       setUser(outsetaUser);
       setStatus("ready");
+
+      // Identify user in PostHog when user data is updated
+      if (outsetaUser?.Uid) {
+        posthog.identify(outsetaUser.Uid, {
+          email: outsetaUser.Email,
+          name: outsetaUser.FullName,
+        });
+      }
+
       return outsetaUser;
     } catch (error) {
       console.error("[Auth] Error updating user:", error);
+      posthog.captureException(error);
       setStatus("error");
       throw error;
     }
