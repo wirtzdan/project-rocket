@@ -30,6 +30,7 @@ interface AuthContextType {
   openLogin: (options?: Partial<OutsetaAuthOpenOptions>) => void;
   openSignup: (options?: Partial<OutsetaAuthOpenOptions>) => void;
   openProfile: (options?: OutsetaProfileOpenOptions) => void;
+  openPlanUpgrade: (planUid: string) => void;
 }
 
 const defaultContext: AuthContextType = {
@@ -42,6 +43,7 @@ const defaultContext: AuthContextType = {
   openLogin: () => undefined,
   openSignup: () => undefined,
   openProfile: () => undefined,
+  openPlanUpgrade: () => undefined,
 };
 
 const AuthContext = createContext<AuthContextType>(defaultContext);
@@ -273,6 +275,13 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     outsetaRef.current?.profile.open({ tab: "profile", ...options });
   };
 
+  const openPlanUpgrade = (planUid: string) => {
+    outsetaRef.current?.profile.open({
+      tab: "planChange",
+      planUid,
+    });
+  };
+
   const getAccessToken = useCallback(() => {
     return outsetaRef.current?.getAccessToken() ?? null;
   }, []);
@@ -292,6 +301,7 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
         openLogin,
         openSignup,
         openProfile,
+        openPlanUpgrade,
       }}
     >
       {children}
