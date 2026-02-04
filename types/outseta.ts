@@ -97,8 +97,23 @@ export type OutsetaAuthOpenOptions = {
   authenticationCallbackUrl: string;
 } & Record<string, unknown>;
 
+export type OutsetaBillingRenewalTerm = "Month" | "Year" | "OneTime";
+
 export type OutsetaProfileOpenOptions = {
-  tab?: "profile" | "subscriptions" | "billing" | "password" | string;
+  tab?:
+    | "profile"
+    | "subscriptions"
+    | "billing"
+    | "password"
+    | "planChange"
+    | "purchaseAddOn"
+    | string;
+  /** Plan UID for planChange tab */
+  planUid?: string;
+  /** Add-on UID for purchaseAddOn tab */
+  purchaseAddOnUid?: string;
+  /** Billing renewal term for add-on purchase (default: "Month") */
+  purchaseAddOnBillingRenewalTerm?: OutsetaBillingRenewalTerm;
 } & Record<string, unknown>;
 
 export interface OutsetaSDK {

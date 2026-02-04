@@ -31,6 +31,10 @@ interface AuthContextType {
   openSignup: (options?: Partial<OutsetaAuthOpenOptions>) => void;
   openProfile: (options?: OutsetaProfileOpenOptions) => void;
   openPlanUpgrade: (planUid: string) => void;
+  openPurchaseAddOn: (
+    addOnUid: string,
+    billingRenewalTerm?: OutsetaBillingRenewalTerm
+  ) => void;
 }
 
 const defaultContext: AuthContextType = {
@@ -44,6 +48,7 @@ const defaultContext: AuthContextType = {
   openSignup: () => undefined,
   openProfile: () => undefined,
   openPlanUpgrade: () => undefined,
+  openPurchaseAddOn: () => undefined,
 };
 
 const AuthContext = createContext<AuthContextType>(defaultContext);
@@ -282,6 +287,17 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     });
   };
 
+  const openPurchaseAddOn = (
+    addOnUid: string,
+    billingRenewalTerm: OutsetaBillingRenewalTerm = "Month"
+  ) => {
+    outsetaRef.current?.profile.open({
+      tab: "purchaseAddOn",
+      purchaseAddOnUid: addOnUid,
+      purchaseAddOnBillingRenewalTerm: billingRenewalTerm,
+    });
+  };
+
   const getAccessToken = useCallback(() => {
     return outsetaRef.current?.getAccessToken() ?? null;
   }, []);
@@ -302,6 +318,7 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
         openSignup,
         openProfile,
         openPlanUpgrade,
+        openPurchaseAddOn,
       }}
     >
       {children}

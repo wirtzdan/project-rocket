@@ -85,3 +85,50 @@ export function Show({ children, condition, fallback }: ShowProps) {
   }
   return <>{children}</>;
 }
+
+interface HasAddOnProps {
+  children: React.ReactNode;
+  /** Comma-separated add-on UIDs or array of UIDs. User must have at least one. */
+  addOnUids: string | string[];
+  /** Content to show when user doesn't have access */
+  fallback?: React.ReactNode;
+}
+
+/**
+ * Renders children only if the authenticated user has at least one of the specified add-ons.
+ * Admins bypass add-on checks and always see the content.
+ *
+ * @example
+ * <HasAddOn addOnUids="addon-uid-1">
+ *   <PremiumContent />
+ * </HasAddOn>
+ *
+ * @example
+ * <HasAddOn addOnUids={["addon-uid-1", "addon-uid-2"]} fallback={<UpgradePrompt />}>
+ *   <PremiumContent />
+ * </HasAddOn>
+ */
+export function HasAddOn({ children, addOnUids, fallback }: HasAddOnProps) {
+  const { user, isAdmin } = useAuth();
+
+  // Admins bypass add-on checks
+  if (isAdmin) {
+    return <>{children}</>;
+  }
+
+  // Not authenticated
+  if (!user?.Account) {
+    return fallback ?? null;
+  }
+
+  // Check add-on access
+  const normalizedAddOnUids = Array.isArray(addOnUids)
+    ? addOnUids
+    : addOnUids.split(",").map((uid) => uid.trim());
+
+  if (!userHasAddOnAccess(user, normalizedAddOnUids)) {
+    return fallback ?? null;
+  }
+
+  return <>{children}</>;
+}
