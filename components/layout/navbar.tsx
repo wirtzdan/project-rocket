@@ -16,10 +16,10 @@ import {
 import posthog from "posthog-js";
 import { PiList, PiX } from "react-icons/pi";
 import { Link } from "@/components/ui/link";
+import { Logo } from "@/config/theme-config";
 import { Login, SignUp } from "../auth/embed";
 import { SignedIn, SignedOut } from "../auth/protect-content";
 import { UserMenu } from "../ui/user-menu";
-import { Logo } from "./logo";
 
 export const MenuLink = (props) => {
   return (

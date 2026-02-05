@@ -8,8 +8,8 @@ import {
 } from "@chakra-ui/react";
 import { SiGithub, SiLinkedin, SiX } from "react-icons/si";
 import { projectConfig } from "@/config";
+import { Logo } from "@/config/theme-config";
 import { Link } from "../ui/link";
-import { Logo } from "./logo";
 
 const Copyright = (props: TextProps) => {
   return (
