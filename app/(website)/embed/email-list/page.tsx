@@ -31,12 +31,12 @@ export default function EmailListEmbedPage() {
       <Section>
         <VStack gap={8}>
           <Heading size="3xl">Popup</Heading>
-          <EmailList popup uid="OW4k4p9g">
+          <EmailList popup uid="vW5aEJW4">
             <Button size="lg">Open Email List Popup</Button>
           </EmailList>
           <Heading size="3xl">On Page</Heading>
           <Box bg="bg.muted" borderRadius="lg" borderWidth="1px" p={6} w="full">
-            <EmailList uid="OW4k4p9g" />
+            <EmailList uid="vW5aEJW4" />
           </Box>
         </VStack>
       </Section>

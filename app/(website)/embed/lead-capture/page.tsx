@@ -31,13 +31,13 @@ export default function LeadCaptureEmbedPage() {
       <Section>
         <VStack gap={8}>
           <Heading size="3xl">Popup</Heading>
-          <LeadCapture popup uid="BWzy5a9E">
+          <LeadCapture popup uid="vW5AZXW4">
             <Button size="lg">Open Lead Capture Popup</Button>
           </LeadCapture>
           <Heading size="3xl">On page</Heading>
 
           <Box bg="bg.muted" borderRadius="lg" borderWidth="1px" p={6} w="full">
-            <LeadCapture uid="BWzy5a9E" />
+            <LeadCapture uid="vW5AZXW4" />
           </Box>
         </VStack>
       </Section>
