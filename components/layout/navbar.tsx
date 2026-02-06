@@ -36,7 +36,6 @@ export const MenuLink = (props) => {
   );
 };
 
-// TODO: Improve nav links
 export const NavbarLinkMenu = () => {
   const handleDocsClick = () => {
     posthog.capture("docs_link_clicked", {

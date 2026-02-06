@@ -98,7 +98,7 @@ export default function ProtectedRoute({
 
   if (!allowAccess) {
     return (
-      <Box h="100vh" position="relative" w="100vw">
+      <Box bg="bg.subtle" h="100vh" position="relative" w="100vw">
         <AbsoluteCenter>
           <VStack>
             <EmptyState.Root paddingBlock={0} paddingInline={0} width="full">

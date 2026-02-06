@@ -1,5 +1,6 @@
 import { AbsoluteCenter, Box, Container } from "@chakra-ui/react";
 import { Login } from "@/components/auth/embed";
+import { RedirectIfAuthenticated } from "@/components/auth/redirect-if-authenticated";
 import { projectConfig } from "@/config";
 import { generateMetadata } from "@/utils/metadata";
 
@@ -8,14 +9,16 @@ export const metadata = generateMetadata({
   description: `Login to ${projectConfig.general.name}`,
 });
 
-export default function SignUpPage() {
+export default function LoginPage() {
   return (
-    <Box bg="bg.muted" h="100vh" p="relative" w="100vw">
-      <AbsoluteCenter maxW="lg" w="full">
-        <Container w="full">
-          <Login />
-        </Container>
-      </AbsoluteCenter>
-    </Box>
+    <RedirectIfAuthenticated>
+      <Box bg="bg.muted" h="100vh" p="relative" w="100vw">
+        <AbsoluteCenter maxW="lg" w="full">
+          <Container w="full">
+            <Login />
+          </Container>
+        </AbsoluteCenter>
+      </Box>
+    </RedirectIfAuthenticated>
   );
 }

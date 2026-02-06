@@ -20,7 +20,7 @@ export default function WebsiteLayout({
         zIndex="docked"
       >
         <Link href="/">
-          <Button colorPalette="gray" variant="outline">
+          <Button bg="bg" colorPalette="gray" variant="outline">
             <PiArrowLeft />
             Back home
           </Button>

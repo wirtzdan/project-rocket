@@ -21,7 +21,7 @@ export default function ThankYouPage() {
   return (
     <>
       <Confetti type="fireworks" />
-      <Box h="100vh" p="relative" w="100vw">
+      <Box bg="bg.muted" h="100vh" p="relative" w="100vw">
         <AbsoluteCenter>
           <VStack>
             <EmptyState.Root paddingBlock={0} paddingInline={0} width="full">
