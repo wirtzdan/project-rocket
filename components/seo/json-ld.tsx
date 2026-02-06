@@ -1,9 +1,14 @@
 import { projectConfig } from "@/config";
 
 export function OrganizationJsonLd() {
-  const { general, links } = projectConfig;
+  const { general, links, outsetaOptions } = projectConfig;
 
-  const sameAs = [links.twitter, links.github, links.linkedin].filter(Boolean);
+  const sameAs = [
+    links.twitter,
+    links.github,
+    links.linkedin,
+    outsetaOptions.knowledgeBaseUrl,
+  ].filter(Boolean);
 
   const jsonLd = {
     "@context": "https://schema.org",

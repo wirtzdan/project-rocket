@@ -84,7 +84,12 @@ export const Link = ({
     <ChakraLink
       asChild
       {...props}
-      _focusVisible={{ outline: "2px solid", outlineColor: "colorPalette.solid", outlineOffset: "2px", borderRadius: "l1" }}
+      _focusVisible={{
+        outline: "2px solid",
+        outlineColor: "colorPalette.solid",
+        outlineOffset: "2px",
+        borderRadius: "l1",
+      }}
       _hover={{ textDecoration: "none" }}
       textDecoration="none"
     >

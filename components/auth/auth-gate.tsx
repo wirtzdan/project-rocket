@@ -32,7 +32,12 @@ export function AuthGate({ children }: AuthGateProps) {
               css={{ "--spinner-track-color": "colors.neutral.200" }}
               size="xl"
             />
-            <Text aria-live="polite" color="fg.subtle" role="status" textStyle="lg">
+            <Text
+              aria-live="polite"
+              color="fg.subtle"
+              role="status"
+              textStyle="lg"
+            >
               Loading\u2026
             </Text>
           </VStack>

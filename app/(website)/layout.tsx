@@ -10,8 +10,8 @@ export default function WebsiteLayout({
   return (
     <>
       <a
-        href="#main-content"
         className="skip-to-content"
+        href="#main-content"
         style={{
           position: "absolute",
           width: "1px",

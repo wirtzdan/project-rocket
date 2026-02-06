@@ -1,9 +1,10 @@
 import { promises as fs } from "node:fs";
 import { join } from "node:path";
-import { Heading, VStack } from "@chakra-ui/react";
+import { Heading, Text, VStack } from "@chakra-ui/react";
 import Markdown from "react-markdown";
 import { Section } from "@/components/layout/section";
 import { Prose } from "@/components/ui/prose";
+import { projectConfig } from "@/config";
 import { generateMetadata } from "@/utils/metadata";
 
 export const metadata = generateMetadata({
@@ -40,6 +41,15 @@ export default async function DocsPage() {
       </Section>
       <Section size="md">
         <Prose mx="auto" size="lg">
+          <VStack align="flex-start" gap="4" mb="8">
+            <Text color="fg.muted">
+              Looking for product help or troubleshooting guides? Visit the{" "}
+              <a href={projectConfig.outsetaOptions.knowledgeBaseUrl}>
+                Project Rocket knowledge base
+              </a>{" "}
+              for support articles and FAQs.
+            </Text>
+          </VStack>
           <Markdown>{readmeContent}</Markdown>
         </Prose>
       </Section>

@@ -37,7 +37,7 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <head>
-        <link rel="preconnect" href="https://cdn.outseta.com" />
+        <link href="https://cdn.outseta.com" rel="preconnect" />
       </head>
       <body className={inter.className}>
         <OrganizationJsonLd />

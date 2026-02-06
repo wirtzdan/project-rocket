@@ -6,8 +6,8 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <a
-        href="#main-content"
         className="skip-to-content"
+        href="#main-content"
         style={{
           position: "absolute",
           width: "1px",
