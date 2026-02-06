@@ -20,7 +20,6 @@ export const outsetaConfig = {
     rememberLastEmail: true,
   },
   nocode: {
-    clearQuerystring: true,
     hideBody: false,
     hideProtectedLinks: false,
     removeProtectedElements: false,

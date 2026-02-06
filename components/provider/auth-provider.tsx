@@ -1,7 +1,7 @@
 "use client";
 
 import { createRemoteJWKSet, jwtVerify } from "jose";
-import { useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
 import {
   createContext,
@@ -9,6 +9,7 @@ import {
   useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from "react";
@@ -85,6 +86,8 @@ export default function AuthProvider({
 
 function AuthProviderContent({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
   const [status, setStatus] = useState("init");
   const [user, setUser] = useState<OutsetaUser | null>(null);
   const outsetaRef = useRef<OutsetaSDK | null>(null);
@@ -171,6 +174,14 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     const initializeAuth = () => {
       const accessToken = searchParams.get("access_token");
       if (accessToken) {
+        // Clean up the access token from the URL to avoid exposing it in the address bar
+        const cleanParams = new URLSearchParams(searchParams.toString());
+        cleanParams.delete("access_token");
+        const cleanUrl = cleanParams.toString()
+          ? `${pathname}?${cleanParams.toString()}`
+          : pathname;
+        router.replace(cleanUrl, { scroll: false });
+
         verifyAndSetToken(accessToken).catch((error) => {
           console.error("[Auth] Error verifying token:", error);
           setStatus("ready");
@@ -297,7 +308,7 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     } catch {
       // Modules not ready yet, wait for events
     }
-  }, [searchParams, updateUser, verifyAndSetToken, logout]);
+  }, [searchParams, router, pathname, updateUser, verifyAndSetToken, logout]);
 
   useEffect(() => {
     // Try to initialize immediately if Outseta is available
@@ -324,62 +335,74 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     };
   }, [initializeOutseta]);
 
-  const openLogin = (options?: Partial<OutsetaAuthOpenOptions>) => {
-    outsetaRef.current?.auth.open({
-      widgetMode: "login|register",
-      authenticationCallbackUrl: window.location.href,
-      ...options,
-    });
-  };
+  const openLogin = useCallback(
+    (options?: Partial<OutsetaAuthOpenOptions>) => {
+      outsetaRef.current?.auth.open({
+        widgetMode: "login|register",
+        authenticationCallbackUrl: window.location.href,
+        ...options,
+      });
+    },
+    []
+  );
 
-  const openSignup = (options?: Partial<OutsetaAuthOpenOptions>) => {
-    outsetaRef.current?.auth.open({
-      widgetMode: "register",
-      authenticationCallbackUrl: window.location.href,
-      ...options,
-    });
-  };
+  const openSignup = useCallback(
+    (options?: Partial<OutsetaAuthOpenOptions>) => {
+      outsetaRef.current?.auth.open({
+        widgetMode: "register",
+        authenticationCallbackUrl: window.location.href,
+        ...options,
+      });
+    },
+    []
+  );
 
-  const openProfile = (options?: OutsetaProfileOpenOptions) => {
-    outsetaRef.current?.profile.open({ tab: "profile", ...options });
-  };
+  const openProfile = useCallback(
+    (options?: OutsetaProfileOpenOptions) => {
+      outsetaRef.current?.profile.open({ tab: "profile", ...options });
+    },
+    []
+  );
 
-  const openPlanUpgrade = (planUid: string) => {
+  const openPlanUpgrade = useCallback((planUid: string) => {
     outsetaRef.current?.profile.open({
       tab: "planChange",
       planUid,
     });
-  };
+  }, []);
 
-  const openPurchaseAddOn = (
-    addOnUid: string,
-    billingRenewalTerm?: number | OutsetaBillingRenewalTerm
-  ) => {
-    const stateProps: {
-      addOnUid: string;
-      billingRenewalTerm?: number;
-    } = {
-      addOnUid,
-    };
+  const openPurchaseAddOn = useCallback(
+    (
+      addOnUid: string,
+      billingRenewalTerm?: number | OutsetaBillingRenewalTerm
+    ) => {
+      const stateProps: {
+        addOnUid: string;
+        billingRenewalTerm?: number;
+      } = {
+        addOnUid,
+      };
 
-    // If billingRenewalTerm is a number, use it directly
-    // Otherwise, convert string terms to numbers (Month=1, Year=12, OneTime=4)
-    if (typeof billingRenewalTerm === "number") {
-      stateProps.billingRenewalTerm = billingRenewalTerm;
-    } else if (billingRenewalTerm === "Year") {
-      stateProps.billingRenewalTerm = 12;
-    } else if (billingRenewalTerm === "OneTime") {
-      stateProps.billingRenewalTerm = 4;
-    } else if (billingRenewalTerm === "Month") {
-      stateProps.billingRenewalTerm = 1;
-    }
+      // If billingRenewalTerm is a number, use it directly
+      // Otherwise, convert string terms to numbers (Month=1, Year=12, OneTime=4)
+      if (typeof billingRenewalTerm === "number") {
+        stateProps.billingRenewalTerm = billingRenewalTerm;
+      } else if (billingRenewalTerm === "Year") {
+        stateProps.billingRenewalTerm = 12;
+      } else if (billingRenewalTerm === "OneTime") {
+        stateProps.billingRenewalTerm = 4;
+      } else if (billingRenewalTerm === "Month") {
+        stateProps.billingRenewalTerm = 1;
+      }
 
-    outsetaRef.current?.profile.open({
-      mode: "popup",
-      tab: "purchaseAddOn",
-      stateProps,
-    });
-  };
+      outsetaRef.current?.profile.open({
+        mode: "popup",
+        tab: "purchaseAddOn",
+        stateProps,
+      });
+    },
+    []
+  );
 
   const getAccessToken = useCallback(() => {
     return outsetaRef.current?.getAccessToken() ?? null;
@@ -388,23 +411,36 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
   const isAuthenticated = !!user;
   const isAdmin = isAdminUser(user?.Uid ?? null);
 
+  const contextValue = useMemo(
+    () => ({
+      user,
+      isAuthenticated,
+      isAdmin,
+      isLoading: status !== "ready",
+      getAccessToken,
+      logout,
+      openLogin,
+      openSignup,
+      openProfile,
+      openPlanUpgrade,
+      openPurchaseAddOn,
+    }),
+    [
+      user,
+      isAuthenticated,
+      isAdmin,
+      status,
+      getAccessToken,
+      logout,
+      openLogin,
+      openSignup,
+      openProfile,
+      openPlanUpgrade,
+      openPurchaseAddOn,
+    ]
+  );
+
   return (
-    <AuthContext.Provider
-      value={{
-        user,
-        isAuthenticated,
-        isAdmin,
-        isLoading: status !== "ready",
-        getAccessToken,
-        logout,
-        openLogin,
-        openSignup,
-        openProfile,
-        openPlanUpgrade,
-        openPurchaseAddOn,
-      }}
-    >
-      {children}
-    </AuthContext.Provider>
+    <AuthContext.Provider value={contextValue}>{children}</AuthContext.Provider>
   );
 }
