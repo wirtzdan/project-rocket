@@ -63,4 +63,4 @@ export const themeConfig = {
   radius: "md",
   logoMark: Logo,
   logo: LogoMark,
-};
+} as const;

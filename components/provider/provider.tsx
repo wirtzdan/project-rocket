@@ -7,11 +7,13 @@ import { system } from "@/theme/theme";
 import { ColorModeProvider } from "./color-mode-provider";
 
 export default function Provider(props: { children: React.ReactNode }) {
+  const colorMode: string = projectConfig.theme.colorMode;
+
   return (
     <ChakraProvider value={system}>
       <ColorModeProvider
-        {...(projectConfig.theme.colorMode !== "auto" && {
-          forcedTheme: projectConfig.theme.colorMode,
+        {...(colorMode !== "auto" && {
+          forcedTheme: colorMode,
         })}
       >
         <AuthProvider>

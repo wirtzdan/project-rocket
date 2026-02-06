@@ -14,6 +14,7 @@ import {
   useCollapsibleContext,
 } from "@chakra-ui/react";
 import posthog from "posthog-js";
+import type { ReactNode } from "react";
 import { PiList, PiX } from "react-icons/pi";
 import { Link } from "@/components/ui/link";
 import { Logo } from "@/config/theme-config";
@@ -21,16 +22,21 @@ import { Login, SignUp } from "../auth/embed";
 import { SignedIn, SignedOut } from "../auth/protect-content";
 import { UserMenu } from "../ui/user-menu";
 
-export const MenuLink = (props) => {
+interface MenuLinkProps {
+  href: string;
+  children: ReactNode;
+}
+
+export const MenuLink = ({ href, children }: MenuLinkProps) => {
   return (
-    <Link href={props.href} w="full">
+    <Link href={href} w="full">
       <Button
         colorPalette="gray"
         justifyContent={{ base: "flex-start", md: "center" }}
         variant={{ base: "ghost", md: "plain" }}
         width={{ base: "full", md: "auto" }}
       >
-        {props.children}
+        {children}
       </Button>
     </Link>
   );
@@ -190,8 +196,7 @@ const CollapsibleTriggerButton = () => {
   );
 };
 
-export const Navbar = ({ type }: { type: "website" | "app" }) => {
-  console.log(type);
+export const Navbar = ({ type: _type }: { type: "website" | "app" }) => {
   return (
     <Center
       as="header"
