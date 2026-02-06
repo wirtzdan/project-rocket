@@ -97,6 +97,64 @@ export const Support = ({ children, popup, ...props }: AuthProps) => {
   );
 };
 
+/**
+ * Tracks account-level activity in the Outseta CRM timeline.
+ * Activities appear on both the account record and the CRM > Engagement dashboard.
+ *
+ * @example
+ * <AccountActivity name="Viewed Dashboard">
+ *   <Button>Dashboard</Button>
+ * </AccountActivity>
+ *
+ * @example
+ * // Or use the data attribute directly on any element:
+ * <Button data-o-account-activity="Clicked Export">Export</Button>
+ */
+export const AccountActivity = ({
+  children,
+  name,
+  ...props
+}: AuthProps & { name: string }) => {
+  return (
+    <Box
+      {...(children ? { asChild: true } : {})}
+      data-o-account-activity={name}
+      {...props}
+    >
+      {children}
+    </Box>
+  );
+};
+
+/**
+ * Tracks person-level activity in the Outseta CRM timeline.
+ * Activities appear on the person's record and can trigger email drip campaigns.
+ *
+ * @example
+ * <PersonActivity name="Downloaded Ebook">
+ *   <Button>Download</Button>
+ * </PersonActivity>
+ *
+ * @example
+ * // Or use the data attribute directly on any element:
+ * <Button data-o-person-activity="Completed Onboarding">Done</Button>
+ */
+export const PersonActivity = ({
+  children,
+  name,
+  ...props
+}: AuthProps & { name: string }) => {
+  return (
+    <Box
+      {...(children ? { asChild: true } : {})}
+      data-o-person-activity={name}
+      {...props}
+    >
+      {children}
+    </Box>
+  );
+};
+
 export const LogOut = ({ children, ...props }: AuthProps) => {
   return (
     <Box
