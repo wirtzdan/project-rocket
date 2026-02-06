@@ -12,16 +12,28 @@ import {
 import posthog from "posthog-js";
 import { useRef, useState } from "react";
 import { PiChatTeardropText } from "react-icons/pi";
+import { useAuth } from "@/components/provider/auth-provider";
+import { useOutsetaActivity } from "@/utils/use-outseta-activity";
 
 export const FeedbackButton = () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const { user } = useAuth();
+  const { trackActivity } = useOutsetaActivity();
 
   const handleFormOpened = () => {
     posthog.capture("feedback_form_opened", {
       source: "feedback_button",
     });
+
+    if (user?.Account?.Uid) {
+      trackActivity({
+        title: "Open Feedback Form",
+        entityType: 1,
+        entityUid: user.Account.Uid,
+      });
+    }
   };
 
   const handleSubmit = () => {
@@ -47,7 +59,6 @@ export const FeedbackButton = () => {
     <Menu.Root positioning={{ placement: "bottom" }}>
       <Menu.Trigger asChild>
         <Button
-          data-o-account-activity="Open Feedback Form"
           onClick={handleFormOpened}
           size="xs"
           variant="outline"
