@@ -18,7 +18,6 @@ import posthog from "posthog-js";
 import type { ReactNode } from "react";
 import { PiList, PiX } from "react-icons/pi";
 import { Link } from "@/components/ui/link";
-import { projectConfig } from "@/config";
 import { Logo } from "@/config/theme-config";
 import { Login, SignUp } from "../auth/embed";
 import { SignedIn, SignedOut } from "../auth/protect-content";
@@ -87,16 +86,6 @@ export const NavbarLinkMenu = () => {
                 </Link>
                 <Link href="/support">
                   <Menu.Item value="support">Support</Menu.Item>
-                </Link>
-                <Link
-                  href={projectConfig.outsetaOptions.knowledgeBaseUrl}
-                  onClick={() =>
-                    posthog.capture("knowledge_base_link_clicked", {
-                      source: "navbar_demos",
-                    })
-                  }
-                >
-                  <Menu.Item value="knowledge-base">Knowledge base</Menu.Item>
                 </Link>
               </Menu.ItemGroup>
               <Menu.Separator />
@@ -209,19 +198,13 @@ const CollapsibleTriggerButton = () => {
         size="sm"
         variant="ghost"
       >
-        <Icon size="lg">
-          {context.open ? (
-            <PiX aria-hidden="true" />
-          ) : (
-            <PiList aria-hidden="true" />
-          )}
-        </Icon>
+        <Icon size="lg">{context.open ? <PiX /> : <PiList />}</Icon>
       </IconButton>
     </Collapsible.Trigger>
   );
 };
 
-export const Navbar = ({ type }: { type: "website" | "app" }) => {
+export const Navbar = ({ type: _type }: { type: "website" | "app" }) => {
   return (
     <Center
       as="header"
@@ -246,11 +229,11 @@ export const Navbar = ({ type }: { type: "website" | "app" }) => {
                 <Logo />
               </Link>
               <HStack hideFrom="md" justify="flex-end" w="full">
-                <NavbarActionMenu type={type} />
+                <NavbarActionMenu type="app" />
               </HStack>
               <HStack gap="2" hideBelow="md">
                 <NavbarLinkMenu />
-                <NavbarActionMenu type={type} />
+                <NavbarActionMenu type="app" />
               </HStack>
             </HStack>
             <Collapsible.Content hideFrom="md" mt={4}>

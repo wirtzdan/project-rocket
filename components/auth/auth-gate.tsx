@@ -32,13 +32,8 @@ export function AuthGate({ children }: AuthGateProps) {
               css={{ "--spinner-track-color": "colors.neutral.200" }}
               size="xl"
             />
-            <Text
-              aria-live="polite"
-              color="fg.subtle"
-              role="status"
-              textStyle="lg"
-            >
-              Loading\u2026
+            <Text color="fg.subtle" textStyle="lg">
+              Loading...
             </Text>
           </VStack>
         </AbsoluteCenter>
@@ -54,7 +49,7 @@ export function AuthGate({ children }: AuthGateProps) {
             <EmptyState.Root paddingBlock={0} paddingInline={0} width="full">
               <EmptyState.Content>
                 <EmptyState.Indicator>
-                  <PiSignIn aria-hidden="true" />
+                  <PiSignIn />
                 </EmptyState.Indicator>
                 <VStack textAlign="center">
                   <EmptyState.Title maxWidth="lg" textStyle="2xl">

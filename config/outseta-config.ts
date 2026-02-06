@@ -21,5 +21,8 @@ export const outsetaConfig = {
   },
   nocode: {
     clearQuerystring: true,
+    hideBody: false,
+    hideProtectedLinks: false,
+    removeProtectedElements: false,
   },
 };
