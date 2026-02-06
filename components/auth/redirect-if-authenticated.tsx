@@ -40,7 +40,7 @@ export const RedirectIfAuthenticated = ({
               role="status"
               textStyle="lg"
             >
-              Loading\u2026
+              Loading...
             </Text>
           </VStack>
         </AbsoluteCenter>

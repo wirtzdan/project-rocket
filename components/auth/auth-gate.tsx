@@ -6,11 +6,11 @@ import {
   Button,
   EmptyState,
   Group,
-  Spinner,
-  Text,
+  Skeleton,
   VStack,
 } from "@chakra-ui/react";
 import { PiSignIn } from "react-icons/pi";
+import { Section } from "../layout/section";
 import { useAuth } from "../provider/auth-provider";
 import { Login, SignUp } from "./embed";
 
@@ -23,21 +23,21 @@ export function AuthGate({ children }: AuthGateProps) {
 
   if (isLoading) {
     return (
-      <Box minH="60vh" position="relative" w="full">
-        <AbsoluteCenter>
-          <VStack>
-            <Spinner
-              borderWidth="4px"
-              color="primary.600"
-              css={{ "--spinner-track-color": "colors.neutral.200" }}
-              size="xl"
-            />
-            <Text color="fg.subtle" textStyle="lg">
-              Loading...
-            </Text>
+      <Section header>
+        <VStack
+          align="start"
+          gap="6"
+          maxW={{ base: "full", md: "3xl" }}
+          mx="auto"
+          w="full"
+        >
+          <Skeleton height="60px" width="280px" />
+          <VStack gap="4" w="full">
+            <Skeleton height="48px" width="full" />
+            <Skeleton height="48px" width="full" />
           </VStack>
-        </AbsoluteCenter>
-      </Box>
+        </VStack>
+      </Section>
     );
   }
 
