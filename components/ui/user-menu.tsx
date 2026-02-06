@@ -10,10 +10,8 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import posthog from "posthog-js";
-import { PiQuestion, PiSignOut, PiStar, PiUser } from "react-icons/pi";
-import { projectConfig } from "@/config";
+import { PiQuestion, PiSignOut, PiUser } from "react-icons/pi";
 import { LogOut, Profile, Support } from "../auth/embed";
-import { SignedIn } from "../auth/protect-content";
 import { useAuth } from "../provider/auth-provider";
 
 function getInitials(name: string | undefined): string {
@@ -30,6 +28,8 @@ function getInitials(name: string | undefined): string {
 
 export const UserMenu = () => {
   const { user } = useAuth();
+
+  const planName = user?.Account?.CurrentSubscription?.Plan?.Name;
 
   const handleMenuAction = (action: string) => {
     posthog.capture("user_menu_action", {
@@ -51,26 +51,15 @@ export const UserMenu = () => {
         <Menu.Positioner>
           <Menu.Content>
             <VStack align="start" gap="0" px="14px" py={2}>
-              <HStack>
+              <HStack gap="1">
                 <Text fontSize="sm" maxW="200px" truncate>
                   {user?.FullName}
                 </Text>
-                <SignedIn plan={projectConfig.auth.plans.pro.uid}>
-                  <Tag.Root colorPalette="purple" size="sm">
-                    <Tag.StartElement>
-                      <PiStar aria-hidden="true" />
-                    </Tag.StartElement>
-                    <Tag.Label>Pro</Tag.Label>
+                {planName && (
+                  <Tag.Root size="sm">
+                    <Tag.Label>{planName}</Tag.Label>
                   </Tag.Root>
-                </SignedIn>
-                <SignedIn plan={projectConfig.auth.plans.basic.uid}>
-                  <Tag.Root colorPalette="gray" size="sm">
-                    <Tag.StartElement>
-                      <PiStar aria-hidden="true" />
-                    </Tag.StartElement>
-                    <Tag.Label>Basic</Tag.Label>
-                  </Tag.Root>
-                </SignedIn>
+                )}
               </HStack>
               <Text color="fg.muted" fontSize="sm" maxW="200px" truncate>
                 {user?.Email}
