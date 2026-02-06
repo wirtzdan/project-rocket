@@ -2,6 +2,7 @@
  * Claims contained in an Outseta JWT token.
  * Re-exported from utils/outseta-utils.ts for convenience.
  */
+import type { OutsetaClaims } from "@/utils/outseta-utils";
 export type { OutsetaClaims } from "@/utils/outseta-utils";
 
 export interface OutsetaAddress {
@@ -84,21 +85,39 @@ export type OutsetaEventName =
   | "subscription.cancel"
   | "subscription.reopen"
   | "profile.update"
+  | "profile.close"
+  | "profile.initialized"
   | "account.update"
+  | "paymentInformation.update"
   | "accessToken.set"
   | "auth.initialized"
+  | "auth.close"
+  | "redirect"
   | "nocode.initialized"
   | "nocode.expired"
   | "logout"
   | "nocode.accessDenied"
   | "signup"
-  | "signup.preRegister";
+  | "signup.preRegister"
+  | "signup.registrationData";
 
-export type OutsetaAuthWidgetMode = "login|register" | "register";
+export type OutsetaAuthWidgetMode = "login|register" | "login" | "register";
 
 export type OutsetaAuthOpenOptions = {
   widgetMode: OutsetaAuthWidgetMode;
-  authenticationCallbackUrl: string;
+  authenticationCallbackUrl?: string;
+  /** Pre-select a plan during registration */
+  planUid?: string;
+  /** Restrict plan selection to a specific plan family */
+  planFamilyUid?: string;
+  /** Pre-select payment term: month, annual, quarter, or oneTime */
+  planPaymentTerm?: string;
+  /** Skip the plan selection step during registration */
+  skipPlanOptions?: boolean;
+  /** Initial widget state: login, forgotPassword, selectPlan, register, checkout */
+  state?: "login" | "forgotPassword" | "selectPlan" | "register" | "checkout";
+  /** Widget display mode */
+  mode?: "popup" | "embed";
 } & Record<string, unknown>;
 
 export type OutsetaBillingRenewalTerm = "Month" | "Year" | "OneTime";
@@ -106,12 +125,18 @@ export type OutsetaBillingRenewalTerm = "Month" | "Year" | "OneTime";
 export type OutsetaProfileOpenOptions = {
   tab?:
     | "profile"
+    | "account"
+    | "team"
+    | "teamMemberInvite"
     | "subscriptions"
     | "billing"
     | "password"
     | "planChange"
+    | "planCancel"
     | "purchaseAddOn"
     | string;
+  /** Comma-separated list of tabs to enable (e.g., "profile,account,team,plan,billing") */
+  tabs?: string;
   /** Widget display mode */
   mode?: "popup" | "embedded";
   /** Plan UID for planChange tab */
@@ -132,13 +157,19 @@ export type OutsetaProfileOpenOptions = {
 export interface OutsetaSDK {
   getUser: () => Promise<OutsetaUser>;
   getAccessToken: () => string | null;
+  /** Returns the decoded JWT payload from the stored token, or from a provided token */
+  getJwtPayload: (accessToken?: string) => Promise<OutsetaClaims | null>;
   setAccessToken: (token: string) => void;
   on: (eventName: OutsetaEventName, handler: (data?: unknown) => void) => void;
   auth: {
     open: (options: OutsetaAuthOpenOptions) => void;
+    /** Closes the auth widget (popup mode only) */
+    close: () => void;
   };
   profile: {
     open: (options: OutsetaProfileOpenOptions) => void;
+    /** Closes the profile widget (popup mode only) */
+    close: () => void;
   };
   chat?: {
     show: () => void;

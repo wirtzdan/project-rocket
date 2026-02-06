@@ -5,11 +5,35 @@ import { decodeJwt } from "jose";
  * These can be decoded client-side for fast access checks without API calls.
  */
 export interface OutsetaClaims {
-  sub: string; // Person UID
+  /** Person UID (unique identifier for the authenticated person) */
+  sub: string;
   email: string;
-  iss: string; // Issuer (Outseta domain)
+  email_verified?: boolean;
+  name?: string;
+  given_name?: string;
+  family_name?: string;
+  /** Issuer (Outseta domain) */
+  iss: string;
+  /** Token expiration time (Unix timestamp) */
+  exp?: number;
+  /** Token not-before time (Unix timestamp) */
+  nbf?: number;
+  /** Token issued-at time (Unix timestamp) */
+  iat?: number;
+  /** Account UID this person belongs to */
+  "outseta:accountUid"?: string;
+  /** Custom identifier assigned to the account */
+  "outseta:accountClientIdentifier"?: string;
+  /** Primary contact status ("0" or "1") */
+  "outseta:isPrimary"?: string;
+  /** Current subscription UID */
+  "outseta:subscriptionUid"?: string;
+  /** Current plan UID */
   "outseta:planUid"?: string;
+  /** Array of add-on UIDs the user has access to */
   "outseta:addOnUids"?: string[];
+  /** Outseta domain issuer */
+  "outseta:iss"?: string;
   [key: string]: unknown;
 }
 
