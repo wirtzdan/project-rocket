@@ -5,6 +5,7 @@ import AuthProvider from "@/components/provider/auth-provider";
 import { projectConfig } from "@/config";
 import { system } from "@/theme/theme";
 import { ColorModeProvider } from "./color-mode-provider";
+import { ConvexOutsetaProvider } from "./convex-provider";
 
 export default function Provider(props: { children: React.ReactNode }) {
   const colorMode: string = projectConfig.theme.colorMode;
@@ -17,7 +18,9 @@ export default function Provider(props: { children: React.ReactNode }) {
         })}
       >
         <AuthProvider>
-          <Box colorPalette="primary">{props.children}</Box>
+          <ConvexOutsetaProvider>
+            <Box colorPalette="primary">{props.children}</Box>
+          </ConvexOutsetaProvider>
         </AuthProvider>
       </ColorModeProvider>
     </ChakraProvider>
