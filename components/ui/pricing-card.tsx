@@ -20,6 +20,7 @@ import {
   LuUser,
 } from "react-icons/lu";
 import type { PlanData } from "../../app/(website)/pricing/data";
+import { SignUp } from "../auth/embed";
 
 const iconMap: Record<string, React.ReactNode> = {
   team: <LuBuilding aria-hidden="true" />,
@@ -29,16 +30,19 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 interface PricingCardProps extends StackProps {
-  planPaymentTerms: "month" | "annual";
+  planPaymentTerms: "monthly" | "quarter" | "annual" | "oneTime";
   data: PlanData;
 }
 
 export const PricingCard = (props: PricingCardProps) => {
   const { planPaymentTerms, data, ...rest } = props;
-  const price =
-    planPaymentTerms === "month"
-      ? data.monthlyPrice.price
-      : data.yearlyPrice.price;
+  const priceMap = {
+    monthly: data.monthlyPrice,
+    quarter: data.quarterlyPrice,
+    annual: data.yearlyPrice,
+    oneTime: data.oneTimePrice,
+  };
+  const price = priceMap[planPaymentTerms];
   return (
     <Card.Root
       borderColor={data.recommended ? "colorPalette.solid" : undefined}
@@ -66,26 +70,29 @@ export const PricingCard = (props: PricingCardProps) => {
               {price}
             </Span>
             <Span color="fg.muted" textStyle="sm">
-              per{"\u00A0"}month
+              {planPaymentTerms === "oneTime"
+                ? "one-time"
+                : `per\u00A0${{ monthly: "month", quarter: "quarter", annual: "year" }[planPaymentTerms]}`}
             </Span>
           </Stack>
           <Card.Description color="fg">{data.description}</Card.Description>
           <Stack gap="2">
-            <Button
-              aria-haspopup="dialog"
-              bg={data.recommended ? undefined : "bg.panel"}
-              colorPalette={data.recommended ? undefined : "gray"}
-              data-mode="popup"
-              data-o-auth="1"
-              data-plan-payment-term={planPaymentTerms}
-              data-plan-uid={data.uid}
-              data-widget-mode="register"
-              size="xl"
-              suppressHydrationWarning
-              variant={data.recommended ? "solid" : "outline"}
+            <SignUp
+              planPaymentTerm={planPaymentTerms}
+              planUid={data.uid}
+              popup
+              skipPlanOptions={true}
             >
-              Get Started <LuArrowRight aria-hidden="true" />
-            </Button>
+              <Button
+                aria-haspopup="dialog"
+                bg={data.recommended ? undefined : "bg.panel"}
+                colorPalette={data.recommended ? undefined : "gray"}
+                size="xl"
+                variant={data.recommended ? "solid" : "outline"}
+              >
+                Get Started <LuArrowRight aria-hidden="true" />
+              </Button>
+            </SignUp>
             <Text color="fg.muted" textAlign="center" textStyle="xs">
               7-day free trial
             </Text>

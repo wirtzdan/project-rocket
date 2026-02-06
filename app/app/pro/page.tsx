@@ -11,7 +11,7 @@ export const metadata = generateMetadata({
 
 export default function Pro() {
   return (
-    <PlanGate plansWithAccess="pro">
+    <PlanGate plansWithAccess="LmJZpYmP">
       <Section header>
         <Heading>Pro</Heading>
       </Section>

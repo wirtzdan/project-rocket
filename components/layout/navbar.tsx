@@ -14,8 +14,8 @@ import {
   SimpleGrid,
   SkeletonCircle,
   Text,
-  VStack,
   useCollapsibleContext,
+  VStack,
 } from "@chakra-ui/react";
 import posthog from "posthog-js";
 import type { ReactNode } from "react";
@@ -105,7 +105,7 @@ export const NavbarLinkMenu = () => {
 
       {/* Desktop: Popover mega menu */}
       <Box hideBelow="md">
-        <Popover.Root positioning={{ placement: "bottom-start" }}>
+        <Popover.Root positioning={{ placement: "bottom" }}>
           <Popover.Trigger asChild>
             <Button colorPalette="gray" variant="plain" width="auto">
               Demos
@@ -114,17 +114,16 @@ export const NavbarLinkMenu = () => {
           <Portal>
             <Popover.Positioner>
               <Popover.Content w="auto">
-                <Popover.Arrow />
                 <Popover.Body p="4">
                   <SimpleGrid columns={4} gap="4">
                     {DEMO_MENU_ITEMS.map((group) => (
-                      <VStack key={group.title} align="start" gap="1">
+                      <VStack align="start" gap="1" key={group.title}>
                         <Text
                           color="fg.muted"
                           fontSize="xs"
                           fontWeight="semibold"
-                          px="2"
                           pb="1"
+                          px="2"
                         >
                           {group.title}
                         </Text>
@@ -160,9 +159,9 @@ export const NavbarLinkMenu = () => {
               color="fg.muted"
               fontSize="xs"
               fontWeight="semibold"
-              px="4"
-              pt="3"
               pb="1"
+              pt="3"
+              px="4"
             >
               {group.title}
             </Text>

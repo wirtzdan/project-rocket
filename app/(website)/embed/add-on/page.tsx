@@ -4,13 +4,11 @@ import { Button, Heading, Text, VStack } from "@chakra-ui/react";
 import { SignedIn, SignedOut } from "@/components/auth/protect-content";
 import { Section } from "@/components/layout/section";
 import { useAuth } from "@/components/provider/auth-provider";
-import { authConfig } from "@/config/auth-config";
-
 export default function AddOnDemoPage() {
   const { openPurchaseAddOn } = useAuth();
 
   const handlePurchase = () => {
-    openPurchaseAddOn(authConfig.addOns.premium.uid);
+    openPurchaseAddOn("vWydg69b");
   };
 
   return (

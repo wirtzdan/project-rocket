@@ -1,5 +1,4 @@
 import {
-  Badge,
   Center,
   For,
   Heading,
@@ -10,15 +9,19 @@ import {
 } from "@chakra-ui/react";
 import { Section } from "@/components/layout/section";
 import { generateMetadata } from "@/utils/metadata";
+import { fetchOutsetaPlans } from "@/utils/outseta-api";
 import { PricingCard } from "../../../components/ui/pricing-card";
-import { plans } from "./data";
+import { buildPlanData } from "./data";
 
 export const metadata = generateMetadata({
   title: "Pricing",
   description: "Explore our pricing plans tailored to your needs.",
 });
 
-export default function PricingPage() {
+export default async function PricingPage() {
+  const outsetaPlans = await fetchOutsetaPlans();
+  const plans = buildPlanData(outsetaPlans);
+
   return (
     <Section header>
       <VStack gap="12">
@@ -53,13 +56,11 @@ export default function PricingPage() {
         </VStack>
         <VStack gap="6">
           <VStack alignSelf="stretch" gap="8">
-            <Tabs.Root defaultValue={"annual"} variant="enclosed">
+            <Tabs.Root defaultValue={"monthly"} variant="enclosed">
               <Center>
                 <Tabs.List>
-                  <Tabs.Trigger value="month">Monthly</Tabs.Trigger>
-                  <Tabs.Trigger value="annual">
-                    Yearly <Badge colorPalette="green">20% off</Badge>
-                  </Tabs.Trigger>
+                  <Tabs.Trigger value="monthly">Monthly</Tabs.Trigger>
+                  <Tabs.Trigger value="annual">Yearly</Tabs.Trigger>
                 </Tabs.List>
               </Center>
               <Tabs.Content value="annual">
@@ -68,21 +69,21 @@ export default function PricingPage() {
                     {(plan) => (
                       <PricingCard
                         data={plan}
-                        key={plan.value}
+                        key={plan.uid}
                         planPaymentTerms="annual"
                       />
                     )}
                   </For>
                 </SimpleGrid>
               </Tabs.Content>
-              <Tabs.Content value="month">
+              <Tabs.Content value="monthly">
                 <SimpleGrid columns={{ base: 1, md: 2 }} gap="6" w="full">
                   <For each={plans}>
                     {(plan) => (
                       <PricingCard
                         data={plan}
-                        key={plan.value}
-                        planPaymentTerms="month"
+                        key={plan.uid}
+                        planPaymentTerms="monthly"
                       />
                     )}
                   </For>

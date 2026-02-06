@@ -14,6 +14,7 @@ import { Profile } from "./embed";
 
 interface PlanGateProps {
   children: React.ReactNode;
+  /** Comma-separated plan UIDs that grant access */
   plansWithAccess: string;
 }
 
@@ -21,14 +22,17 @@ export function PlanGate({ children, plansWithAccess }: PlanGateProps) {
   const { user } = useAuth();
 
   const requiredPlans = parsePlansFromConfig(plansWithAccess);
+  const planUids = requiredPlans.map((p) => p.uid);
 
   if (!user) {
     return null;
   }
 
-  const hasAccess = userHasPlanAccess(user, requiredPlans);
+  const hasAccess = userHasPlanAccess(user, planUids);
 
   if (!hasAccess) {
+    const planLabel = requiredPlans[0]?.name ?? "a higher";
+
     return (
       <Box minH="60vh" position="relative" w="full">
         <AbsoluteCenter>
@@ -43,7 +47,7 @@ export function PlanGate({ children, plansWithAccess }: PlanGateProps) {
                     Upgrade to unlock
                   </EmptyState.Title>
                   <EmptyState.Description maxWidth="sm" textStyle="md">
-                    {`This page is available only to users with a ${requiredPlans[0].label} plan. To continue, please upgrade to a ${requiredPlans[0].label} plan.`}
+                    {`This page is available only to users with a ${planLabel} plan. To continue, please upgrade to a ${planLabel} plan.`}
                   </EmptyState.Description>
                 </VStack>
                 <Profile data-tab="planChange" popup>
