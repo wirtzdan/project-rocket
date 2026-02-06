@@ -2,7 +2,15 @@ import { Card, Heading, Text, VStack } from "@chakra-ui/react";
 import { PageViewTracker } from "@/components/analytics/page-view-tracker";
 import { Support } from "@/components/auth/embed";
 import { Section } from "@/components/layout/section";
+import { generateMetadata } from "@/utils/metadata";
 import "@/styles/contact-page-styles.css";
+
+export const metadata = generateMetadata({
+  title: "Support",
+  description:
+    "Need help? Send us a support message and we'll typically reply within 24 hours.",
+  path: "/support",
+});
 
 export default function SupportPage() {
   return (

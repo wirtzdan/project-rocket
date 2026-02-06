@@ -21,13 +21,13 @@ export default function ThankYouPage() {
   return (
     <>
       <Confetti type="fireworks" />
-      <Box bg="bg.muted" h="100vh" p="relative" w="100vw">
+      <Box bg="bg.muted" h="100vh" position="relative" w="100vw">
         <AbsoluteCenter>
           <VStack>
             <EmptyState.Root paddingBlock={0} paddingInline={0} width="full">
               <EmptyState.Content>
                 <EmptyState.Indicator>
-                  <PiEnvelopeOpen />
+                  <PiEnvelopeOpen aria-hidden="true" />
                 </EmptyState.Indicator>
                 <VStack textAlign="center">
                   <EmptyState.Title maxWidth="lg" textStyle="2xl">
@@ -42,7 +42,7 @@ export default function ThankYouPage() {
                 <Box pt="4">
                   <Link href="https://mail.google.com">
                     <Button size="sm">
-                      <PiArrowSquareOut />
+                      <PiArrowSquareOut aria-hidden="true" />
                       Open Gmail
                     </Button>
                   </Link>

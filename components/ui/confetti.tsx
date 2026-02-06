@@ -1,4 +1,5 @@
 "use client";
+import { useEffect, useState } from "react";
 import Fireworks from "react-canvas-confetti/dist/presets/fireworks";
 
 export default function Confetti({
@@ -6,6 +7,17 @@ export default function Confetti({
 }: {
   type: "fireworks" | "stars";
 }) {
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setPrefersReducedMotion(mq.matches);
+  }, []);
+
+  if (prefersReducedMotion) {
+    return null;
+  }
+
   if (type === "fireworks") {
     return (
       <Fireworks

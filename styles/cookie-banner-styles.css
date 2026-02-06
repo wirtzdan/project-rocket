@@ -148,3 +148,47 @@
 #cc-main .cm__link-group > * + * {
   margin-left: 1rem;
 }
+
+@media (prefers-reduced-motion: reduce) {
+  .cc--theme {
+    --cc-modal-transition-duration: 0s;
+  }
+
+  #cc-main .cc__link,
+  #cc-main a {
+    transition: none;
+  }
+}
+
+/* Global: skip-to-content link */
+.skip-to-content:focus {
+  position: fixed !important;
+  top: 8px;
+  left: 8px;
+  width: auto !important;
+  height: auto !important;
+  overflow: visible !important;
+  clip: auto !important;
+  clip-path: none !important;
+  z-index: 9999;
+  padding: 8px 16px;
+  background: var(--chakra-colors-bg, #fff);
+  border: 2px solid var(--chakra-colors-fg, #000);
+  border-radius: var(--chakra-radii-l2, 8px);
+  color: var(--chakra-colors-fg, #000);
+  text-decoration: none;
+  font-size: 14px;
+  white-space: nowrap;
+}
+
+/* Global: prevent double-tap zoom delay on interactive elements */
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+}
+
+/* Global: offset anchor scroll for fixed navbar */
+[id] {
+  scroll-margin-top: 80px;
+}

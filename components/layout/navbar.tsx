@@ -198,13 +198,13 @@ const CollapsibleTriggerButton = () => {
         size="sm"
         variant="ghost"
       >
-        <Icon size="lg">{context.open ? <PiX /> : <PiList />}</Icon>
+        <Icon size="lg">{context.open ? <PiX aria-hidden="true" /> : <PiList aria-hidden="true" />}</Icon>
       </IconButton>
     </Collapsible.Trigger>
   );
 };
 
-export const Navbar = ({ type: _type }: { type: "website" | "app" }) => {
+export const Navbar = ({ type }: { type: "website" | "app" }) => {
   return (
     <Center
       as="header"
@@ -229,11 +229,11 @@ export const Navbar = ({ type: _type }: { type: "website" | "app" }) => {
                 <Logo />
               </Link>
               <HStack hideFrom="md" justify="flex-end" w="full">
-                <NavbarActionMenu type="app" />
+                <NavbarActionMenu type={type} />
               </HStack>
               <HStack gap="2" hideBelow="md">
                 <NavbarLinkMenu />
-                <NavbarActionMenu type="app" />
+                <NavbarActionMenu type={type} />
               </HStack>
             </HStack>
             <Collapsible.Content hideFrom="md" mt={4}>

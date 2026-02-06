@@ -24,15 +24,15 @@ export const HomepageCTA = () => {
     <Stack align="center" direction={{ base: "column", md: "row" }} gap="3">
       <Button asChild onClick={handleCtaClick} size="xl">
         <Link href="/docs">
-          Get started <PiArrowRight />
+          Get started <PiArrowRight aria-hidden="true" />
         </Link>
       </Button>
 
-      <Link href="https://github.com/wirtzdan/project-rocket">
-        <Button onClick={handleGithubClick} size="xl" variant="ghost">
-          Github <PiArrowSquareOut />
-        </Button>
-      </Link>
+      <Button asChild onClick={handleGithubClick} size="xl" variant="ghost">
+        <Link href="https://github.com/wirtzdan/project-rocket">
+          Github <PiArrowSquareOut aria-hidden="true" />
+        </Link>
+      </Button>
     </Stack>
   );
 };

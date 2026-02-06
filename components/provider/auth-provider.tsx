@@ -24,9 +24,7 @@ import { isAdminUser } from "@/utils/outseta-utils";
 
 // Create JWKS keyset once — jose handles caching and key rotation automatically
 const JWKS = createRemoteJWKSet(
-  new URL(
-    `https://${projectConfig.outsetaOptions.domain}/.well-known/jwks`
-  )
+  new URL(`https://${projectConfig.outsetaOptions.domain}/.well-known/jwks`)
 );
 
 interface AuthContextType {

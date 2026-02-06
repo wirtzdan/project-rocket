@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import posthog from "posthog-js";
 import { PiQuestion, PiSignOut, PiStar, PiUser } from "react-icons/pi";
+import { projectConfig } from "@/config";
 import { LogOut, Profile, Support } from "../auth/embed";
 import { SignedIn } from "../auth/protect-content";
 import { useAuth } from "../provider/auth-provider";
@@ -39,7 +40,7 @@ export const UserMenu = () => {
 
   return (
     <Menu.Root positioning={{ placement: "bottom" }}>
-      <Menu.Trigger>
+      <Menu.Trigger aria-label="User menu">
         <Avatar.Root colorPalette="gray" size="sm">
           <Avatar.Image src={user?.ProfileImageS3Url ?? undefined} />
           <Avatar.Fallback>{getInitials(user?.FullName)}</Avatar.Fallback>
@@ -51,25 +52,27 @@ export const UserMenu = () => {
           <Menu.Content>
             <VStack align="start" gap="0" px="14px" py={2}>
               <HStack>
-                <Text fontSize="sm">{user?.FullName}</Text>
-                <SignedIn plan="LmJZpYmP">
+                <Text fontSize="sm" maxW="200px" truncate>
+                  {user?.FullName}
+                </Text>
+                <SignedIn plan={projectConfig.auth.plans.pro.uid}>
                   <Tag.Root colorPalette="purple" size="sm">
                     <Tag.StartElement>
-                      <PiStar />
+                      <PiStar aria-hidden="true" />
                     </Tag.StartElement>
                     <Tag.Label>Pro</Tag.Label>
                   </Tag.Root>
                 </SignedIn>
-                <SignedIn plan="L9nqaeQZ">
+                <SignedIn plan={projectConfig.auth.plans.basic.uid}>
                   <Tag.Root colorPalette="gray" size="sm">
                     <Tag.StartElement>
-                      <PiStar />
+                      <PiStar aria-hidden="true" />
                     </Tag.StartElement>
                     <Tag.Label>Basic</Tag.Label>
                   </Tag.Root>
                 </SignedIn>
               </HStack>
-              <Text color="fg.muted" fontSize="sm">
+              <Text color="fg.muted" fontSize="sm" maxW="200px" truncate>
                 {user?.Email}
               </Text>
             </VStack>
@@ -80,13 +83,13 @@ export const UserMenu = () => {
                 onClick={() => handleMenuAction("account")}
                 value="account"
               >
-                <PiUser />
+                <PiUser aria-hidden="true" />
                 Account
               </Menu.Item>
             </Profile>
             <Support popup>
               <Menu.Item onClick={() => handleMenuAction("help")} value="help">
-                <PiQuestion />
+                <PiQuestion aria-hidden="true" />
                 Help & Support
               </Menu.Item>
             </Support>
@@ -96,7 +99,7 @@ export const UserMenu = () => {
                 onClick={() => handleMenuAction("logout")}
                 value="logout"
               >
-                <PiSignOut />
+                <PiSignOut aria-hidden="true" />
                 Logout
               </Menu.Item>
             </LogOut>

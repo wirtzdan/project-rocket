@@ -21,9 +21,21 @@ const Copyright = (props: TextProps) => {
 };
 
 const socialLinks = [
-  { href: projectConfig.links.twitter, icon: <SiX /> },
-  { href: projectConfig.links.github, icon: <SiGithub /> },
-  { href: projectConfig.links.linkedin, icon: <SiLinkedin /> },
+  {
+    href: projectConfig.links.twitter,
+    icon: <SiX aria-hidden="true" />,
+    label: "X (Twitter)",
+  },
+  {
+    href: projectConfig.links.github,
+    icon: <SiGithub aria-hidden="true" />,
+    label: "GitHub",
+  },
+  {
+    href: projectConfig.links.linkedin,
+    icon: <SiLinkedin aria-hidden="true" />,
+    label: "LinkedIn",
+  },
 ].filter((link) => link.href);
 
 export const Footer = () => (
@@ -32,8 +44,8 @@ export const Footer = () => (
       <Stack align="center" direction="row" justify="space-between">
         <Logo height="32" />
         <HStack gap="4">
-          {socialLinks.map(({ href, icon }) => (
-            <Link colorPalette="gray" href={href} key={href}>
+          {socialLinks.map(({ href, icon, label }) => (
+            <Link aria-label={label} colorPalette="gray" href={href} key={href}>
               <Icon size="md">{icon}</Icon>
             </Link>
           ))}

@@ -22,10 +22,10 @@ import {
 import type { PlanData } from "../../app/(website)/pricing/data";
 
 const iconMap: Record<string, React.ReactNode> = {
-  team: <LuBuilding />,
-  user: <LuUser />,
-  storage: <LuPackage />,
-  help: <LuMessageSquare />,
+  team: <LuBuilding aria-hidden="true" />,
+  user: <LuUser aria-hidden="true" />,
+  storage: <LuPackage aria-hidden="true" />,
+  help: <LuMessageSquare aria-hidden="true" />,
 };
 
 interface PricingCardProps extends StackProps {
@@ -52,19 +52,27 @@ export const PricingCard = (props: PricingCardProps) => {
       )}
       <Card.Body>
         <Stack gap="5">
-          <Card.Title fontWeight="normal">{data.title}</Card.Title>
+          <Card.Title fontWeight="normal" truncate>
+            {data.title}
+          </Card.Title>
           <Stack gap="1">
-            <Span fontWeight="medium" lineHeight="1" textStyle="5xl">
+            <Span
+              fontVariantNumeric="tabular-nums"
+              fontWeight="medium"
+              lineHeight="1"
+              textStyle="5xl"
+            >
               {data.priceSymbol}
               {price}
             </Span>
             <Span color="fg.muted" textStyle="sm">
-              per month
+              per{"\u00A0"}month
             </Span>
           </Stack>
           <Card.Description color="fg">{data.description}</Card.Description>
           <Stack gap="2">
             <Button
+              aria-haspopup="dialog"
               bg={data.recommended ? undefined : "bg.panel"}
               colorPalette={data.recommended ? undefined : "gray"}
               data-mode="popup"
@@ -76,7 +84,7 @@ export const PricingCard = (props: PricingCardProps) => {
               suppressHydrationWarning
               variant={data.recommended ? "solid" : "outline"}
             >
-              Get Started <LuArrowRight />
+              Get Started <LuArrowRight aria-hidden="true" />
             </Button>
             <Text color="fg.muted" textAlign="center" textStyle="xs">
               7-day free trial

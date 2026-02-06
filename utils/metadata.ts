@@ -21,6 +21,8 @@ export function generateMetadata({
   const fullDescription = description || projectConfig.seo.defaultDescription;
   const url = `${projectConfig.general.siteUrl}${path}`;
 
+  const twitterHandle = projectConfig.seo.twitterHandle;
+
   return {
     title: fullTitle,
     description: fullDescription,
@@ -36,21 +38,12 @@ export function generateMetadata({
       siteName: projectConfig.general.name,
       locale: projectConfig.seo.locale,
       type: "website",
-      images: [
-        {
-          url: projectConfig.seo.ogImage,
-          width: 1200,
-          height: 630,
-          alt: fullTitle,
-        },
-      ],
     },
     twitter: {
       card: "summary_large_image",
       title: fullTitle,
       description: fullDescription,
-      creator: projectConfig.seo.twitterHandle,
-      images: [projectConfig.seo.ogImage],
+      ...(twitterHandle ? { creator: twitterHandle } : {}),
     },
   };
 }

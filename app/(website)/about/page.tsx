@@ -2,6 +2,13 @@ import { Heading, Text, VStack } from "@chakra-ui/react";
 import Markdown from "react-markdown";
 import { Section } from "@/components/layout/section";
 import { Prose } from "@/components/ui/prose";
+import { generateMetadata } from "@/utils/metadata";
+
+export const metadata = generateMetadata({
+  title: "About",
+  description: "Learn more about Project Starter",
+  path: "/about",
+});
 
 export default function AboutPage() {
   return (

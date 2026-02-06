@@ -8,7 +8,7 @@ export const plans: PlanData[] = [
     features: [
       { title: "2 teams", icon: "team" },
       { title: "3 users", icon: "user" },
-      { title: "100GB storage", icon: "storage" },
+      { title: "100\u00A0GB storage", icon: "storage" },
       { title: "Basic support", icon: "help" },
     ],
     priceCurrency: "US",
@@ -24,7 +24,7 @@ export const plans: PlanData[] = [
     features: [
       { title: "5 teams", icon: "team" },
       { title: "10 users", icon: "user" },
-      { title: "500GB storage", icon: "storage" },
+      { title: "500\u00A0GB storage", icon: "storage" },
       { title: "Priority support", icon: "help" },
     ],
     priceCurrency: "US",

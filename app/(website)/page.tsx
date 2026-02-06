@@ -43,6 +43,7 @@ export default async function Page() {
               maxW={{ md: "lg" }}
               mx="auto"
               textStyle={{ base: "2xl", md: "5xl" }}
+              textWrap="balance"
             >
               Publish your next project without the usual headaches
             </Heading>
@@ -61,11 +62,12 @@ export default async function Page() {
         <VStack gap="12">
           <Stack gap="4" textAlign="center">
             <Heading
-              as="h1"
+              as="h2"
               lineHeight="tighter"
               maxW={{ md: "md" }}
               mx="auto"
               textStyle={{ base: "2xl", md: "4xl" }}
+              textWrap="balance"
             >
               Minimal tooling with powerful features
             </Heading>
@@ -97,36 +99,36 @@ export default async function Page() {
 
 const features = [
   {
-    icon: <PiUserCircle />,
+    icon: <PiUserCircle aria-hidden="true" />,
     title: "Authentication",
     description: "Securly login in users and protect pages and elements",
   },
   {
-    icon: <PiCreditCard />,
+    icon: <PiCreditCard aria-hidden="true" />,
     title: "Payments",
     description:
       "Setup one-time, subscription or usage billing for individual or teams",
   },
   {
-    icon: <PiPalette />,
+    icon: <PiPalette aria-hidden="true" />,
     title: "Theming",
     description:
       "Customizable theme to quickly change the look and feel of your app",
   },
   {
-    icon: <PiEnvelopeSimple />,
+    icon: <PiEnvelopeSimple aria-hidden="true" />,
     title: "Email Marketing",
     description:
       "Automated emails, broadcasts and drip campaigns to nurture users and drive sales",
   },
   {
-    icon: <PiLifebuoy />,
+    icon: <PiLifebuoy aria-hidden="true" />,
     title: "Support Desk",
     description:
       "Build-in support ticket system to make customers smile and keep them engaged",
   },
   {
-    icon: <PiCube />,
+    icon: <PiCube aria-hidden="true" />,
     title: "Design System",
     description: "Component library by Chakra UI to build anything you want",
   },

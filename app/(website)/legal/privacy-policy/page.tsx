@@ -12,7 +12,7 @@ export const metadata = generateMetadata({
 export default function PrivacyPolicy() {
   return (
     <Section>
-      <Prose mt="" mx="auto" size="lg">
+      <Prose mx="auto" size="lg">
         <Markdown>
           {`
 # Privacy Policy

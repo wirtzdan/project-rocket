@@ -41,7 +41,7 @@ export const Link = ({
       <ChakraLink asChild {...props}>
         <NextLink href={href}>
           {props.children}
-          <PiArrowSquareOut />
+          <PiArrowSquareOut aria-hidden="true" />
         </NextLink>
       </ChakraLink>
     );
@@ -52,7 +52,7 @@ export const Link = ({
       <ChakraLink asChild {...props}>
         <NextLink href={href}>
           {props.children}
-          <PiEnvelopeSimple />
+          <PiEnvelopeSimple aria-hidden="true" />
         </NextLink>
       </ChakraLink>
     );
@@ -63,7 +63,7 @@ export const Link = ({
       <ChakraLink asChild {...props}>
         <NextLink href={href}>
           {props.children}
-          <PiHeadset />
+          <PiHeadset aria-hidden="true" />
         </NextLink>
       </ChakraLink>
     );
@@ -74,7 +74,7 @@ export const Link = ({
       <ChakraLink asChild {...props}>
         <NextLink href={href}>
           {props.children}
-          <PiDownloadSimple />
+          <PiDownloadSimple aria-hidden="true" />
         </NextLink>
       </ChakraLink>
     );
@@ -84,6 +84,7 @@ export const Link = ({
     <ChakraLink
       asChild
       {...props}
+      _focusVisible={{ outline: "2px solid", outlineColor: "colorPalette.solid", outlineOffset: "2px", borderRadius: "l1" }}
       _hover={{ textDecoration: "none" }}
       textDecoration="none"
     >

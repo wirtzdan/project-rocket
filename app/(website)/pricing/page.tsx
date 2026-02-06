@@ -25,7 +25,7 @@ export default function PricingPage() {
         <VStack gap={{ base: "6", md: "8" }} textAlign="center">
           <VStack gap={{ base: "5", md: "6" }}>
             <VStack gap={{ base: "3", md: "4" }}>
-              <Heading as="h1" textStyle={{ base: "4xl", md: "5xl" }}>
+              <Heading as="h1" textStyle={{ base: "4xl", md: "5xl" }} textWrap="balance">
                 Pricing
               </Heading>
             </VStack>

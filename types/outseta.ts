@@ -3,6 +3,7 @@
  * Re-exported from utils/outseta-utils.ts for convenience.
  */
 import type { OutsetaClaims } from "@/utils/outseta-utils";
+
 export type { OutsetaClaims } from "@/utils/outseta-utils";
 
 export interface OutsetaAddress {

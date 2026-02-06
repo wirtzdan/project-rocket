@@ -10,11 +10,13 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import posthog from "posthog-js";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { PiChatTeardropText } from "react-icons/pi";
 
 export const FeedbackButton = () => {
-  const [feedbackText, setFeedbackText] = useState("");
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const [error, setError] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleFormOpened = () => {
     posthog.capture("feedback_form_opened", {
@@ -23,13 +25,21 @@ export const FeedbackButton = () => {
   };
 
   const handleSubmit = () => {
-    if (feedbackText.trim()) {
-      posthog.capture("feedback_submitted", {
-        feedback_length: feedbackText.length,
-        has_content: feedbackText.trim().length > 0,
-      });
-      console.log("Feedback sent:", feedbackText);
-      setFeedbackText("");
+    const feedbackText = textareaRef.current?.value ?? "";
+    if (!feedbackText.trim()) {
+      setError("Please enter your feedback");
+      textareaRef.current?.focus();
+      return;
+    }
+    setError("");
+    setIsSubmitting(true);
+    posthog.capture("feedback_submitted", {
+      feedback_length: feedbackText.length,
+      has_content: feedbackText.trim().length > 0,
+    });
+    setIsSubmitting(false);
+    if (textareaRef.current) {
+      textareaRef.current.value = "";
     }
   };
 
@@ -43,7 +53,7 @@ export const FeedbackButton = () => {
           variant="outline"
         >
           Feedback?
-          <PiChatTeardropText />
+          <PiChatTeardropText aria-hidden="true" />
         </Button>
       </Menu.Trigger>
 
@@ -51,18 +61,21 @@ export const FeedbackButton = () => {
         <Menu.Positioner>
           <Menu.Content colorPalette={"primary"}>
             <VStack p={2}>
-              <Field.Root>
+              <Field.Root invalid={!!error}>
                 <Field.Label>Feedback</Field.Label>
                 <Textarea
+                  autoComplete="off"
                   h="140px"
-                  onChange={(e) => setFeedbackText(e.target.value)}
-                  placeholder="Start typing..."
-                  value={feedbackText}
+                  name="feedback"
+                  placeholder={"e.g., I noticed a bug when\u2026"}
+                  ref={textareaRef}
                   variant="outline"
                 />
+                {error && <Field.ErrorText>{error}</Field.ErrorText>}
               </Field.Root>
               <HStack w="full">
                 <Button
+                  loading={isSubmitting}
                   onClick={handleSubmit}
                   size="xs"
                   variant="solid"

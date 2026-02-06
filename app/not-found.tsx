@@ -28,6 +28,7 @@ export default function NotFound() {
               as="h1"
               lineHeight="tight"
               textStyle={{ base: "3xl", md: "4xl" }}
+              textWrap="balance"
             >
               Page not found
             </Heading>
@@ -54,7 +55,7 @@ export default function NotFound() {
           <Box pt="4">
             <Link href="/">
               <Button size="sm" variant="outline">
-                <PiArrowLeft />
+                <PiArrowLeft aria-hidden="true" />
                 Back to home
               </Button>
             </Link>

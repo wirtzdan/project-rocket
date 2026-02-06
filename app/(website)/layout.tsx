@@ -9,8 +9,25 @@ export default function WebsiteLayout({
 }) {
   return (
     <>
+      <a
+        href="#main-content"
+        className="skip-to-content"
+        style={{
+          position: "absolute",
+          width: "1px",
+          height: "1px",
+          overflow: "hidden",
+          clip: "rect(0 0 0 0)",
+          clipPath: "inset(50%)",
+          whiteSpace: "nowrap",
+        }}
+      >
+        Skip to content
+      </a>
       <Navbar type="website" />
-      <Box as="main">{children}</Box>
+      <Box as="main" id="main-content">
+        {children}
+      </Box>
       <Footer />
     </>
   );
