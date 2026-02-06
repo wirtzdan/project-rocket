@@ -1,5 +1,4 @@
-/* Utility Classes */
-.o--Widget--widget .o--color-accent {
+/* Utility Classes */ .o--Widget--widget .o--color-accent {
   color: var(--chakra-colors-primary-solid);
 }
 
@@ -21,7 +20,34 @@
 
 .o--Widget--cornerShape-rounded,
 .o--Widget--cornerShape-pill {
-  border-radius: var(--chakra-radii-l2);
+  border-radius: var(--chakra-radii-l2) !important;
+}
+
+.o--Widget--widget
+  .o--PlanSelector--cornerShape-rounded
+  .o--PlanSelector--planList
+  li,
+.o--Widget--widget
+  .o--PlanSelector--cornerShape-pill
+  .o--PlanSelector--planList
+  li {
+  border-radius: var(--chakra-radii-l2) !important;
+}
+
+.o--Widget--widget
+  .o--HorizontalToggle--horizontalToggle.o--HorizontalToggle--displayMode-light
+  ul,
+.o--Widget--widget
+  .o--HorizontalToggle--horizontalToggle.o--HorizontalToggle--displayMode-auto
+  ul {
+  border-radius: var(--chakra-radii-l2) !important;
+}
+
+.o--Widget--widget
+  .o--HorizontalToggle--cornerShape-rounded
+  li.o--HorizontalToggle--active
+  a {
+  border-radius: var(--chakra-radii-l2) !important;
 }
 
 /* Popup Widget */
@@ -33,7 +59,7 @@
 .o--App--authWidget .o--Widget--widgetBody,
 .o--App--emailListWidget .o--Widget--widgetBody,
 .o--App--leadCaptureWidget .o--Widget--widgetBody {
-  border-radius: var(--chakra-radii-l3);
+  border-radius: var(--chakra-radii-l2);
   font-size: var(--chakra-font-sizes-sm);
   line-height: 1.25rem;
   background: var(--chakra-colors-bg-panel-panel);
@@ -122,7 +148,7 @@
 /* General Links */
 .o--Widget--widget a,
 .o--Widget--widget a *:not(.material-icons) {
-  color: var(--chakra-colors-primary-fg);
+  color: var(--chakra-colors-primary-600);
   text-decoration-line: underline;
   text-decoration-style: solid;
   text-decoration-thickness: auto;
@@ -131,8 +157,10 @@
   text-decoration-color: var(--mix-textDecorationColor, currentColor);
 }
 
-.o--Widget--widget a:hover {
-  color: var(--chakra-colors-primary-fg);
+.o--Widget--widget a:hover,
+.o--Widget--widget a *:not(.material-icons):hover {
+  color: var(--chakra-colors-primary-400);
+  text-decoration-line: underline;
 }
 
 /* Labels */
@@ -181,9 +209,12 @@
   border-color: var(--focus-ring-color);
 }
 
+.o--Select--selectWrapper.o--Select--cornerShape-rounded select {
+  border-radius: var(--chakra-radii-l2) !important;
+}
+
 /* Buttons */
 .o--Widget--widget .o--Widget--widgetBody .o--Button--btn {
-  display: -webkit-inline-box;
   display: inline-flex;
   appearance: none;
   align-items: center;
@@ -206,7 +237,7 @@
   font-size: var(--chakra-font-sizes-md);
   padding-inline: var(--chakra-spacing-5);
   gap: var(--chakra-spacing-2\.5);
-  border-radius: var(--chakra-radii-l2);
+  border-radius: var(--chakra-radii-l2) !important;
   border-color: var(--chakra-colors-transparent);
   cursor: var(--chakra-cursor-button);
   font-weight: var(--chakra-font-weights-medium);
@@ -215,12 +246,19 @@
 }
 
 .o--Widget--widget
-  .o--Button--buttonType-cancel.o--Button--buttonStyle-solid.o--Button--displayMode-light
-  .o--Button--children,
+  .o--Button--buttonType-cancel.o--Button--buttonStyle-solid.o--Button--displayMode-light,
 .o--Widget--widget
-  .o--Button--buttonType-cancel.o--Button--buttonStyle-solid.o--Button--displayMode-auto
-  .o--Button--children {
-  color: var(--chakra-colors-primary-contrast);
+  .o--Button--buttonType-cancel.o--Button--buttonStyle-solid.o--Button--displayMode-auto {
+  color: var(--chakra-colors-primary-contrast) !important;
+  background: var(--chakra-colors-color-palette-subtle) !important;
+}
+
+.o--Widget--widget
+  .o--Button--buttonType-cancel.o--Button--buttonStyle-solid.o--Button--displayMode-light:hover,
+.o--Widget--widget
+  .o--Button--buttonType-cancel.o--Button--buttonStyle-solid.o--Button--displayMode-auto:hover {
+  opacity: 0.8 !important;
+  background: var(--chakra-colors-color-palette-subtle) !important;
 }
 
 .o--Widget--widget
@@ -252,8 +290,7 @@
     [data-disabled],
     [aria-disabled="true"]
   ) {
-  opacity: 0.5;
-  cursor: not-allowed;
+  opacity: 0.5 !important;
 }
 
 /* Profile Navigation (Desktop) */
@@ -262,13 +299,13 @@
     li.o--NavDesktop--active::before,
   .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-auto
     li.o--NavDesktop--active::before {
-    background: var(--chakra-colors-color-palette-subtle);
-    opacity: 1;
+    background: var(--chakra-colors-color-palette-muted) !important;
+    opacity: 0.5 !important;
+    color: var(--chakra-colors-color-palette-fg) !important;
   }
 
   .o--NavDesktop--navDesktop ul li a {
-    color: var(--chakra-colors-color-palette-fg);
-    font-weight: var(--chakra-font-weights-medium);
+    color: var(--chakra-colors-color-palette-fg) !important;
     text-decoration-line: none;
   }
 
@@ -278,8 +315,8 @@
 
   .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-light li:hover::before,
   .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-auto li:hover::before {
-    background: var(--chakra-colors-color-palette-subtle);
-    opacity: 0.75;
+    background: var(--chakra-colors-color-palette-subtle) !important;
+    opacity: 1 !important;
   }
 }
 

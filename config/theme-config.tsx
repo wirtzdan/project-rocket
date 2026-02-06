@@ -55,9 +55,9 @@ export const Logo = (props: React.SVGProps<SVGSVGElement>) => (
 
 export const themeConfig = {
   colorMode: "light",
-  neutralColorPalette: "gray",
   primaryColorPalette: "red",
   secondaryColorPalette: "gray",
+  neutralColorPalette: "gray",
   headingFont: "Inter",
   bodyFont: "Inter",
   radius: "md",
