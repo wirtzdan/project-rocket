@@ -9,9 +9,12 @@ import {
   HStack,
   Icon,
   IconButton,
-  Menu,
+  Popover,
   Portal,
+  SimpleGrid,
   SkeletonCircle,
+  Text,
+  VStack,
   useCollapsibleContext,
 } from "@chakra-ui/react";
 import posthog from "posthog-js";
@@ -44,6 +47,42 @@ export const MenuLink = ({ href, children }: MenuLinkProps) => {
   );
 };
 
+const DEMO_MENU_ITEMS = [
+  {
+    title: "Embeds",
+    links: [
+      { label: "Login", href: "/embed/login" },
+      { label: "Sign Up", href: "/embed/sign-up" },
+      { label: "Add-on", href: "/embed/add-on" },
+      { label: "Lead Capture", href: "/embed/lead-capture" },
+      { label: "Email List", href: "/embed/email-list" },
+    ],
+  },
+  {
+    title: "Utility",
+    links: [
+      { label: "Not found", href: "/not-found" },
+      { label: "Javascript", href: "/javascript" },
+      { label: "Thank you", href: "/thank-you" },
+    ],
+  },
+  {
+    title: "Gating",
+    links: [
+      { label: "Protected Page (Basic)", href: "/app/basic" },
+      { label: "Protected Page (Pro)", href: "/app/pro" },
+    ],
+  },
+  {
+    title: "Marketing",
+    links: [
+      { label: "Pricing", href: "/pricing" },
+      { label: "Contact", href: "/contact" },
+      { label: "Support", href: "/support" },
+    ],
+  },
+];
+
 export const NavbarLinkMenu = () => {
   const handleDocsClick = () => {
     posthog.capture("docs_link_clicked", {
@@ -63,81 +102,85 @@ export const NavbarLinkMenu = () => {
           Docs
         </Button>
       </Link>
-      <Menu.Root>
-        <Menu.Trigger asChild>
-          <Button
-            colorPalette="gray"
-            justifyContent={{ base: "flex-start", md: "center" }}
-            variant={{ base: "ghost", md: "plain" }}
-            width={{ base: "full", md: "auto" }}
-          >
-            Demos
-          </Button>
-        </Menu.Trigger>
-        <Portal>
-          <Menu.Positioner>
-            <Menu.Content>
-              <Menu.ItemGroup title="Pages">
-                <Link href="/pricing">
-                  <Menu.Item value="pricing">Pricing</Menu.Item>
-                </Link>
-                <Link href="/contact">
-                  <Menu.Item value="contact">Contact</Menu.Item>
-                </Link>
-                <Link href="/support">
-                  <Menu.Item value="support">Support</Menu.Item>
-                </Link>
-              </Menu.ItemGroup>
-              <Menu.Separator />
-              <Menu.ItemGroup title="Utility">
-                <Link href="/thank-you">
-                  <Menu.Item value="thank-you">Thank you</Menu.Item>
-                </Link>
-                <Link href="/not-found">
-                  <Menu.Item value="not-found">Not found</Menu.Item>
-                </Link>
-                <Link href="/javascript">
-                  <Menu.Item value="javascript">Javascript</Menu.Item>
-                </Link>
-                <Link href="/legal/terms-and-conditions">
-                  <Menu.Item value="terms-and-conditions">
-                    Terms & Conditions
-                  </Menu.Item>
-                </Link>
-              </Menu.ItemGroup>
-              <Menu.Separator />
-              <Menu.ItemGroup title="Auth">
-                <Link href="/app/basic">
-                  <Menu.Item value="basic">
-                    Protected Page (Basic plan)
-                  </Menu.Item>
-                </Link>
-                <Link href="/app/pro">
-                  <Menu.Item value="pro">Protected Page (Pro plan)</Menu.Item>
-                </Link>
-              </Menu.ItemGroup>
-              <Menu.Separator />
-              <Menu.ItemGroup title="Embeds">
-                <Link href="/embed/login">
-                  <Menu.Item value="login">Login</Menu.Item>
-                </Link>
-                <Link href="/embed/sign-up">
-                  <Menu.Item value="sign-up">Sign up</Menu.Item>
-                </Link>
-                <Link href="/embed/lead-capture">
-                  <Menu.Item value="lead-capture">Lead Capture</Menu.Item>
-                </Link>
-                <Link href="/embed/email-list">
-                  <Menu.Item value="email-list">Email List</Menu.Item>
-                </Link>
-                <Link href="/embed/add-on">
-                  <Menu.Item value="add-on">Add-on</Menu.Item>
-                </Link>
-              </Menu.ItemGroup>
-            </Menu.Content>
-          </Menu.Positioner>
-        </Portal>
-      </Menu.Root>
+
+      {/* Desktop: Popover mega menu */}
+      <Box hideBelow="md">
+        <Popover.Root positioning={{ placement: "bottom-start" }}>
+          <Popover.Trigger asChild>
+            <Button colorPalette="gray" variant="plain" width="auto">
+              Demos
+            </Button>
+          </Popover.Trigger>
+          <Portal>
+            <Popover.Positioner>
+              <Popover.Content w="auto">
+                <Popover.Arrow />
+                <Popover.Body p="4">
+                  <SimpleGrid columns={4} gap="4">
+                    {DEMO_MENU_ITEMS.map((group) => (
+                      <VStack key={group.title} align="start" gap="1">
+                        <Text
+                          color="fg.muted"
+                          fontSize="xs"
+                          fontWeight="semibold"
+                          px="2"
+                          pb="1"
+                        >
+                          {group.title}
+                        </Text>
+                        {group.links.map((link) => (
+                          <Link href={link.href} key={link.href} w="full">
+                            <Button
+                              colorPalette="gray"
+                              fontWeight="normal"
+                              justifyContent="flex-start"
+                              size="sm"
+                              variant="ghost"
+                              w="full"
+                            >
+                              {link.label}
+                            </Button>
+                          </Link>
+                        ))}
+                      </VStack>
+                    ))}
+                  </SimpleGrid>
+                </Popover.Body>
+              </Popover.Content>
+            </Popover.Positioner>
+          </Portal>
+        </Popover.Root>
+      </Box>
+
+      {/* Mobile: Flat list of links */}
+      <Box hideFrom="md">
+        {DEMO_MENU_ITEMS.map((group) => (
+          <Box key={group.title}>
+            <Text
+              color="fg.muted"
+              fontSize="xs"
+              fontWeight="semibold"
+              px="4"
+              pt="3"
+              pb="1"
+            >
+              {group.title}
+            </Text>
+            {group.links.map((link) => (
+              <Link href={link.href} key={link.href} w="full">
+                <Button
+                  colorPalette="gray"
+                  justifyContent="flex-start"
+                  variant="ghost"
+                  width="full"
+                >
+                  {link.label}
+                </Button>
+              </Link>
+            ))}
+          </Box>
+        ))}
+      </Box>
     </>
   );
 };
