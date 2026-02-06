@@ -10,9 +10,9 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { PiSignIn } from "react-icons/pi";
+import { Login, SignUp } from "../embeds";
 import { Section } from "../layout/section";
 import { useAuth } from "../provider/auth-provider";
-import { Login, SignUp } from "./embed";
 
 interface AuthGateProps {
   children: React.ReactNode;

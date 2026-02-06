@@ -1,6 +1,6 @@
 import { AbsoluteCenter, Box, Container } from "@chakra-ui/react";
-import { SignUp } from "@/components/auth/embed";
 import { RedirectIfAuthenticated } from "@/components/auth/redirect-if-authenticated";
+import { SignUp } from "@/components/embeds";
 import { projectConfig } from "@/config";
 import { generateMetadata } from "@/utils/metadata";
 

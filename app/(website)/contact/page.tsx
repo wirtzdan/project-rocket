@@ -1,6 +1,6 @@
 import { Card, Heading, Text, VStack } from "@chakra-ui/react";
 import { PageViewTracker } from "@/components/analytics/page-view-tracker";
-import { Support } from "@/components/auth/embed";
+import { Support } from "@/components/embeds";
 import { Section } from "@/components/layout/section";
 import { generateMetadata } from "@/utils/metadata";
 import "@/styles/contact-page-styles.css";

@@ -21,9 +21,10 @@ import posthog from "posthog-js";
 import type { ReactNode } from "react";
 import { PiList, PiX } from "react-icons/pi";
 import { Link } from "@/components/ui/link";
+import { projectConfig } from "@/config";
 import { Logo } from "@/config/theme-config";
-import { Login, SignUp } from "../auth/embed";
 import { SignedIn, SignedOut } from "../auth/protect-content";
+import { Login, SignUp } from "../embeds";
 import { useAuth } from "../provider/auth-provider";
 import { UserMenu } from "../ui/user-menu";
 
@@ -79,6 +80,10 @@ const DEMO_MENU_ITEMS = [
       { label: "Pricing", href: "/pricing" },
       { label: "Contact", href: "/contact" },
       { label: "Support", href: "/support" },
+      {
+        label: "Knowledge Base",
+        href: projectConfig.outsetaOptions.knowledgeBaseUrl,
+      },
     ],
   },
 ];

@@ -72,7 +72,7 @@ export const Logo = ({
 
 export const themeConfig = {
   colorMode: "light",
-  primaryColorPalette: "red",
+  primaryColorPalette: "blue",
   secondaryColorPalette: "gray",
   neutralColorPalette: "gray",
   headingFont: "Inter",

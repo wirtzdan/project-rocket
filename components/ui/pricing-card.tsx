@@ -20,7 +20,7 @@ import {
   LuUser,
 } from "react-icons/lu";
 import type { PlanData } from "../../app/(website)/pricing/data";
-import { SignUp } from "../auth/embed";
+import { SignUp } from "../embeds";
 
 const iconMap: Record<string, React.ReactNode> = {
   team: <LuBuilding aria-hidden="true" />,

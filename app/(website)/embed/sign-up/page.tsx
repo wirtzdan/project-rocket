@@ -1,5 +1,5 @@
 import { Box, Button, Heading, VStack } from "@chakra-ui/react";
-import { SignUp } from "@/components/auth/embed";
+import { SignUp } from "@/components/embeds";
 import { Section } from "@/components/layout/section";
 import { generateMetadata } from "@/utils/metadata";
 

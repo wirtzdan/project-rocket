@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import posthog from "posthog-js";
 import { PiQuestion, PiSignOut, PiUser } from "react-icons/pi";
-import { LogOut, Profile, Support } from "../auth/embed";
+import { LogOut, Profile, Support } from "../embeds";
 import { useAuth } from "../provider/auth-provider";
 
 function getInitials(name: string | undefined): string {

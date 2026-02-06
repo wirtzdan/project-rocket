@@ -25,9 +25,7 @@ export function parsePlansFromConfig(
     .split(",")
     .map((uid) => uid.trim())
     .map((uid) => getPlanFromConfig(uid))
-    .filter(
-      (p): p is PlanConfig & { uid: string } => p !== null
-    );
+    .filter((p): p is PlanConfig & { uid: string } => p !== null);
 }
 
 /**

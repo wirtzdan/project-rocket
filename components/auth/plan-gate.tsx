@@ -9,8 +9,8 @@ import {
 } from "@chakra-ui/react";
 import { PiLock } from "react-icons/pi";
 import { parsePlansFromConfig, userHasPlanAccess } from "@/utils/auth-helpers";
+import { Profile } from "../embeds";
 import { useAuth } from "../provider/auth-provider";
-import { Profile } from "./embed";
 
 interface PlanGateProps {
   children: React.ReactNode;
