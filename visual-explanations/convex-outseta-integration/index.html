@@ -1,0 +1,831 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Outseta + Convex Integration - Visual Guide</title>
+    <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      font-family:
+        -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+      background: #f5f5f5;
+    }
+    h1 {
+      color: #1a1a1a;
+      border-bottom: 4px solid #0066cc;
+      padding-bottom: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    h2 {
+      color: #333;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      font-size: 1.5rem;
+    }
+    h3 {
+      color: #555;
+      margin-top: 1.5rem;
+      font-size: 1.2rem;
+    }
+    .section {
+      background: white;
+      border-radius: 12px;
+      padding: 2rem;
+      margin: 1.5rem 0;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+    .flow-diagram {
+      background: #fafafa;
+      border: 2px solid #e0e0e0;
+      border-radius: 8px;
+      padding: 2rem;
+      margin: 1.5rem 0;
+      position: relative;
+    }
+    .flow-step {
+      background: white;
+      border: 2px solid #0066cc;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 1rem 0;
+      position: relative;
+      transition: all 0.3s;
+    }
+    .flow-step:hover {
+      transform: translateX(5px);
+      box-shadow: 0 4px 12px rgba(0, 102, 204, 0.2);
+    }
+    .flow-step::before {
+      content: "→";
+      position: absolute;
+      left: -30px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.5rem;
+      color: #0066cc;
+      font-weight: bold;
+    }
+    .flow-step:first-child::before {
+      display: none;
+    }
+    .step-number {
+      display: inline-block;
+      background: #0066cc;
+      color: white;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      text-align: center;
+      line-height: 24px;
+      font-size: 0.85rem;
+      font-weight: bold;
+      margin-right: 0.5rem;
+    }
+    .code-block {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      padding: 1.5rem;
+      border-radius: 8px;
+      overflow-x: auto;
+      margin: 1rem 0;
+      font-family: "SF Mono", Monaco, "Cascadia Code", monospace;
+      font-size: 0.9rem;
+      line-height: 1.5;
+    }
+    .code-block .keyword {
+      color: #569cd6;
+    }
+    .code-block .string {
+      color: #ce9178;
+    }
+    .code-block .comment {
+      color: #6a9955;
+    }
+    .code-block .function {
+      color: #dcdcaa;
+    }
+    .code-block .highlight {
+      background: #264f78;
+      padding: 2px 4px;
+      border-radius: 3px;
+    }
+    code {
+      background: #f4f4f4;
+      padding: 0.2em 0.5em;
+      border-radius: 4px;
+      font-family: "SF Mono", Monaco, monospace;
+      font-size: 0.9em;
+      color: #d63384;
+    }
+    .expandable {
+      cursor: pointer;
+      user-select: none;
+      padding: 1rem;
+      background: #f8f9fa;
+      border-radius: 6px;
+      margin: 0.5rem 0;
+      transition: background 0.2s;
+    }
+    .expandable:hover {
+      background: #e9ecef;
+    }
+    .expandable::before {
+      content: "▶";
+      display: inline-block;
+      margin-right: 0.5rem;
+      transition: transform 0.2s;
+      color: #0066cc;
+    }
+    .expandable.expanded::before {
+      transform: rotate(90deg);
+    }
+    .expandable-content {
+      display: none;
+      padding: 1rem;
+      margin-top: 0.5rem;
+      background: white;
+      border-left: 3px solid #0066cc;
+    }
+    .expandable.expanded + .expandable-content {
+      display: block;
+    }
+    .highlight-box {
+      background: #fff3cd;
+      border-left: 4px solid #ffc107;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    .success-box {
+      background: #d4edda;
+      border-left: 4px solid #28a745;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    .info-box {
+      background: #d1ecf1;
+      border-left: 4px solid #17a2b8;
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    .component-box {
+      background: #e7f3ff;
+      border: 2px solid #0066cc;
+      border-radius: 8px;
+      padding: 1rem;
+      margin: 0.5rem 0;
+    }
+    .component-box h4 {
+      margin: 0 0 0.5rem 0;
+      color: #0066cc;
+    }
+    .arrow {
+      text-align: center;
+      font-size: 2rem;
+      color: #0066cc;
+      margin: 0.5rem 0;
+    }
+    .two-column {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin: 1rem 0;
+    }
+    @media (max-width: 768px) {
+      .two-column {
+        grid-template-columns: 1fr;
+      }
+    }
+    .badge {
+      display: inline-block;
+      padding: 0.25em 0.6em;
+      border-radius: 12px;
+      font-size: 0.85em;
+      font-weight: 600;
+      margin-left: 0.5rem;
+    }
+    .badge-client {
+      background: #cfe2ff;
+      color: #084298;
+    }
+    .badge-server {
+      background: #d1e7dd;
+      color: #0f5132;
+    }
+    .badge-auth {
+      background: #fff3cd;
+      color: #856404;
+    }
+    </style>
+  </head>
+  <body>
+    <h1>🔐 Outseta + Convex Integration</h1>
+    <p style="font-size: 1.1rem; color: #666;">
+      How authentication flows between Outseta and Convex, and how to create
+      user-specific content in your database.
+    </p>
+
+    <div class="section">
+      <h2>📋 Overview</h2>
+      <p>
+        This integration bridges <strong>Outseta</strong> (authentication & user
+        management) with <strong>Convex</strong> (backend database & serverless
+        functions). Users authenticate via Outseta, and Convex automatically
+        verifies their identity using JWT tokens.
+      </p>
+
+      <div class="two-column">
+        <div class="component-box">
+          <h4>Outseta</h4>
+          <ul>
+            <li>Handles user authentication</li>
+            <li>Manages subscriptions & billing</li>
+            <li>Issues JWT tokens</li>
+            <li>Provides user profile data</li>
+          </ul>
+        </div>
+        <div class="component-box">
+          <h4>Convex</h4>
+          <ul>
+            <li>Verifies JWT tokens</li>
+            <li>Provides user identity in functions</li>
+            <li>Stores user-specific data</li>
+            <li>Enforces access control</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🔄 Authentication Flow</h2>
+      <p>Here's how authentication flows from the browser to Convex:</p>
+
+      <div class="flow-diagram">
+        <div class="flow-step">
+          <span class="step-number">1</span>
+          <strong>User logs in via Outseta</strong>
+          <div class="info-box" style="margin-top: 0.5rem;">
+            Outseta SDK handles login widget, validates credentials, and stores
+            JWT token in cookies.
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <span class="step-number">2</span>
+          <strong>AuthProvider reads token</strong>
+          <div class="info-box" style="margin-top: 0.5rem;">
+            <code>components/provider/auth-provider.tsx</code> verifies the JWT
+            using Outseta's JWKS endpoint and stores user data in React context.
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <span class="step-number">3</span>
+          <strong>Adapter hook bridges auth</strong>
+          <div class="info-box" style="margin-top: 0.5rem;">
+            <code>utils/use-convex-outseta-auth.ts</code> adapts Outseta's auth
+            context into the format Convex expects.
+          </div>
+          <div class="code-block" style="margin-top: 0.5rem;">
+            <span class="keyword">export function</span>
+            <span class="function">useConvexOutsetaAuth</span>() {<span
+              class="keyword"
+              >const</span
+            > { isAuthenticated, isLoading, getAccessToken } = <span
+              class="function"
+              >useAuth</span
+            >();
+
+            <span class="keyword">const</span> fetchAccessToken =
+            <span class="function">useCallback</span>( () => <span
+              class="function"
+              >getAccessToken</span
+            >(), [getAccessToken] );
+
+            <span class="keyword">return</span> { isLoading, isAuthenticated,
+            fetchAccessToken }; }
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <span class="step-number">4</span>
+          <strong>ConvexProviderWithAuth wraps app</strong>
+          <div class="info-box" style="margin-top: 0.5rem;">
+            <code>components/provider/convex-provider.tsx</code> wraps your app
+            and automatically passes tokens to Convex on every request.
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <span class="step-number">5</span>
+          <strong>Convex verifies token</strong>
+          <div class="info-box" style="margin-top: 0.5rem;">
+            Convex reads <code>convex/auth.config.ts</code>, fetches JWKS from
+            Outseta's domain, and verifies the JWT signature.
+          </div>
+          <div class="code-block" style="margin-top: 0.5rem;">
+            <span class="comment">// convex/auth.config.ts</span>
+            <span class="keyword">export default</span> { providers: [ { domain:
+            <span class="string"
+              >`$ { process.env.OUTSETA_SUBDOMAIN}.outseta.com`</span
+            >, applicationID: <span class="string"
+              >`$ { process.env.OUTSETA_SUBDOMAIN}.outseta.com`</span
+            >, }], } ;
+          </div>
+        </div>
+
+        <div class="flow-step">
+          <span class="step-number">6</span>
+          <strong>User identity available</strong>
+          <div class="success-box" style="margin-top: 0.5rem;">
+            ✅ In any Convex function, use
+            <code>ctx.auth.getUserIdentity()</code> to access the authenticated
+            user's data.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>💾 Using User Identity in Convex Functions</h2>
+      <p>
+        Once authenticated, you can access user identity in queries, mutations,
+        and actions:
+      </p>
+
+      <div class="expandable" onclick="toggleExpand(this)">
+        <strong>📝 Query Example</strong> - Read user-specific data
+      </div>
+      <div class="expandable-content">
+        <div class="code-block">
+          <span class="keyword">import</span> { query }
+          <span class="keyword">from</span>
+          <span class="string">"./_generated/server"</span>;<span
+            class="keyword"
+            >import</span
+          > { v } <span class="keyword">from</span> <span class="string"
+            >"convex/values"</span
+          >;
+
+          <span class="keyword">export const</span> getUserNotes = query( {
+          args: { } , returns: v.array(v.object( { _id: v.id(<span
+            class="string"
+            >"notes"</span
+          >), content: v.string(), userId: v.string(), })), handler: <span
+            class="keyword"
+            >async</span
+          > (ctx) => {<span class="keyword">const</span> identity = <span
+            class="keyword"
+            >await</span
+          > ctx.auth.getUserIdentity();
+
+          <span
+            class="keyword"
+            >if</span
+          > (!identity) {<span class="keyword">throw new</span> <span
+            class="function"
+            >Error</span
+          >(<span class="string">"Unauthenticated"</span>); }
+
+          <span
+            class="comment"
+            >// identity.subject is the Outseta user UID</span
+          >
+          <span
+            class="keyword"
+            >return await</span
+          > ctx.db .query(<span class="string">"notes"</span>) .withIndex(<span
+            class="string"
+            >"by_user"</span
+          >, (q) => q.eq(<span class="string">"userId"</span>,
+          identity.subject)) .collect(); }, } );
+        </div>
+        <div class="highlight-box">
+          <strong>💡 Tip:</strong> Use <code>identity.subject</code> (the
+          Outseta user UID) as the foreign key in your database tables.
+        </div>
+      </div>
+
+      <div class="expandable" onclick="toggleExpand(this)">
+        <strong>✏️ Mutation Example</strong> - Create user-specific data
+      </div>
+      <div class="expandable-content">
+        <div class="code-block">
+          <span class="keyword">import</span> { mutation }
+          <span class="keyword">from</span>
+          <span class="string">"./_generated/server"</span>;<span
+            class="keyword"
+            >import</span
+          > { v } <span class="keyword">from</span> <span class="string"
+            >"convex/values"</span
+          >;
+
+          <span class="keyword">export const</span> createNote = mutation( {
+          args: { content: v.string(), }, returns: v.id(<span class="string"
+            >"notes"</span
+          >), handler: <span class="keyword">async</span> (ctx, args) => {<span
+            class="keyword"
+            >const</span
+          > identity = <span class="keyword">await</span>
+          ctx.auth.getUserIdentity();
+
+          <span
+            class="keyword"
+            >if</span
+          > (!identity) {<span class="keyword">throw new</span> <span
+            class="function"
+            >Error</span
+          >(<span class="string">"Unauthenticated"</span>); }
+
+          <span
+            class="keyword"
+            >return await</span
+          > ctx.db.insert(<span class="string">"notes"</span>, { content:
+          args.content, userId: identity.subject,
+          <span class="comment">// Link to Outseta user</span>
+          email: identity.email,
+          <span class="comment">// Optional: store email</span>
+          createdAt: Date.now(), }); }, } );
+        </div>
+      </div>
+
+      <div class="expandable" onclick="toggleExpand(this)">
+        <strong>🔧 Action Example</strong> - Call external APIs with user
+        context
+      </div>
+      <div class="expandable-content">
+        <div class="code-block">
+          <span class="keyword">import</span> { action }
+          <span class="keyword">from</span>
+          <span class="string">"./_generated/server"</span>;<span
+            class="keyword"
+            >import</span
+          > { v } <span class="keyword">from</span> <span class="string"
+            >"convex/values"</span
+          >;
+
+          <span class="keyword">export const</span> syncUserData = action( {
+          args: { } , returns: v.null(), handler:
+          <span class="keyword">async</span> (ctx) => {
+          <span class="keyword">const</span> identity =
+          <span class="keyword">await</span> ctx.auth.getUserIdentity();
+
+          <span class="keyword">if</span> (!identity) {
+          <span class="keyword">throw new</span>
+          <span class="function">Error</span>(<span class="string"
+            >"Unauthenticated"</span
+          >); }
+
+          <span class="comment"
+            >// Use identity.issuer to call Outseta API</span
+          >
+          <span class="keyword">const</span> response =
+          <span class="keyword">await</span> fetch(
+          <span class="string">`$ { identity.issuer}/api/v1/profile`</span>, {
+          headers: { Authorization: <span class="string"
+            >`Bearer $ { identity.tokenIdentifier.split("|").pop()}`</span
+          >, }, } );
+
+          <span class="keyword">const</span> userData =
+          <span class="keyword">await</span> response.json();
+          <span class="comment">// Process userData...</span>
+
+          <span class="keyword">return null</span>; }, } );
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🗄️ Database Schema for User Content</h2>
+      <p>
+        To create user-specific content, add a <code>userId</code> field that
+        references the Outseta user UID:
+      </p>
+
+      <div class="code-block">
+        <span class="comment">// convex/schema.ts</span>
+        <span class="keyword">import</span> { defineSchema, defineTable }
+        <span class="keyword">from</span>
+        <span class="string">"convex/server"</span>;<span class="keyword"
+          >import</span
+        > { v } <span class="keyword">from</span> <span class="string"
+          >"convex/values"</span
+        >;
+
+        <span class="keyword">export default</span>
+        <span class="function">defineSchema</span>( {<span class="comment"
+          >// User-specific notes</span
+        >
+        notes: <span class="function">defineTable</span>( { userId: v.string(),
+        <span class="comment">// Outseta user UID (identity.subject)</span>
+        content: v.string(), createdAt: v.number(), }) .index(<span
+          class="string"
+          >"by_user"</span
+        >, [<span class="string">"userId"</span>]) .index(<span class="string"
+          >"by_user_and_created"</span
+        >, [<span class="string">"userId"</span>,
+        <span class="string">"createdAt"</span>]),
+
+        <span class="comment">// User preferences</span>
+        userPreferences: <span class="function">defineTable</span>( { userId:
+        v.string(), theme: v.string(), notifications: v.boolean(), }) .index(<span
+          class="string"
+          >"by_user"</span
+        >, [<span class="string">"userId"</span>]), });
+      </div>
+
+      <div class="highlight-box">
+        <strong>🔑 Key Points:</strong>
+        <ul>
+          <li>
+            <code>userId</code> stores <code>identity.subject</code> (the
+            Outseta user UID like <code>"vW54Z669"</code>)
+          </li>
+          <li>
+            Always create an index on <code>userId</code> for efficient queries
+          </li>
+          <li>
+            Use compound indexes like <code>by_user_and_created</code> for
+            sorted queries
+          </li>
+          <li>
+            The <code>userId</code> field is a string, not a Convex ID (since it
+            comes from Outseta)
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🎯 Complete Example: User Notes App</h2>
+      <p>
+        Here's a complete example showing how to build a user-specific notes
+        feature:
+      </p>
+
+      <div class="expandable" onclick="toggleExpand(this)">
+        <strong>1. Schema</strong>
+      </div>
+      <div class="expandable-content">
+        <div class="code-block">
+          <span class="comment">// convex/schema.ts</span>
+          notes: <span class="function">defineTable</span>( { userId:
+          v.string(), title: v.string(), content: v.string(), createdAt:
+          v.number(), }) .index(<span class="string">"by_user"</span>, [<span
+            class="string"
+            >"userId"</span
+          >])
+        </div>
+      </div>
+
+      <div class="expandable" onclick="toggleExpand(this)">
+        <strong>2. Query - List user's notes</strong>
+      </div>
+      <div class="expandable-content">
+        <div class="code-block">
+          <span class="keyword">export const</span> listMyNotes = query( { args:
+          { } , returns: v.array(v.id(<span class="string">"notes"</span>)),
+          handler: <span class="keyword">async</span> (ctx) => {<span
+            class="keyword"
+            >const</span
+          > identity = <span class="keyword">await</span>
+          ctx.auth.getUserIdentity();
+          <span
+            class="keyword"
+            >if</span
+          > (!identity) <span class="keyword">throw new</span> <span
+            class="function"
+            >Error</span
+          >(<span class="string">"Unauthenticated"</span>);
+
+          <span
+            class="keyword"
+            >return await</span
+          > ctx.db .query(<span class="string">"notes"</span>) .withIndex(<span
+            class="string"
+            >"by_user"</span
+          >, (q) => q.eq(<span class="string">"userId"</span>,
+          identity.subject)) .collect(); }, } );
+        </div>
+      </div>
+
+      <div class="expandable" onclick="toggleExpand(this)">
+        <strong>3. Mutation - Create note</strong>
+      </div>
+      <div class="expandable-content">
+        <div class="code-block">
+          <span class="keyword">export const</span> createNote = mutation( {
+          args: { title: v.string(), content: v.string(), }, returns: v.id(<span
+            class="string"
+            >"notes"</span
+          >), handler: <span class="keyword">async</span> (ctx, args) => {<span
+            class="keyword"
+            >const</span
+          > identity = <span class="keyword">await</span>
+          ctx.auth.getUserIdentity();
+          <span
+            class="keyword"
+            >if</span
+          > (!identity) <span class="keyword">throw new</span> <span
+            class="function"
+            >Error</span
+          >(<span class="string">"Unauthenticated"</span>);
+
+          <span
+            class="keyword"
+            >return await</span
+          > ctx.db.insert(<span class="string">"notes"</span>, { userId:
+          identity.subject, title: args.title, content: args.content, createdAt:
+          Date.now(), }); }, } );
+        </div>
+      </div>
+
+      <div class="expandable" onclick="toggleExpand(this)">
+        <strong>4. Frontend - Use in React component</strong>
+      </div>
+      <div class="expandable-content">
+        <div class="code-block">
+          <span class="comment">// app/notes/page.tsx</span>
+          <span class="string">"use client"</span>;
+
+          <span
+            class="keyword"
+            >import</span
+          > { useQuery, useMutation } <span class="keyword">from</span> <span
+            class="string"
+            >"convex/react"</span
+          >;<span class="keyword">import</span> { api }
+          <span class="keyword">from</span>
+          <span class="string">"@/convex/_generated/api"</span>;
+
+          <span
+            class="keyword"
+            >export default function</span
+          > <span class="function">NotesPage</span>() {
+          <span class="keyword">const</span> notes =
+          <span class="function">useQuery</span>(api.notes.listMyNotes);
+          <span
+            class="keyword"
+            >const</span
+          > createNote = <span class="function"
+            >useMutation</span
+          >(api.notes.createNote);
+
+          <span class="keyword">if</span> (notes ===
+          <span class="keyword">undefined</span>) <span class="keyword"
+            >return</span
+          > <span class="string">"Loading..."</span>;
+
+          <span class="keyword">return</span> ( &lt;div&gt; { notes.map(noteId
+          => ( &lt;Note key= { noteId} noteId= { noteId} /&gt; ))} &lt;/div&gt;
+          ); }
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>🔒 Access Control Patterns</h2>
+      <p>Common patterns for controlling access to user data:</p>
+
+      <div class="two-column">
+        <div class="component-box">
+          <h4>✅ Allow only owner</h4>
+          <div class="code-block" style="font-size: 0.85rem;">
+            <span class="keyword">const</span> identity =
+            <span class="keyword">await</span> ctx.auth.getUserIdentity();
+            <span class="keyword">if</span> (!identity)
+            <span class="keyword">throw new</span>
+            <span class="function">Error</span>(<span class="string"
+              >"Unauthenticated"</span
+            >);
+
+            <span class="keyword">const</span> note =
+            <span class="keyword">await</span> ctx.db.get(noteId);
+            <span class="keyword">if</span> (note.userId !== identity.subject) {
+            <span class="keyword">throw new</span>
+            <span class="function">Error</span>(<span class="string"
+              >"Forbidden"</span
+            >); }
+          </div>
+        </div>
+
+        <div class="component-box">
+          <h4>✅ Filter by user automatically</h4>
+          <div class="code-block" style="font-size: 0.85rem;">
+            <span class="keyword">const</span> identity =
+            <span class="keyword">await</span> ctx.auth.getUserIdentity();
+            <span class="keyword">if</span> (!identity)
+            <span class="keyword">throw new</span>
+            <span class="function">Error</span>(<span class="string"
+              >"Unauthenticated"</span
+            >);
+
+            <span class="keyword">return await</span> ctx.db .query(<span
+              class="string"
+              >"notes"</span
+            >) .withIndex(<span class="string">"by_user"</span>, (q) => q.eq(<span
+              class="string"
+              >"userId"</span
+            >, identity.subject) ) .collect();
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>📊 What's Available in User Identity?</h2>
+      <p>
+        When you call <code>ctx.auth.getUserIdentity()</code>, you get:
+      </p>
+      <div class="code-block">
+        { subject: <span class="string">"vW54Z669"</span>, <span class="comment"
+          >// Outseta user UID (use this as userId)</span
+        >
+        email: <span class="string">"user@example.com"</span>,
+        <span class="comment">// User's email</span>
+        issuer: <span class="string"
+          >"https://project-rocket.outseta.com"</span
+        >, <span class="comment">// Outseta domain</span>
+        tokenIdentifier: <span class="string"
+          >"https://project-rocket.outseta.com|vW54Z669"</span
+        >, <span class="comment">// Unique token ID</span>
+        <span class="comment">// Plus any custom claims from the JWT</span>}
+      </div>
+      <div class="info-box">
+        <strong>💡 Note:</strong> The JWT also contains Outseta-specific claims
+        like <code>outseta:planUid</code>, <code>outseta:addOnUids</code>, etc.
+        These are available in the raw JWT but not automatically exposed in
+        <code>getUserIdentity()</code>. If you need them, you can decode the
+        token manually or access them via <code>identity.tokenIdentifier</code>.
+      </div>
+    </div>
+
+    <div class="section">
+      <h2>✅ Summary</h2>
+      <div class="success-box">
+        <h3 style="margin-top: 0;">What Works Now:</h3>
+        <ul>
+          <li>✅ Users authenticate via Outseta widgets</li>
+          <li>✅ JWT tokens automatically flow to Convex</li>
+          <li>✅ Convex verifies tokens using Outseta's JWKS</li>
+          <li>
+            ✅ <code>ctx.auth.getUserIdentity()</code> works in all Convex
+            functions
+          </li>
+          <li>✅ You can create user-specific database tables</li>
+          <li>✅ Access control is enforced server-side</li>
+        </ul>
+      </div>
+
+      <div class="highlight-box">
+        <h3 style="margin-top: 0;">Next Steps:</h3>
+        <ol>
+          <li>
+            Define your schema with <code>userId</code> fields
+          </li>
+          <li>
+            Create indexes on <code>userId</code> for efficient queries
+          </li>
+          <li>
+            Use <code>identity.subject</code> as the foreign key
+          </li>
+          <li>
+            Always check <code>getUserIdentity()</code> in functions that need
+            auth
+          </li>
+          <li>
+            Filter queries by <code>userId</code> to show only user's data
+          </li>
+        </ol>
+      </div>
+    </div>
+
+    <script>
+    "use strict";
+    function toggleExpand(element) {
+      element.classList.toggle("expanded");
+    }
+
+    // Add smooth scrolling for better UX
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+          target.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      });
+    });
+    </script>
+  </body>
+</html>
