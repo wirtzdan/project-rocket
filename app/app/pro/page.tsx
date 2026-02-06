@@ -1,5 +1,5 @@
 import { Heading } from "@chakra-ui/react";
-import ProtectedRoute from "@/components/auth/protect-route";
+import { PlanGate } from "@/components/auth/plan-gate";
 import { Section } from "@/components/layout/section";
 import { generateMetadata } from "@/utils/metadata";
 
@@ -11,10 +11,10 @@ export const metadata = generateMetadata({
 
 export default function Pro() {
   return (
-    <ProtectedRoute plansWithAccess="pro">
+    <PlanGate plansWithAccess="pro">
       <Section header>
         <Heading>Pro</Heading>
       </Section>
-    </ProtectedRoute>
+    </PlanGate>
   );
 }

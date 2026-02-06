@@ -11,6 +11,7 @@ import {
   IconButton,
   Menu,
   Portal,
+  SkeletonCircle,
   useCollapsibleContext,
 } from "@chakra-ui/react";
 import posthog from "posthog-js";
@@ -20,6 +21,7 @@ import { Link } from "@/components/ui/link";
 import { Logo } from "@/config/theme-config";
 import { Login, SignUp } from "../auth/embed";
 import { SignedIn, SignedOut } from "../auth/protect-content";
+import { useAuth } from "../provider/auth-provider";
 import { UserMenu } from "../ui/user-menu";
 
 interface MenuLinkProps {
@@ -141,6 +143,8 @@ export const NavbarLinkMenu = () => {
 };
 
 export const NavbarActionMenu = ({ type }: { type: "website" | "app" }) => {
+  const { isLoading } = useAuth();
+
   const handleLoginClick = () => {
     posthog.capture("login_popup_opened", {
       source: "navbar",
@@ -152,6 +156,10 @@ export const NavbarActionMenu = ({ type }: { type: "website" | "app" }) => {
       source: "navbar",
     });
   };
+
+  if (isLoading) {
+    return <SkeletonCircle size="9" />;
+  }
 
   return (
     <>

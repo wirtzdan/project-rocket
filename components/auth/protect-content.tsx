@@ -36,9 +36,9 @@ export function SignedIn({
   addOn,
   isPrimaryContact,
 }: SignedInProps) {
-  const { user } = useAuth();
+  const { user, isLoading } = useAuth();
 
-  if (!user?.Account) {
+  if (isLoading || !user?.Account) {
     return null;
   }
 
@@ -72,8 +72,8 @@ export function SignedIn({
 }
 
 export function SignedOut({ children }: { children: React.ReactNode }) {
-  const { user } = useAuth();
-  if (user?.Account) {
+  const { user, isLoading } = useAuth();
+  if (isLoading || user?.Account) {
     return null;
   }
   return <>{children}</>;

@@ -1,31 +1,14 @@
-"use client";
+import { Box } from "@chakra-ui/react";
+import { BackButton } from "@/components/ui/back-button";
 
-import { Box, Button } from "@chakra-ui/react";
-import { PiArrowLeft } from "react-icons/pi";
-import { Link } from "@/components/ui/link";
-
-export default function WebsiteLayout({
+export default function UtilityLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <>
-      <Box
-        as="header"
-        left="6"
-        position="fixed"
-        top="6"
-        w="full"
-        zIndex="docked"
-      >
-        <Link href="/">
-          <Button bg="bg" colorPalette="gray" variant="outline">
-            <PiArrowLeft />
-            Back home
-          </Button>
-        </Link>
-      </Box>
+      <BackButton />
       <Box as="main">{children}</Box>
     </>
   );
