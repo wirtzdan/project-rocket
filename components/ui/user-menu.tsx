@@ -40,7 +40,7 @@ export const UserMenu = () => {
   return (
     <Menu.Root positioning={{ placement: "bottom" }}>
       <Menu.Trigger>
-        <Avatar.Root size="sm">
+        <Avatar.Root colorPalette="gray" size="sm">
           <Avatar.Image src={user?.ProfileImageS3Url ?? undefined} />
           <Avatar.Fallback>{getInitials(user?.FullName)}</Avatar.Fallback>
         </Avatar.Root>
