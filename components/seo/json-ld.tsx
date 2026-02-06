@@ -23,6 +23,7 @@ export function OrganizationJsonLd() {
 
   return (
     <script
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: JSON-LD structured data requires dangerouslySetInnerHTML
       dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       type="application/ld+json"
     />

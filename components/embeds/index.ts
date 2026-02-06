@@ -1,3 +1,4 @@
+// biome-ignore lint/performance/noBarrelFile: Barrel file is used extensively throughout the codebase for convenience
 export { EmailList } from "./email-list";
 export { LeadCapture } from "./lead-capture";
 export { LogOut } from "./log-out";

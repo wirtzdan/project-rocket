@@ -17,7 +17,9 @@ export interface SignUpProps extends EmbedProps {
 }
 
 function buildRegistrationDefaults(addOn?: string, discount?: string) {
-  if (!(addOn || discount)) return undefined;
+  if (!(addOn || discount)) {
+    return undefined;
+  }
 
   const subscription: Record<string, unknown> = {};
 
