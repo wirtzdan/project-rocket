@@ -11,8 +11,8 @@ export function useConvexOutsetaAuth() {
       forceRefreshToken: _forceRefreshToken,
     }: {
       forceRefreshToken: boolean;
-    }) => {
-      return getAccessToken();
+    }): Promise<string | null> => {
+      return Promise.resolve(getAccessToken());
     },
     [getAccessToken]
   );

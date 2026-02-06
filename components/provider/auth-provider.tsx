@@ -335,16 +335,13 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     };
   }, [initializeOutseta]);
 
-  const openLogin = useCallback(
-    (options?: Partial<OutsetaAuthOpenOptions>) => {
-      outsetaRef.current?.auth.open({
-        widgetMode: "login|register",
-        authenticationCallbackUrl: window.location.href,
-        ...options,
-      });
-    },
-    []
-  );
+  const openLogin = useCallback((options?: Partial<OutsetaAuthOpenOptions>) => {
+    outsetaRef.current?.auth.open({
+      widgetMode: "login|register",
+      authenticationCallbackUrl: window.location.href,
+      ...options,
+    });
+  }, []);
 
   const openSignup = useCallback(
     (options?: Partial<OutsetaAuthOpenOptions>) => {
@@ -357,12 +354,9 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     []
   );
 
-  const openProfile = useCallback(
-    (options?: OutsetaProfileOpenOptions) => {
-      outsetaRef.current?.profile.open({ tab: "profile", ...options });
-    },
-    []
-  );
+  const openProfile = useCallback((options?: OutsetaProfileOpenOptions) => {
+    outsetaRef.current?.profile.open({ tab: "profile", ...options });
+  }, []);
 
   const openPlanUpgrade = useCallback((planUid: string) => {
     outsetaRef.current?.profile.open({
