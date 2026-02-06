@@ -277,6 +277,14 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
       });
     });
 
+    // Handle logout triggered via data-o-logout-link (e.g., <LogOut> embed component)
+    outseta.on("logout", () => {
+      posthog.capture("user_logged_out");
+      posthog.reset();
+      setUser(null);
+      setStatus("ready");
+    });
+
     // Handle token expiration
     outseta.on("nocode.expired", handleTokenExpired);
 
