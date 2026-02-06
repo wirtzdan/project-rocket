@@ -72,5 +72,6 @@ yarn-error.log*
 .env.test
 .env.production
 
-# Cursor
+# Agents
 .cursor
+.claude
