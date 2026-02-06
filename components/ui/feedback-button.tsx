@@ -58,11 +58,7 @@ export const FeedbackButton = () => {
   return (
     <Menu.Root positioning={{ placement: "bottom" }}>
       <Menu.Trigger asChild>
-        <Button
-          onClick={handleFormOpened}
-          size="xs"
-          variant="outline"
-        >
+        <Button onClick={handleFormOpened} size="xs" variant="outline">
           Feedback?
           <PiChatTeardropText aria-hidden="true" />
         </Button>
