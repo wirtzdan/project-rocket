@@ -1,7 +1,7 @@
 "use client";
 
-import { importX509, jwtVerify } from "jose";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { createRemoteJWKSet, jwtVerify } from "jose";
+import { useSearchParams } from "next/navigation";
 import posthog from "posthog-js";
 import {
   createContext,
@@ -21,6 +21,13 @@ import type {
   OutsetaUser,
 } from "@/types/outseta";
 import { isAdminUser } from "@/utils/outseta-utils";
+
+// Create JWKS keyset once — jose handles caching and key rotation automatically
+const JWKS = createRemoteJWKSet(
+  new URL(
+    `https://${projectConfig.outsetaOptions.domain}/.well-known/jwks`
+  )
+);
 
 interface AuthContextType {
   user: OutsetaUser | null;
@@ -80,8 +87,6 @@ export default function AuthProvider({
 
 function AuthProviderContent({ children }: { children: React.ReactNode }) {
   const searchParams = useSearchParams();
-  const router = useRouter();
-  const pathname = usePathname();
   const [status, setStatus] = useState("init");
   const [user, setUser] = useState<OutsetaUser | null>(null);
   const outsetaRef = useRef<OutsetaSDK | null>(null);
@@ -128,10 +133,8 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
       if (!outsetaRef.current) {
         throw new Error("Outseta SDK not initialized");
       }
-      const certificate = projectConfig.outsetaOptions.auth.publicKey;
       try {
-        const publicKey = await importX509(certificate, "RS256");
-        await jwtVerify(token, publicKey);
+        await jwtVerify(token, JWKS);
         outsetaRef.current.setAccessToken(token);
         return await updateUser();
       } catch (error) {
@@ -170,18 +173,10 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     const initializeAuth = () => {
       const accessToken = searchParams.get("access_token");
       if (accessToken) {
-        verifyAndSetToken(accessToken)
-          .then(() => {
-            const params = new URLSearchParams(searchParams);
-            params.delete("access_token");
-            const newUrl =
-              pathname + (params.toString() ? `?${params.toString()}` : "");
-            router.replace(newUrl);
-          })
-          .catch((error) => {
-            console.error("[Auth] Error verifying token:", error);
-            setStatus("ready");
-          });
+        verifyAndSetToken(accessToken).catch((error) => {
+          console.error("[Auth] Error verifying token:", error);
+          setStatus("ready");
+        });
       } else if (outseta.getAccessToken()) {
         updateUser().catch((error) => {
           console.error("[Auth] Error updating user:", error);
@@ -296,7 +291,7 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     } catch {
       // Modules not ready yet, wait for events
     }
-  }, [searchParams, pathname, router, updateUser, verifyAndSetToken, logout]);
+  }, [searchParams, updateUser, verifyAndSetToken, logout]);
 
   useEffect(() => {
     // Try to initialize immediately if Outseta is available

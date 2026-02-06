@@ -59,25 +59,12 @@ export const outsetaConfig = {
      * Defaults the email field in the login form to the last used email.
      */
     rememberLastEmail: true,
+  },
+  nocode: {
     /**
-     * Required: Public JWT certificate for verifying Outseta access tokens.
-     * Find this under Sign Up > Advanced in your Outseta dashboard.
-     * Used for server-side token verification.
+     * Optional: Whether to remove the access token from the querystring after login.
+     * See: https://go.outseta.com/support/kb/articles/aWxXddWV/javascript-configuration-guide#clearQuerystring
      */
-    publicKey: `-----BEGIN CERTIFICATE----- 
-MIICzDCCAbSgAwIBAgIQANOnyWX39GOTemR5gtC1pTANBgkqhkiG9w0BAQ0FADAhMR8wHQYDVQQD
-DBZlYXN5LXRpbWVyLm91dHNldGEuY29tMCAXDTI0MTIwMjE0NDQzM1oYDzIxMjQxMjAyMTQ0NDMz
-WjAhMR8wHQYDVQQDDBZlYXN5LXRpbWVyLm91dHNldGEuY29tMIIBIjANBgkqhkiG9w0BAQEFAAOC
-AQ8AMIIBCgKCAQEAj1dcGuHuf6CzO0oPfbISnTdhBTBQYNPsxdsE6wHZXEbSainl6JFsisJCDoS5
-Jfq+yPUYJafn4dN9n50whJ2epk3MA/y7sYfa9qkJi0FSLKDOTyiVy0suWJNl9TOY4bBXhB9XiKAW
-XRugbV2ppSE2tG38oz6+gLpJYlUI2zPdZxL+OTbCnveDgF/sB833WjMxp4cYJZMI2nDvQIX/2N4K
-7svPsiiyQONpNkKtYG/A4to1/kG4+KWcMEYS6b2Z5gY1qLynHUDdRRJotr7AMYaaev1M1Nn4gkv1
-T/ksXMQHaRCIFwdEzVsHiQ4M0U1nEoiWtld1pGnw325XtUYiMgJiiwIDAQABMA0GCSqGSIb3DQEB
-DQUAA4IBAQBhZvzrRnNu7u01areF1ZCaAeVhxJgHtl3P3c9XuFL1gEtvYYJOQCs0yltXfj7lfJj+
-OD7TgCXNfeZ0NEqoJuPXo6m2r3jxvbkDPf3eZ4kPefaopzgDwAVVTUg2t+3DhZs5VdKoMWOVX735
-QQpgi5FW0GQ7JfAOdHseUDhTy3YRWfwWTbipKC8Er8N8txwDwVBk7fG6MHGDQlxA+Nn9OdhjdNYN
-dUAFZS2Kde57b5SzBeK4yAbBVGg2dnJPhESEVnARhg49pfTgS7c9RgcYt079i2ssClctf76uBnPG
-GEtwkQBpw6TGcCdD5QsNQ09z5Cm2KCm/RQjsXImYK/dhWYEc
------END CERTIFICATE-----`,
+    clearQuerystring: true,
   },
 };
