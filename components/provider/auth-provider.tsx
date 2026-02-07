@@ -222,6 +222,34 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
         checkInitialization();
       });
 
+      // Catch-up: handle the case where init events already fired before
+      // our listeners were attached (race condition with sync SDK script).
+      const attemptImmediateResolution = () => {
+        if (!isActiveRef.current) return;
+        if (authInitialized && nocodeInitialized) return;
+
+        try {
+          const token = outseta.getAccessToken();
+          if (!token) {
+            authInitialized = true;
+            nocodeInitialized = true;
+            setStatus("ready");
+          } else {
+            authInitialized = true;
+            nocodeInitialized = true;
+            updateUser().catch((error) => {
+              console.error("[Auth] Immediate user load failed:", error);
+              authInitialized = false;
+              nocodeInitialized = false;
+            });
+          }
+        } catch {
+          // getAccessToken() threw — SDK truly not ready, wait for events
+        }
+      };
+
+      attemptImmediateResolution();
+
       // Listen to accessToken.set event for automatic user updates
       outseta.on("accessToken.set", handleAccessTokenSet);
 
@@ -310,13 +338,19 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     const handleOutsetaLoaded = () => setup();
     window.addEventListener("outseta:loaded", handleOutsetaLoaded);
 
-    // Fallback timeout: if Outseta doesn't load within 10 seconds, set status to ready
+    // Fallback timeout: if initialization hasn't completed within 5 seconds,
+    // force ready state. Uses functional updater to read latest status.
     const timeoutId = setTimeout(() => {
-      if (!outsetaRef.current) {
-        console.warn("[Auth] Outseta SDK not available after 10 seconds");
-        setStatus("ready");
-      }
-    }, 10_000);
+      setStatus((current) => {
+        if (current === "init") {
+          console.warn(
+            "[Auth] Outseta initialization timed out, falling back to ready state"
+          );
+          return "ready";
+        }
+        return current;
+      });
+    }, 5_000);
 
     return () => {
       isActiveRef.current = false;
