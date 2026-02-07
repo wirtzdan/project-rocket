@@ -3,7 +3,7 @@ import { generalConfig } from "./general-config";
 export const outsetaConfig = {
   domain: "project-rocket.outseta.com",
   knowledgeBaseUrl: "https://project-rocket.outseta.com/support/kb",
-  load: "auth,chat,emailList,leadCapture,nocode,profile,support",
+  load: "auth,customForm,emailList,leadCapture,nocode,profile,support,chat",
   monitorDom: true,
   tokenStorage: "local",
   translationLang: generalConfig.language,
