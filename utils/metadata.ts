@@ -31,6 +31,15 @@ export function generateMetadata({
     alternates: {
       canonical: url,
     },
+    icons: {
+      icon: [
+        { url: "/static/favicon.ico", sizes: "32x32", type: "image/x-icon" },
+        { url: "/static/icon.png", sizes: "32x32", type: "image/png" },
+      ],
+      apple: [
+        { url: "/static/apple-icon.png", sizes: "180x180", type: "image/png" },
+      ],
+    },
     openGraph: {
       title: fullTitle,
       description: fullDescription,
