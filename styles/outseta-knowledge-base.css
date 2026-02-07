@@ -1,0 +1,111 @@
+/* 
+--------------------------------
+Knowledge Base Styles
+--------------------------------
+*/
+
+/* Root Styles */
+.view-container div {
+  --radius-input: var(--chakra-radii-l2) !important;
+}
+
+/* Header Text Color */
+.view-container header h1,
+.view-container header p,
+.view-container header div {
+  color: var(--chakra-colors-fg) !important;
+}
+
+.view-container header .has-feedback input,
+.view-container header .has-feedback input:hover {
+  background-color: var(--chakra-colors-bg) !important;
+  border: 1px solid var(--chakra-colors-border) !important;
+}
+
+.view-container header .has-feedback input::placeholder,
+.view-container header .has-feedback input:hover::placeholder {
+  color: var(--chakra-colors-fg-subtle) !important;
+}
+
+.view-container .form-control:focus,
+.view-container .form-control:hover,
+.view-container .form-control:hover:not(:disabled) {
+  background-color: var(--chakra-colors-bg) !important;
+  border: 1px solid var(--chakra-colors-border) !important;
+}
+
+.view-container .has-feedback-left .form-control:focus,
+.view-container .has-feedback-left .form-control:hover,
+.view-container .has-feedback-left .form-control-feedback i {
+  color: var(--chakra-colors-fg-subtle);
+}
+
+/* Header Background Color */
+.view-container .brand-bg-color-dark {
+  background-color: var(--chakra-colors-bg-muted) !important;
+}
+
+/* Button Color */
+
+.view-container .x:hover::before,
+.view-container .x:hover::after {
+  background-color: var(--chakra-colors-primary-solid) !important;
+}
+
+.view-container .x:hover:before,
+.view-container .x:hover:after {
+  background-color: var(--chakra-colors-primary-solid) !important;
+}
+
+.view-container .btn.brand-bg-color.submit-help-request {
+  background-color: var(--chakra-colors-primary-solid) !important;
+  color: var(--chakra-colors-primary-contrast) !important;
+}
+
+/* Nav Tabs */
+.view-container .nav.nav-tabs li.active a,
+.view-container .nav.nav-tabs li a[aria-expanded="true"],
+.view-container .nav.nav-tabs > li > a {
+  color: var(--chakra-colors-fg) !important;
+  opacity: 0.8 !important;
+}
+
+.view-container .nav.nav-tabs > li > a:hover {
+  color: var(--chakra-colors-fg) !important;
+}
+
+.view-container .nav.nav-tabs > li.active > a {
+  border-bottom: 3px solid var(--chakra-colors-primary-solid) !important;
+  opacity: 1 !important;
+}
+
+.view-container .article-body a,
+.view-container .footer-links a,
+html .view-container header .kb-intro a {
+  color: var(--chakra-colors-primary-solid) !important;
+  text-decoration-color: var(--chakra-colors-primary-solid) !important;
+  font-weight: normal !important;
+}
+
+.view-container .article-body a:hover,
+.view-container .footer-links a:hover,
+html .view-container header .kb-intro a:hover {
+  color: var(--chakra-colors-primary-solid) !important;
+  text-decoration-color: var(--chakra-colors-primary-solid) !important;
+  font-weight: normal !important;
+  opacity: 0.8 !important;
+}
+
+.view-container .brand-color,
+.view-container .brand-color:hover {
+  color: var(--chakra-colors-primary-solid) !important;
+}
+
+/* Link Color */
+.view-container .tile-list-item a:hover {
+  border-color: var(--chakra-colors-primary-solid) !important;
+}
+
+.view-container .tile-list-item a:hover:before {
+  background-color: var(--chakra-colors-primary-solid) !important;
+}

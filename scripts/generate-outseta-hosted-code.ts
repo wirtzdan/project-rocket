@@ -3,7 +3,16 @@ import path from "node:path";
 import { generalConfig } from "../config/general-config";
 import { system } from "../theme/theme";
 
-const INPUT_PATH = path.join(process.cwd(), "styles", "outseta-styles.css");
+const OUTSETA_STYLES_PATH = path.join(
+  process.cwd(),
+  "styles",
+  "outseta-styles.css"
+);
+const KB_STYLES_PATH = path.join(
+  process.cwd(),
+  "styles",
+  "outseta-knowledge-base.css"
+);
 const OUTPUT_PATH = path.join(
   process.cwd(),
   "public",
@@ -112,8 +121,11 @@ const buildHostedCode = (): string => {
 const main = async (): Promise<void> => {
   try {
     const tokenMap = buildTokenMap();
-    const cssContent = await fs.readFile(INPUT_PATH, "utf8");
-    const resolvedCSS = processCSS(cssContent, tokenMap);
+
+    const outsetaCSS = await fs.readFile(OUTSETA_STYLES_PATH, "utf8");
+    const kbCSS = await fs.readFile(KB_STYLES_PATH, "utf8");
+    const combinedCSS = `${outsetaCSS}\n${kbCSS}`;
+    const resolvedCSS = processCSS(combinedCSS, tokenMap);
 
     // Validate no unresolved chakra vars remain
     const remaining = resolvedCSS.match(CSS_VAR_REGEX);
