@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ CompanyName }}</title>
+    <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: var(--chakra-colors-bg-subtle);
+      color: var(--chakra-colors-fg);
+      -webkit-text-size-adjust: none;
+      text-size-adjust: none;
+      font-family:
+        -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif;
+      font-size: 16px;
+      line-height: 1.4;
+    }
+    table {
+      border-collapse: collapse;
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+    }
+    img {
+      border: 0;
+      display: block;
+      line-height: 100%;
+    }
+    p {
+      margin: 0;
+    }
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+    a[x-apple-data-detectors] {
+      color: inherit !important;
+      text-decoration: none !important;
+    }
+    a:hover {
+      text-decoration: underline !important;
+    }
+    #MessageViewBody a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    p + p,
+    p + em,
+    em + p {
+      margin-top: 20px;
+    }
+
+    @media only screen and (min-width: 664px) {
+      .page-padding {
+        padding: 32px;
+      }
+    }
+    </style>
+  </head>
+  <body>
+    <!-- Background -->
+    <table
+      role="presentation"
+      border="0"
+      width="100%"
+      cellpadding="0"
+      cellspacing="0"
+      style="background:var(--chakra-colors-bg-muted); color: var(--chakra-colors-fg); min-width: 320px;"
+    >
+      <tr>
+        <td class="page-padding" align="center">
+          <!-- Header -->
+          <table
+            role="presentation"
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            valign="middle"
+            width="600"
+            style="width:100%; max-width:600px; background:var(--chakra-colors-bg-panel); border-bottom: 1px solid var(--chakra-colors-border); border-radius: var(--chakra-radii-l2);"
+          >
+            <tr>
+              <td align="left" style="padding:32px 28px;">
+                <a
+                  href="{{ siteUrl }}?utm_source=transactional-email&utm_medium=email&utm_campaign=base&utm_content=header-logo"
+                  target="_blank"
+                >
+                  <img
+                    src="{{ siteUrl }}/static/logo.png"
+                    width="583"
+                    height="129"
+                    style="width: 112px; height: auto;"
+                    alt="Logo {{ projectName }}"
+                  >
+                </a>
+              </td>
+              <td
+                align="right"
+                style="padding:24px 32px; font-family: monospace; text-transform: uppercase; font-size: 12px; color:var(--chakra-colors-fg);"
+              >
+                <a
+                  href="{{ siteUrl }}?utm_source=transactional-email&utm_medium=email&utm_campaign=base&utm_content=header-website-link"
+                  target="_blank"
+                  style="color:var(--chakra-colors-fg-subtle); text-decoration:none;"
+                >
+                  <span style="color:var(--chakra-colors-fg-subtle);"
+                    >{{ CompanyName }}</span
+                  >
+                </a>
+              </td>
+            </tr>
+          </table>
+
+          <!-- Body -->
+          <table
+            role="presentation"
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            width="600"
+            style="width:100%; max-width:600px; background:var(--chakra-colors-bg-panel);"
+          >
+            <tr>
+              <td>
+              {{ Body }}
+            </td>
+            </tr>
+          </table>
+
+          <!-- Footer -->
+          <table
+            role="presentation"
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            valign="middle"
+            width="600"
+            style="width:100%; max-width:600px; background:var(--chakra-colors-bg-panel); border-top: 1px solid var(--chakra-colors-border);"
+          >
+            <tr>
+              <!-- URL on left -->
+              <td
+                align="left"
+                style="padding: 32px; font-family: monospace; text-transform: uppercase; font-size: 12px; color:var(--chakra-colors-fg);"
+              >
+                <a
+                  href="{{ siteUrl }}?utm_source=transactional-email&utm_medium=email&utm_campaign=base&utm_content=footer-url"
+                  target="_blank"
+                  style="color:var(--chakra-colors-fg-subtle); text-decoration:none;"
+                >
+                  {{ siteUrlDomain }}
+                </a>
+              </td>
+
+              <!-- Login button on right -->
+              <td align="right" style="padding: 32px;">
+                <a
+                  href="{{ siteUrl }}/login?utm_source=transactional-email&utm_medium=email&utm_campaign=base&utm_content=footer-button-login"
+                  target="_blank"
+                  style="display: inline-block; font-family: -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif; color:var(--chakra-colors-white); font-size:14px; background-color: var(--chakra-colors-primary-solid); line-height: 14px; padding: 8px 14px 8px 14px; border-radius: var(--chakra-radii-l2); text-decoration:none; mso-line-height-rule:exactly;"
+                  >Login</a
+                >
+              </td>
+            </tr>
+          </table>{ % if UnsubscribeLink != nil and UnsubscribeLink != '' %}
+          <table
+            role="presentation"
+            border="0"
+            cellpadding="0"
+            cellspacing="0"
+            valign="middle"
+            width="600"
+            style="width:100%; max-width:600px;"
+          >
+            <tr>
+              <td align="center" style="padding: 24px; font-family: -apple-system, BlinkMacSystemFont, Arial, Helvetica, sans-serif; color:var(--chakra-colors-fg-subtle); font-size:14px; line-height:1.4;">
+              {{ UnsubscribeLink }}
+            </td>
+            </tr>
+          </table>
+          { % endif %}
+        </td>
+      </tr>
+    </table>
+  </body>
+</html>

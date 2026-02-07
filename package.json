@@ -1,5 +1,5 @@
 {
-  "name": "project-starter-chakra",
+  "name": "project-rocket",
   "version": "1.0.0",
   "private": true,
   "scripts": {
@@ -7,7 +7,8 @@
     "generate:favicons": "tsx scripts/generate-favicons.tsx",
     "generate:logo": "tsx scripts/generate-logo-svg.tsx",
     "generate:outseta-hosted-code": "tsx scripts/generate-outseta-hosted-code.ts",
-    "prebuild": "pnpm generate:logo && pnpm generate:favicons && pnpm generate:outseta-hosted-code",
+    "generate:email-template": "tsx scripts/generate-outseta-email-template.ts",
+    "prebuild": "pnpm generate:logo && pnpm generate:favicons && pnpm generate:outseta-hosted-code && pnpm generate:email-template",
     "build": "next build",
     "start": "next start",
     "typecheck": "tsc",
