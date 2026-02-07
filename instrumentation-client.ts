@@ -1,7 +1,8 @@
 import posthog from "posthog-js";
+import { analyticsConfig } from "@/config/analytics-config";
 
 const posthogKey = process.env.NEXT_PUBLIC_POSTHOG_KEY;
-if (posthogKey) {
+if (analyticsConfig.enabled && posthogKey) {
   posthog.init(posthogKey, {
     api_host: "/ingest",
     ui_host: process.env.NEXT_PUBLIC_POSTHOG_HOST,
