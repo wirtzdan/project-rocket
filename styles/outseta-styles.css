@@ -1,462 +1,92 @@
-/* Utility Classes */ .o--Widget--widget .o--color-accent {
-  color: var(--chakra-colors-primary-solid);
+/* Outseta CSS variable overrides */ div {
+  /* Semantic Colors */
+  --accent-color: var(--chakra-colors-primary-solid) !important;
+  --color: var(--chakra-colors-primary-solid);
+  --color-bg: var(--chakra-colors-bg) !important;
+  --dark-mode-bg-color: var(--chakra-colors-bg) !important;
+  --color-danger: var(--chakra-colors-fg-error) !important;
+
+  /* Neutral Colors */
+  --color-coal: var(--chakra-colors-bg-emphasized) !important;
+  --color-coal-dark: rgba(255, 255, 255, 0.2);
+  --color-slate: var(--chakra-colors-bg-muted) !important;
+  --color-slate-dark: var(--chakra-colors-bg-muted) !important;
+  --color-granite: var(--chakra-colors-bg-muted) !important;
+  --color-granite-dark: var(--chakra-colors-bg-emphasized) !important;
+  --color-concrete: rgba(0, 0, 0, 0.02);
+  --color-concrete-dark: rgba(255, 255, 255, 0.02);
+  --color-black-15: rgba(0, 0, 0, 0.15);
+  --color-white-10: rgba(255, 255, 255, 0.1);
+
+  /* Text Colors */
+  --color-text: var(--chakra-colors-fg) !important;
+  --color-text-secondary: var(--chakra-colors-fg-subtle) !important;
+  --color-text-disabled: var(--chakra-colors-fg-subtle) !important;
+  --color-text-dark: var(--chakra-colors-fg-subtle) !important;
+  --color-text-secondary-dark: var(--chakra-colors-fg-subtle) !important;
+  --color-text-disabled-dark: var(--chakra-colors-fg-subtle) !important;
+
+  /* Typography */
+  --font-family: var(--chakra-fonts-body) !important;
+  --font-size: var(--chakra-font-sizes-md) !important;
+  --font-size-sm: var(--chakra-font-sizes-sm) !important;
+  --font-size-xs: var(--chakra-font-sizes-xs) !important;
+  --weight-bold: var(--chakra-font-weights-bold) !important;
+  --line-height: 1.428572;
+
+  /* Styling */
+  --opacity-disabled: 0.5 !important;
+  --shadow-input: none !important;
+  --radius-round: var(--chakra-radii-l2) !important;
+
+  /* Spacing */
+  --element-padding-v: var(--chakra-spacing-2 0.5) !important;
+  --element-padding-h: var(--chakra-spacing-3) !important;
 }
 
-.o--Widget--widget .o--color-danger,
-.o--Widget--widget .o--color-danger:hover {
-  color: var(--chakra-colors-fg-error);
+/* Button */
+.o--Widget--widget .o--Button--btn:hover {
+  box-shadow: none !important;
+  opacity: 0.9 !important;
 }
 
-.o--Widget--widget .o--text-sm {
-  font-size: var(--chakra-font-sizes-sm);
-}
-.o--Widget--widget .o--text-xs {
-  font-size: var(--chakra-font-sizes-xs);
-}
-
-.o--Widget--cornerShape-square {
-  border-radius: 0;
-}
-
-.o--Widget--cornerShape-rounded,
-.o--Widget--cornerShape-pill {
-  border-radius: var(--chakra-radii-l2) !important;
-}
-
-.o--Widget--widget
-  .o--PlanSelector--cornerShape-rounded
-  .o--PlanSelector--planList
-  li,
-.o--Widget--widget
-  .o--PlanSelector--cornerShape-pill
-  .o--PlanSelector--planList
-  li {
-  border-radius: var(--chakra-radii-l2) !important;
-}
-
-.o--Widget--widget
-  .o--HorizontalToggle--horizontalToggle.o--HorizontalToggle--displayMode-light
-  ul,
-.o--Widget--widget
-  .o--HorizontalToggle--horizontalToggle.o--HorizontalToggle--displayMode-auto
-  ul {
-  border-radius: var(--chakra-radii-l2) !important;
-}
-
-.o--Widget--widget
-  .o--HorizontalToggle--cornerShape-rounded
-  li.o--HorizontalToggle--active
-  a {
-  border-radius: var(--chakra-radii-l2) !important;
-}
-
-/* Popup Widget */
-.o--Widget--widget {
-  background: transparent;
-}
-
-.o--App--profileWidget .o--Widget--widgetBody,
-.o--App--authWidget .o--Widget--widgetBody,
-.o--App--emailListWidget .o--Widget--widgetBody,
-.o--App--leadCaptureWidget .o--Widget--widgetBody {
-  border-radius: var(--chakra-radii-l2);
-  font-size: var(--chakra-font-sizes-sm);
-  line-height: 1.25rem;
-  background: var(--chakra-colors-bg-panel-panel);
-  box-shadow: var(--chakra-shadows-lg);
-}
-
-.o--Widget--popupBg {
-  background: var(--chakra-colors-black-alpha-500);
-}
-
-.o--Widget--popupBg .false {
-  animation-name: fade-in;
-  animation-duration: var(--chakra-durations-fast);
-}
-
-.o--Widget--popupBg .o--Widget--closed {
-  animation-name: fade-out;
-  animation-duration: var(--chakra-durations-fast);
-}
-
-/* Display-mode */
-.o--Widget--displayMode-light,
-.o--Widget--widget.o--Widget--displayMode-auto {
-  background: var(--chakra-colors-bg-panel);
-}
-.o--Widget--displayMode-light,
-.o--Widget--displayMode-light *,
-.o--Widget--widget.o--Widget--displayMode-auto,
-.o--Widget--widget.o--Widget--displayMode-auto * {
-  color: var(--chakra-colors-fg);
-}
-
-.o--Widget--displayMode-dark {
-  background: var(--chakra-colors-bg-panel);
-}
-.o--Widget--displayMode-dark,
-.o--Widget--displayMode-dark * {
-  color: var(--chakra-colors-fg);
-}
-/* Odd Chrome default-style-sheet issue */
-.o--Widget--displayMode-dark table {
-  color: var(--chakra-colors-fg);
-}
-
-@media (prefers-color-scheme: dark) {
-  .o--Widget--widget.o--Widget--displayMode-auto {
-    background: var(--chakra-colors-bg-panel);
-  }
-  .o--Widget--widget.o--Widget--displayMode-auto,
-  .o--Widget--widget.o--Widget--displayMode-auto * {
-    color: var(--chakra-colors-fg);
-  }
-  /* Odd Chrome default-style-sheet issue */
-  .o--Widget--widget.o--Widget--displayMode-auto table {
-    color: var(--chakra-colors-fg);
-  }
-}
-
-/* General Text */
-.o--Widget--widget,
-.o--Widget--widget *:not(.material-icons),
-.o--Widget--widget *:-webkit-autofill::first-line,
-.o--Widget--widget h2,
-.o--Widget--widget h3,
-.o--Widget--widget h4,
-.o--Widget--widget h5,
-.o--Widget--widget h6 {
-  font-family: var(--chakra-fonts-body);
-}
-
-/* Headings */
-.o--Widget--widget .o--Widget--widgetBody h1 {
-  font-size: 32px;
-  font-weight: bold;
-  line-height: 40px;
-  font-family: var(--chakra-fonts-heading);
-}
-
-.o--Widget--widget .o--Widget--widgetBody h2 {
-  font-size: 22px;
-  font-weight: bold;
-  line-height: 30px;
-  font-family: var(--chakra-fonts-heading);
-}
-
-/* General Links */
-.o--Widget--widget a,
-.o--Widget--widget a *:not(.material-icons) {
-  color: var(--chakra-colors-primary-600);
-  text-decoration-line: underline;
-  text-decoration-style: solid;
-  text-decoration-thickness: auto;
-  text-underline-offset: 3px;
-  --mix-textDecorationColor: color-mix(in srgb, currentColor 20%, transparent);
-  text-decoration-color: var(--mix-textDecorationColor, currentColor);
-}
-
-.o--Widget--widget a:hover,
-.o--Widget--widget a *:not(.material-icons):hover {
-  color: var(--chakra-colors-primary-400);
-  text-decoration-line: underline;
+/* Error messages */
+.o--Widget--widget .o--ErrorMessages--errorMessages {
+  background-color: var(--chakra-colors-fg-error) !important;
+  color: var(--chakra-colors-fg-inverted) !important;
 }
 
 /* Labels */
-.o--Widget--widget .o--Widget--widgetBody label.o--Label--label {
-  display: flex;
-  -moz-box-align: center;
-  align-items: center;
-  text-align: start;
-  font-size: var(--chakra-font-sizes-sm);
-  line-height: 1.25rem;
-  font-weight: var(--chakra-font-weights-medium);
-  gap: var(--chakra-spacing-1);
-  user-select: none;
+.o--Widget--widget label.o--Label--displayMode-light,
+.o--Widget--widget label.o--Label--displayMode-auto,
+.o--Widget--widget label.o--Label--displayMode-dark {
+  color: var(--chakra-colors-fg) !important;
 }
 
-/* Inputs */
-.o--Widget--widget .o--Widget--widgetBody .o--Input--input {
-  width: 100%;
-  min-width: var(--input-height);
-  outline: 0px;
-  position: relative;
-  appearance: none;
-  text-align: start;
-  border-radius: var(--chakra-radii-l2);
-  height: var(--input-height);
-  --focus-color: var(--chakra-colors-primary-focus-ring);
-  --error-color: var(--chakra-colors-border-error);
-  font-size: var(--chakra-font-sizes-sm);
-  line-height: 1.25rem;
-  padding-inline: var(--chakra-spacing-3);
-  --input-height: var(--chakra-sizes-10);
-  background: var(--chakra-colors-transparent);
-  --bg-currentcolor: var(--chakra-colors-transparent);
-  border-width: 1px;
-  border-color: var(--chakra-colors-border);
-  --focus-ring-color: var(--chakra-colors-primary-focus-ring);
+/* Chat */
+#o--Trigger--unreadCount {
+  background: var(--chakra-colors-fg-error) !important;
+  border-radius: 100% !important;
+  color: var(--chakra-colors-fg-inverted) !important;
+  height: 24px !important;
+  width: 24px !important;
+  left: 6px !important;
+  top: 6px !important;
 }
 
-.o--Widget--widget
-  .o--Widget--widgetBody
-  .o--Input--input:is(:focus-visible, [data-focus-visible]) {
-  outline-offset: 0px;
-  outline-width: var(--focus-ring-width, 1px);
-  outline-color: var(--focus-ring-color);
-  outline-style: var(--focus-ring-style, solid);
-  border-color: var(--focus-ring-color);
+.o--Trigger--trigger {
+  width: 64px !important;
+  height: 64px !important;
+  overflow: visible !important;
+  right: 24px !important;
+  bottom: 24px !important;
 }
 
-.o--Select--selectWrapper.o--Select--cornerShape-rounded select {
-  border-radius: var(--chakra-radii-l2) !important;
+/* Change Plan */
+.o--Widget--widget .o--PlanSelector--planSelector
+  ul.o--PlanSelector--planList
+  li.o--PlanSelector--planListItem {
+  border-width: 2px !important;
 }
-
-/* Buttons */
-.o--Widget--widget .o--Widget--widgetBody .o--Button--btn {
-  display: inline-flex;
-  appearance: none;
-  align-items: center;
-  justify-content: center;
-  user-select: none;
-  white-space: nowrap;
-  vertical-align: middle;
-  border-width: 1px;
-  flex-shrink: 0;
-  outline: 0;
-  line-height: 1.5rem;
-  isolation: isolate;
-  transition-property:
-    background-color, border-color, color, fill, stroke, opacity, box-shadow,
-    translate, transform;
-  transition-duration: var(--chakra-durations-moderate);
-  --focus-ring-color: var(--chakra-colors-primary-focus-ring);
-  height: var(--chakra-sizes-12);
-  min-width: var(--chakra-sizes-12);
-  font-size: var(--chakra-font-sizes-md);
-  padding-inline: var(--chakra-spacing-5);
-  gap: var(--chakra-spacing-2\.5);
-  border-radius: var(--chakra-radii-l2) !important;
-  border-color: var(--chakra-colors-transparent);
-  cursor: var(--chakra-cursor-button);
-  font-weight: var(--chakra-font-weights-medium);
-  background: var(--chakra-colors-primary-solid);
-  color: var(--chakra-colors-primary-contrast);
-}
-
-.o--Widget--widget
-  .o--Button--buttonType-cancel.o--Button--buttonStyle-solid.o--Button--displayMode-light,
-.o--Widget--widget
-  .o--Button--buttonType-cancel.o--Button--buttonStyle-solid.o--Button--displayMode-auto {
-  color: var(--chakra-colors-primary-contrast) !important;
-  background: var(--chakra-colors-color-palette-subtle) !important;
-}
-
-.o--Widget--widget
-  .o--Button--buttonType-cancel.o--Button--buttonStyle-solid.o--Button--displayMode-light:hover,
-.o--Widget--widget
-  .o--Button--buttonType-cancel.o--Button--buttonStyle-solid.o--Button--displayMode-auto:hover {
-  opacity: 0.8 !important;
-  background: var(--chakra-colors-color-palette-subtle) !important;
-}
-
-.o--Widget--widget
-  .o--Widget--widgetBody
-  .o--Button--btn:is(:hover, [data-hover]):not(:disabled, [data-disabled]) {
-  --mix-background: color-mix(
-    in srgb,
-    var(--chakra-colors-primary-solid) 90%,
-    transparent
-  );
-  background: var(--mix-background, var(--chakra-colors-primary-solid));
-  --bg-currentcolor: var(--mix-background, var(--chakra-colors-primary-solid));
-}
-
-.o--Widget--widget a.btn-link {
-  display: inline-block;
-  padding: 12px 0;
-}
-
-.o--Widget--widget a.btn-link .material-icons {
-  line-height: 24px;
-  vertical-align: top;
-}
-
-.o--Widget--widget
-  .o--Button--btn:is(
-    :disabled,
-    [disabled],
-    [data-disabled],
-    [aria-disabled="true"]
-  ) {
-  opacity: 0.5 !important;
-}
-
-/* Profile Navigation (Desktop) */
-@media only screen and (min-width: 600px) {
-  .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-light
-    li.o--NavDesktop--active::before,
-  .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-auto
-    li.o--NavDesktop--active::before {
-    background: var(--chakra-colors-color-palette-muted) !important;
-    opacity: 0.5 !important;
-    color: var(--chakra-colors-color-palette-fg) !important;
-  }
-
-  .o--NavDesktop--navDesktop ul li a {
-    color: var(--chakra-colors-color-palette-fg) !important;
-    text-decoration-line: none;
-  }
-
-  .o--NavDesktop--navDesktop ul li.a:hover {
-    color: var(--chakra-colors-color-palette-fg);
-  }
-
-  .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-light li:hover::before,
-  .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-auto li:hover::before {
-    background: var(--chakra-colors-color-palette-subtle) !important;
-    opacity: 1 !important;
-  }
-}
-
-.o--Widget--widget
-  .o--StickyActionRow--stickyActionRow.o--StickyActionRow--displayMode-light,
-.o--Widget--widget
-  .o--StickyActionRow--stickyActionRow.o--StickyActionRow--displayMode-auto {
-  background: var(--chakra-colors-bg-panel);
-  border-color: var(--global-color-border);
-}
-
-.o--Widget--widget .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-light,
-.o--Widget--widget .o--NavDesktop--navDesktop.o--NavDesktop--displayMode-auto {
-  border-color: var(--global-color-border);
-}
-
-/* Chat Trigger */
-.o--Trigger--trigger .Open_svg__w-fill-dark,
-.o--Trigger--trigger .Close_svg__w-fill-dark {
-  fill: var(--chakra-colors-primary-solid);
-}
-
-.o--Chat--chat .o--Chat--header,
-.o--Widget--widget
-  .o--ChatMessage--chatMessage.o--ChatMessage--in
-  .o--ChatMessage--body
-  .o--ChatMessage--content {
-  background-color: var(--chakra-colors-primary-solid);
-  color: var(--chakra-colors-primary-contrast);
-}
-
-.o--Widget--widget
-  .o--ChatMessage--chatMessage.o--ChatMessage--in
-  .o--ChatMessage--body
-  .o--ChatMessage--content
-  span {
-  color: var(--chakra-colors-primary-contrast);
-}
-
-.o--Chat--chat .o--Chat--header h4 {
-  color: var(--chakra-colors-primary-contrast);
-}
-
-.o--Chat--chat .o--ChatMessage--body .o--ChatMessage--content {
-  color: white;
-}
-
-#widget-Outseta_chat .chatMessage.in .body .content {
-  background: var(--accent-color);
-}
-#widget-Outseta_chat .chatMessage.in .body .content * {
-  color: #fff;
-}
-
-.o--Widget--widget
-  .o--Chat--chat.o--Chat--displayMode-light
-  .o--Chat--body
-  .o--Chat--fileUploadOverlay,
-.o--Widget--widget
-  .o--Chat--chat.o--Chat--displayMode-auto
-  .o--Chat--body
-  .o--Chat--fileUploadOverlay {
-  border: 2px dashed var(--global-color-border);
-}
-
-/* ****************************************
- * Theming
- * ****************************************/
-
-/* corner-shape */
-#widget-Outseta_chat.cornerShape-square {
-  border-radius: 0;
-}
-
-#widget-Outseta_chat.cornerShape-rounded,
-#widget-Outseta_chat.cornerShape-pill {
-  border-radius: var(--chakra-radii-l2);
-}
-#widget-Outseta_chat.cornerShape-rounded .header,
-#widget-Outseta_chat.cornerShape-pill .header {
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-}
-
-#widget-Outseta_chat.cornerShape-rounded .body .fileUploadOverlay,
-#widget-Outseta_chat.cornerShape-pill .body .fileUploadOverlay,
-.chatOffline.cornerShape-rounded .header,
-.chatOffline.cornerShape-pill .header {
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-}
-
-/* display-mode */
-
-.o--Widget--widget .o--Chat--chat.o--Chat--displayMode-light,
-.o--Widget--widget .o--Chat--chat.o--Chat--displayMode-auto {
-  background: var(--chakra-colors-bg-panel);
-  box-shadow: var(--chakra-shadows-lg);
-}
-
-.o--Widget--widget .o--Chat--chat.displayMode-light,
-.o--Widget--widget .o--Chat--chat.displayMode-auto {
-  background: var(--chakra-colors-bg-panel);
-  box-shadow: var(--chakra-shadows-lg);
-}
-
-#widget-Outseta_chat.displayMode-light .body .fileUploadOverlay,
-#widget-Outseta_chat.displayMode-auto .body .fileUploadOverlay {
-  background: var(--chakra-colors-bg-panel);
-  border-color: var(--global-color-border);
-}
-#widget-Outseta_chat.displayMode-light .body .input textarea,
-#widget-Outseta_chat.displayMode-auto .body .input textarea {
-  border-color: var(--global-color-border);
-}
-
-#widget-Outseta_chat.displayMode-dark {
-  background: var(--chakra-colors-bg-panel);
-  box-shadow: var(--chakra-shadows-lg);
-}
-
-#widget-Outseta_chat.displayMode-dark .body .fileUploadOverlay {
-  background: var(--dark-mode-bg-color);
-  border-color: var(--global-color-border);
-}
-#widget-Outseta_chat.displayMode-dark .body .input textarea {
-  border-color: var(--global-color-border);
-}
-@media (prefers-color-scheme: dark) {
-  #widget-Outseta_chat.displayMode-auto {
-    background: var(--chakra-colors-bg-panel);
-    box-shadow: var(--chakra-shadows-lg);
-  }
-
-  #widget-Outseta_chat.displayMode-auto .body .fileUploadOverlay {
-    background: var(--dark-mode-bg-color);
-    border-color: var(--global-color-border);
-  }
-
-  #widget-Outseta_chat.displayMode-auto .body .input textarea {
-    border-color: var(--global-color-border);
-  }
-}
+/* Fix weird button styles */
+/* TODO: Make disabled buttons better */

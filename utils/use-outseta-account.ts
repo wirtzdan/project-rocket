@@ -1,13 +1,11 @@
 "use client";
 
 import { useCallback } from "react";
-import type { OutsetaAccountUpdate, OutsetaAccount } from "@/types/outseta";
+import type { OutsetaAccount, OutsetaAccountUpdate } from "@/types/outseta";
 
 export function useOutsetaAccount() {
   const updateAccount = useCallback(
-    async (
-      fields: OutsetaAccountUpdate
-    ): Promise<OutsetaAccount | null> => {
+    async (fields: OutsetaAccountUpdate): Promise<OutsetaAccount | null> => {
       try {
         const res = await fetch("/api/outseta/account", {
           method: "PUT",

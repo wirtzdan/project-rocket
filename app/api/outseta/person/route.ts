@@ -14,25 +14,19 @@ export async function PUT(request: Request) {
   const { Uid, ...fields } = body;
 
   if (!Uid) {
-    return NextResponse.json(
-      { error: "Uid is required" },
-      { status: 400 }
-    );
+    return NextResponse.json({ error: "Uid is required" }, { status: 400 });
   }
 
   const domain = projectConfig.outsetaOptions.domain;
 
-  const res = await fetch(
-    `https://${domain}/api/v1/crm/people/${Uid}`,
-    {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: `Outseta ${apiKey}`,
-      },
-      body: JSON.stringify({ Uid, ...fields }),
-    }
-  );
+  const res = await fetch(`https://${domain}/api/v1/crm/people/${Uid}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Outseta ${apiKey}`,
+    },
+    body: JSON.stringify({ Uid, ...fields }),
+  });
 
   if (!res.ok) {
     const text = await res.text();

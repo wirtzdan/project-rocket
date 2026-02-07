@@ -12,7 +12,6 @@ export const outsetaConfig = {
       process.env.NODE_ENV === "production"
         ? "https://project-rocket.danielwirtz.com/thank-you"
         : "http://localhost:3000/thank-you",
-
     authenticationCallbackUrl:
       process.env.NODE_ENV === "production"
         ? "https://project-rocket.danielwirtz.com/app"

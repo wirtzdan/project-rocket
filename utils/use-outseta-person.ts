@@ -5,9 +5,7 @@ import type { OutsetaPersonUpdate, OutsetaUser } from "@/types/outseta";
 
 export function useOutsetaPerson() {
   const updatePerson = useCallback(
-    async (
-      fields: OutsetaPersonUpdate
-    ): Promise<OutsetaUser | null> => {
+    async (fields: OutsetaPersonUpdate): Promise<OutsetaUser | null> => {
       try {
         const res = await fetch("/api/outseta/person", {
           method: "PUT",

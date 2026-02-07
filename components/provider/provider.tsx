@@ -13,6 +13,8 @@ import { ConvexOutsetaProvider } from "./convex-provider";
 export default function Provider(props: { children: React.ReactNode }) {
   const colorMode: string = projectConfig.theme.colorMode;
 
+  console.log("system", system);
+
   useChatVisibility();
 
   useEffect(() => {
