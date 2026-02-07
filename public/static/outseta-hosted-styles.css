@@ -1,0 +1,92 @@
+/* Outseta CSS variable overrides */ div {
+  /* Semantic Colors */
+  --accent-color: #2563eb !important;
+  --color: #2563eb;
+  --color-bg: #FFFFFF !important;
+  --dark-mode-bg-color: #FFFFFF !important;
+  --color-danger: #ef4444 !important;
+
+  /* Neutral Colors */
+  --color-coal: #e4e4e7 !important;
+  --color-coal-dark: rgba(255, 255, 255, 0.2);
+  --color-slate: #f4f4f5 !important;
+  --color-slate-dark: #f4f4f5 !important;
+  --color-granite: #f4f4f5 !important;
+  --color-granite-dark: #e4e4e7 !important;
+  --color-concrete: rgba(0, 0, 0, 0.02);
+  --color-concrete-dark: rgba(255, 255, 255, 0.02);
+  --color-black-15: rgba(0, 0, 0, 0.15);
+  --color-white-10: rgba(255, 255, 255, 0.1);
+
+  /* Text Colors */
+  --color-text: #09090B !important;
+  --color-text-secondary: #a1a1aa !important;
+  --color-text-disabled: #a1a1aa !important;
+  --color-text-dark: #a1a1aa !important;
+  --color-text-secondary-dark: #a1a1aa !important;
+  --color-text-disabled-dark: #a1a1aa !important;
+
+  /* Typography */
+  --font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol" !important;
+  --font-size: 1rem !important;
+  --font-size-sm: 0.875rem !important;
+  --font-size-xs: 0.75rem !important;
+  --weight-bold: 700 !important;
+  --line-height: 1.428572;
+
+  /* Styling */
+  --opacity-disabled: 0.5 !important;
+  --shadow-input: none !important;
+  --radius-round: 0.375rem !important;
+
+  /* Spacing */
+  --element-padding-v: 0.5rem !important;
+  --element-padding-h: 0.75rem !important;
+}
+
+/* Button */
+.o--Widget--widget .o--Button--btn:hover {
+  box-shadow: none !important;
+  opacity: 0.9 !important;
+}
+
+/* Error messages */
+.o--Widget--widget .o--ErrorMessages--errorMessages {
+  background-color: #ef4444 !important;
+  color: #fafafa !important;
+}
+
+/* Labels */
+.o--Widget--widget label.o--Label--displayMode-light,
+.o--Widget--widget label.o--Label--displayMode-auto,
+.o--Widget--widget label.o--Label--displayMode-dark {
+  color: #09090B !important;
+}
+
+/* Chat */
+#o--Trigger--unreadCount {
+  background: #ef4444 !important;
+  border-radius: 100% !important;
+  color: #fafafa !important;
+  height: 24px !important;
+  width: 24px !important;
+  left: 6px !important;
+  top: 6px !important;
+}
+
+.o--Trigger--trigger {
+  width: 64px !important;
+  height: 64px !important;
+  overflow: visible !important;
+  right: 24px !important;
+  bottom: 24px !important;
+}
+
+/* Change Plan */
+.o--Widget--widget .o--PlanSelector--planSelector
+  ul.o--PlanSelector--planList
+  li.o--PlanSelector--planListItem {
+  border-width: 2px !important;
+}
+/* Fix weird button styles */
+/* TODO: Make disabled buttons better */

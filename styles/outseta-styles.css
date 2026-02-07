@@ -40,7 +40,7 @@
   --radius-round: var(--chakra-radii-l2) !important;
 
   /* Spacing */
-  --element-padding-v: var(--chakra-spacing-2 0.5) !important;
+  --element-padding-v: var(--chakra-spacing-2) !important;
   --element-padding-h: var(--chakra-spacing-3) !important;
 }
 
