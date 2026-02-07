@@ -9,6 +9,7 @@
  */
 
 import type * as testAuth from "../testAuth.js";
+import type * as todos from "../todos.js";
 
 import type {
   ApiFromModules,
@@ -18,6 +19,7 @@ import type {
 
 declare const fullApi: ApiFromModules<{
   testAuth: typeof testAuth;
+  todos: typeof todos;
 }>;
 
 /**

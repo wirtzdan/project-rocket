@@ -88,7 +88,76 @@ const DEMO_MENU_ITEMS = [
   },
 ];
 
-export const NavbarLinkMenu = () => {
+export const NavbarLinkMenu = ({ type }: { type: "website" | "app" }) => {
+  if (type === "app") {
+    return <AppNavbarLinkMenu />;
+  }
+
+  return <WebsiteNavbarLinkMenu />;
+};
+
+const APP_DEMO_MENU_ITEMS = [{ label: "Add-on", href: "/embed/add-on" }];
+
+const AppNavbarLinkMenu = () => {
+  return (
+    <>
+      <MenuLink href="/app">Tasks</MenuLink>
+
+      {/* Desktop: Popover menu */}
+      <Box hideBelow="md">
+        <Popover.Root positioning={{ placement: "bottom" }}>
+          <Popover.Trigger asChild>
+            <Button colorPalette="gray" variant="plain" width="auto">
+              Demos
+            </Button>
+          </Popover.Trigger>
+          <Portal>
+            <Popover.Positioner>
+              <Popover.Content w="auto">
+                <Popover.Body p="4">
+                  <VStack align="start" gap="1">
+                    {APP_DEMO_MENU_ITEMS.map((link) => (
+                      <Link href={link.href} key={link.href} w="full">
+                        <Button
+                          colorPalette="gray"
+                          fontWeight="normal"
+                          justifyContent="flex-start"
+                          size="sm"
+                          variant="ghost"
+                          w="full"
+                        >
+                          {link.label}
+                        </Button>
+                      </Link>
+                    ))}
+                  </VStack>
+                </Popover.Body>
+              </Popover.Content>
+            </Popover.Positioner>
+          </Portal>
+        </Popover.Root>
+      </Box>
+
+      {/* Mobile: Flat list */}
+      <Box hideFrom="md">
+        {APP_DEMO_MENU_ITEMS.map((link) => (
+          <Link href={link.href} key={link.href} w="full">
+            <Button
+              colorPalette="gray"
+              justifyContent="flex-start"
+              variant="ghost"
+              width="full"
+            >
+              {link.label}
+            </Button>
+          </Link>
+        ))}
+      </Box>
+    </>
+  );
+};
+
+const WebsiteNavbarLinkMenu = () => {
   const handleDocsClick = () => {
     posthog.capture("docs_link_clicked", {
       source: "navbar",
@@ -228,7 +297,13 @@ export const NavbarActionMenu = ({ type }: { type: "website" | "app" }) => {
         </SignUp>
       </SignedOut>
       <SignedIn>
-        {type === "app" ? <UserMenu /> : <Button size="sm">Go to app</Button>}
+        {type === "app" ? (
+          <UserMenu />
+        ) : (
+          <Link href="/app">
+            <Button size="sm">Go to app</Button>
+          </Link>
+        )}
       </SignedIn>
     </>
   );
@@ -251,7 +326,7 @@ const CollapsibleTriggerButton = () => {
   );
 };
 
-export const Navbar = ({ type: _type }: { type: "website" | "app" }) => {
+export const Navbar = ({ type }: { type: "website" | "app" }) => {
   return (
     <Center
       as="header"
@@ -276,15 +351,15 @@ export const Navbar = ({ type: _type }: { type: "website" | "app" }) => {
                 <Logo />
               </Link>
               <HStack hideFrom="md" justify="flex-end" w="full">
-                <NavbarActionMenu type="app" />
+                <NavbarActionMenu type={type} />
               </HStack>
               <HStack gap="2" hideBelow="md">
-                <NavbarLinkMenu />
-                <NavbarActionMenu type="app" />
+                <NavbarLinkMenu type={type} />
+                <NavbarActionMenu type={type} />
               </HStack>
             </HStack>
             <Collapsible.Content hideFrom="md" mt={4}>
-              <NavbarLinkMenu />
+              <NavbarLinkMenu type={type} />
             </Collapsible.Content>
           </Collapsible.Root>
         </Box>

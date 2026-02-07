@@ -1,7 +1,7 @@
 import { Heading, Text } from "@chakra-ui/react";
 import { Section } from "@/components/layout/section";
+import { TodoList } from "@/components/todos/todo-list";
 import { generateMetadata } from "@/utils/metadata";
-import { SignedIn } from "../../components/auth/protect-content";
 
 export const metadata = generateMetadata({
   title: "Dashboard",
@@ -11,11 +11,21 @@ export const metadata = generateMetadata({
 
 export default function App() {
   return (
-    <Section header>
-      <Heading>App Page</Heading>
-      <SignedIn isPrimaryContact={false}>
-        <Text>Primary content</Text>
-      </SignedIn>
-    </Section>
+    <>
+      <Section
+        bg="bg.subtle"
+        borderBottomColor="border"
+        borderBottomWidth="1px"
+        header
+      >
+        <Heading size="3xl">Your tasks</Heading>
+        <Text color="fg.muted" textStyle="lg">
+          The task list below is powered by Convex and updates in real-time.
+        </Text>
+      </Section>
+      <Section>
+        <TodoList />
+      </Section>
+    </>
   );
 }
