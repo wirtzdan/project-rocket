@@ -2,10 +2,15 @@
 
 import { useQuery } from "convex/react";
 import { decodeJwt } from "jose";
+import { notFound } from "next/navigation";
 import { useAuth } from "@/components/provider/auth-provider";
 import { api } from "@/convex/_generated/api";
 
 export default function TestConvexPage() {
+  if (process.env.NODE_ENV !== "development") {
+    notFound();
+  }
+
   const { isAuthenticated, user, getAccessToken } = useAuth();
   const convexUser = useQuery(api.testAuth.getCurrentUser);
 

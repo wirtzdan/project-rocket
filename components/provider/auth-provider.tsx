@@ -91,7 +91,6 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
   const [status, setStatus] = useState("init");
   const [user, setUser] = useState<OutsetaUser | null>(null);
   const outsetaRef = useRef<OutsetaSDK | null>(null);
-  const initializingRef = useRef(false);
 
   const logout = useCallback(() => {
     // Capture logout event before resetting PostHog
@@ -147,178 +146,168 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     [updateUser, logout]
   );
 
-  const initializeOutseta = useCallback(() => {
-    if (initializingRef.current) {
-      return;
-    }
-    initializingRef.current = true;
+  // Guard ref to prevent duplicate event handler execution during Strict Mode remounts.
+  // Outseta SDK does not expose an `off()` method, so we use this to no-op stale handlers.
+  const isActiveRef = useRef(true);
 
-    const outseta = getOutseta();
-    if (!outseta) {
-      initializingRef.current = false;
-      return;
-    }
+  // One-time SDK setup effect: register event listeners and load existing auth state
+  useEffect(() => {
+    isActiveRef.current = true;
+    let initialized = false;
 
-    outsetaRef.current = outseta;
-
-    // Wait for Outseta modules to initialize before using SDK
-    let authInitialized = false;
-    let nocodeInitialized = false;
-
-    const checkInitialization = () => {
-      if (authInitialized && nocodeInitialized) {
-        initializeAuth();
+    const setup = () => {
+      if (initialized) {
+        return;
       }
-    };
 
-    const initializeAuth = () => {
-      const accessToken = searchParams.get("access_token");
-      if (accessToken) {
-        // Clean up the access token from the URL to avoid exposing it in the address bar
-        const cleanParams = new URLSearchParams(searchParams.toString());
-        cleanParams.delete("access_token");
-        const cleanUrl = cleanParams.toString()
-          ? `${pathname}?${cleanParams.toString()}`
-          : pathname;
-        router.replace(cleanUrl, { scroll: false });
-
-        verifyAndSetToken(accessToken).catch((error) => {
-          console.error("[Auth] Error verifying token:", error);
-          setStatus("ready");
-        });
-      } else if (outseta.getAccessToken()) {
-        updateUser().catch((error) => {
-          console.error("[Auth] Error updating user:", error);
-          setStatus("ready");
-        });
-      } else {
-        setStatus("ready");
+      const outseta = getOutseta();
+      if (!outseta) {
+        return;
       }
-    };
 
-    // Event handlers
-    const handleUserUpdate = () => {
-      if (outsetaRef.current?.getAccessToken()) {
-        updateUser().catch((error) => {
-          console.error("[Auth] Error updating user from event:", error);
-        });
-      }
-    };
+      initialized = true;
+      outsetaRef.current = outseta;
 
-    const handleAccessTokenSet = () => {
-      if (outsetaRef.current?.getAccessToken()) {
-        updateUser().catch((error) => {
-          console.error(
-            "[Auth] Error updating user from accessToken.set:",
-            error
-          );
-        });
-      }
-    };
+      // Wait for Outseta modules to initialize before using SDK
+      let authInitialized = false;
+      let nocodeInitialized = false;
 
-    const handleTokenExpired = () => {
-      logout();
-    };
-
-    // Listen to initialization events
-    outseta.on("auth.initialized", () => {
-      authInitialized = true;
-      checkInitialization();
-    });
-
-    outseta.on("nocode.initialized", () => {
-      nocodeInitialized = true;
-      checkInitialization();
-    });
-
-    // Listen to accessToken.set event for automatic user updates
-    outseta.on("accessToken.set", handleAccessTokenSet);
-
-    // Listen to user update events with PostHog tracking
-    outseta.on("subscription.update", (subscription) => {
-      const sub = subscription as { Plan?: { Uid?: string; Name?: string } };
-      posthog.capture("subscription_updated", {
-        plan_uid: sub?.Plan?.Uid,
-        plan_name: sub?.Plan?.Name,
-      });
-      handleUserUpdate();
-    });
-    outseta.on("profile.update", () => {
-      posthog.capture("profile_updated");
-      handleUserUpdate();
-    });
-    outseta.on("account.update", () => {
-      posthog.capture("account_updated");
-      handleUserUpdate();
-    });
-
-    // Signup events
-    outseta.on("signup", (account) => {
-      const acc = account as {
-        Uid?: string;
-        CurrentSubscription?: { Plan?: { Uid?: string; Name?: string } };
+      const checkInitialization = () => {
+        if (!isActiveRef.current) return;
+        if (authInitialized && nocodeInitialized) {
+          // Load existing auth state (not URL token — that's handled separately)
+          if (outseta.getAccessToken()) {
+            updateUser().catch((error) => {
+              console.error("[Auth] Error updating user:", error);
+              setStatus("ready");
+            });
+          } else {
+            setStatus("ready");
+          }
+        }
       };
-      posthog.capture("user_signed_up", {
-        account_uid: acc?.Uid,
-        plan_uid: acc?.CurrentSubscription?.Plan?.Uid,
-        plan_name: acc?.CurrentSubscription?.Plan?.Name,
-      });
-    });
-    outseta.on("signup.preRegister", () => {
-      posthog.capture("signup_started");
-    });
 
-    // Subscription lifecycle events
-    outseta.on("subscription.cancel", (cancellation) => {
-      const cancel = cancellation as { CancellationReason?: string };
-      posthog.capture("subscription_cancelled", {
-        reason: cancel?.CancellationReason,
-      });
-    });
-    outseta.on("subscription.reopen", () => {
-      posthog.capture("subscription_reopened");
-    });
+      // Event handlers — all guarded by isActiveRef
+      const handleUserUpdate = () => {
+        if (!isActiveRef.current) return;
+        if (outsetaRef.current?.getAccessToken()) {
+          updateUser().catch((error) => {
+            console.error("[Auth] Error updating user from event:", error);
+            setStatus("ready");
+          });
+        }
+      };
 
-    // Access denied event
-    outseta.on("nocode.accessDenied", () => {
-      posthog.capture("access_denied", {
-        path: window.location.pathname,
-      });
-    });
+      const handleAccessTokenSet = () => {
+        if (!isActiveRef.current) return;
+        if (outsetaRef.current?.getAccessToken()) {
+          updateUser().catch((error) => {
+            console.error(
+              "[Auth] Error updating user from accessToken.set:",
+              error
+            );
+            setStatus("ready");
+          });
+        }
+      };
 
-    // Handle logout triggered via data-o-logout-link (e.g., <LogOut> embed component)
-    outseta.on("logout", () => {
-      posthog.capture("user_logged_out");
-      posthog.reset();
-      setUser(null);
-      setStatus("ready");
-    });
-
-    // Handle token expiration
-    outseta.on("nocode.expired", handleTokenExpired);
-
-    // If modules are already initialized, proceed immediately
-    // Check if we can access getUser without errors (indicates initialization)
-    try {
-      if (typeof outseta.getUser === "function") {
+      // Listen to initialization events
+      outseta.on("auth.initialized", () => {
         authInitialized = true;
+        checkInitialization();
+      });
+
+      outseta.on("nocode.initialized", () => {
         nocodeInitialized = true;
         checkInitialization();
-      }
-    } catch {
-      // Modules not ready yet, wait for events
-    }
-  }, [searchParams, router, pathname, updateUser, verifyAndSetToken, logout]);
+      });
 
-  useEffect(() => {
-    // Try to initialize immediately if Outseta is available
-    initializeOutseta();
+      // Listen to accessToken.set event for automatic user updates
+      outseta.on("accessToken.set", handleAccessTokenSet);
 
-    // Listen for Outseta loading event
-    const handleOutsetaLoaded = () => {
-      initializeOutseta();
+      // Listen to user update events with PostHog tracking
+      outseta.on("subscription.update", (subscription) => {
+        if (!isActiveRef.current) return;
+        const sub = subscription as {
+          Plan?: { Uid?: string; Name?: string };
+        };
+        posthog.capture("subscription_updated", {
+          plan_uid: sub?.Plan?.Uid,
+          plan_name: sub?.Plan?.Name,
+        });
+        handleUserUpdate();
+      });
+      outseta.on("profile.update", () => {
+        if (!isActiveRef.current) return;
+        posthog.capture("profile_updated");
+        handleUserUpdate();
+      });
+      outseta.on("account.update", () => {
+        if (!isActiveRef.current) return;
+        posthog.capture("account_updated");
+        handleUserUpdate();
+      });
+
+      // Signup events
+      outseta.on("signup", (account) => {
+        if (!isActiveRef.current) return;
+        const acc = account as {
+          Uid?: string;
+          CurrentSubscription?: { Plan?: { Uid?: string; Name?: string } };
+        };
+        posthog.capture("user_signed_up", {
+          account_uid: acc?.Uid,
+          plan_uid: acc?.CurrentSubscription?.Plan?.Uid,
+          plan_name: acc?.CurrentSubscription?.Plan?.Name,
+        });
+      });
+      outseta.on("signup.preRegister", () => {
+        if (!isActiveRef.current) return;
+        posthog.capture("signup_started");
+      });
+
+      // Subscription lifecycle events
+      outseta.on("subscription.cancel", (cancellation) => {
+        if (!isActiveRef.current) return;
+        const cancel = cancellation as { CancellationReason?: string };
+        posthog.capture("subscription_cancelled", {
+          reason: cancel?.CancellationReason,
+        });
+      });
+      outseta.on("subscription.reopen", () => {
+        if (!isActiveRef.current) return;
+        posthog.capture("subscription_reopened");
+      });
+
+      // Access denied event
+      outseta.on("nocode.accessDenied", () => {
+        if (!isActiveRef.current) return;
+        posthog.capture("access_denied", {
+          path: window.location.pathname,
+        });
+      });
+
+      // Handle logout triggered via data-o-logout-link (e.g., <LogOut> embed component)
+      outseta.on("logout", () => {
+        if (!isActiveRef.current) return;
+        posthog.capture("user_logged_out");
+        posthog.reset();
+        setUser(null);
+        setStatus("ready");
+      });
+
+      // Handle token expiration
+      outseta.on("nocode.expired", () => {
+        if (!isActiveRef.current) return;
+        logout();
+      });
     };
 
+    // Try to initialize immediately if Outseta is available
+    setup();
+
+    // Listen for Outseta loading event
+    const handleOutsetaLoaded = () => setup();
     window.addEventListener("outseta:loaded", handleOutsetaLoaded);
 
     // Fallback timeout: if Outseta doesn't load within 10 seconds, set status to ready
@@ -330,10 +319,46 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     }, 10_000);
 
     return () => {
+      isActiveRef.current = false;
       window.removeEventListener("outseta:loaded", handleOutsetaLoaded);
       clearTimeout(timeoutId);
     };
-  }, [initializeOutseta]);
+  }, [updateUser, logout]);
+
+  // Handle access_token from URL (separate from SDK init so it works on navigation)
+  useEffect(() => {
+    const accessToken = searchParams.get("access_token");
+    if (!accessToken) {
+      return;
+    }
+
+    // Clean up the access token from the URL to avoid exposing it in the address bar
+    const cleanParams = new URLSearchParams(searchParams.toString());
+    cleanParams.delete("access_token");
+    const cleanUrl = cleanParams.toString()
+      ? `${pathname}?${cleanParams.toString()}`
+      : pathname;
+    router.replace(cleanUrl, { scroll: false });
+
+    // Wait for SDK to be ready before verifying token
+    const tryVerify = () => {
+      if (outsetaRef.current) {
+        verifyAndSetToken(accessToken).catch((error) => {
+          console.error("[Auth] Error verifying token:", error);
+          setStatus("ready");
+        });
+      }
+    };
+
+    if (outsetaRef.current) {
+      tryVerify();
+    } else {
+      // SDK not ready yet — listen for it
+      const handleReady = () => tryVerify();
+      window.addEventListener("outseta:loaded", handleReady);
+      return () => window.removeEventListener("outseta:loaded", handleReady);
+    }
+  }, [searchParams, pathname, router, verifyAndSetToken]);
 
   const openLogin = useCallback((options?: Partial<OutsetaAuthOpenOptions>) => {
     outsetaRef.current?.auth.open({
