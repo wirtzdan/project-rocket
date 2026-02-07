@@ -1,6 +1,5 @@
 import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
-import { ClientBootstrap } from "@/components/client-bootstrap";
 import Provider from "@/components/provider/provider";
 import { projectConfig } from "@/config";
 import { generateMetadata as createMetadata } from "@/utils/metadata";
@@ -20,6 +19,8 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
+const outsetaOptionsScript = `var o_options = ${JSON.stringify(projectConfig.outsetaOptions)};`;
+
 export default function RootLayout({
   children,
 }: {
@@ -31,14 +32,21 @@ export default function RootLayout({
       lang={projectConfig.general.language}
       suppressHydrationWarning
     >
+      <head>
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: Safe - serialized from a controlled config object
+          dangerouslySetInnerHTML={{ __html: outsetaOptionsScript }}
+        />
+        <script
+          data-options="o_options"
+          src="https://cdn.outseta.com/outseta.min.js"
+        />
+      </head>
       <body className={inter.className}>
         <noscript>
           <meta content="0; url=/javascript" httpEquiv="refresh" />
         </noscript>
-        <Provider>
-          <ClientBootstrap />
-          {children}
-        </Provider>
+        <Provider>{children}</Provider>
       </body>
     </html>
   );
