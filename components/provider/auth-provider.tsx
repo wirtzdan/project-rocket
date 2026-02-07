@@ -363,7 +363,6 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
   const openLogin = useCallback((options?: Partial<OutsetaAuthOpenOptions>) => {
     outsetaRef.current?.auth.open({
       widgetMode: "login|register",
-      authenticationCallbackUrl: window.location.href,
       ...options,
     });
   }, []);
@@ -372,7 +371,6 @@ function AuthProviderContent({ children }: { children: React.ReactNode }) {
     (options?: Partial<OutsetaAuthOpenOptions>) => {
       outsetaRef.current?.auth.open({
         widgetMode: "register",
-        authenticationCallbackUrl: window.location.href,
         ...options,
       });
     },
