@@ -5,7 +5,7 @@ export const outsetaConfig = {
   knowledgeBaseUrl: "https://project-rocket.outseta.com/support/kb",
   load: "auth,chat,emailList,leadCapture,nocode,profile,support",
   monitorDom: true,
-  tokenStorage: "cookie",
+  tokenStorage: "local",
   translationLang: generalConfig.language,
   auth: {
     postRegistrationUrl:
