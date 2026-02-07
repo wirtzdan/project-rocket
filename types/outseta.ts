@@ -62,7 +62,18 @@ export interface OutsetaAccount {
   Uid: string;
   Created: string;
   Updated: string;
+  /** Custom properties are added as top-level fields */
+  [key: string]: unknown;
 }
+
+/** Fields that can be updated on an Account via the REST API. */
+export type OutsetaAccountUpdate = {
+  Uid: string;
+  Name?: string;
+  AccountStage?: number;
+  /** Custom properties as top-level key/value pairs */
+  [key: string]: unknown;
+};
 
 export interface OutsetaUser {
   Email: string;
@@ -79,7 +90,24 @@ export interface OutsetaUser {
   Uid: string;
   Created: string;
   Updated: string;
+  /** Custom properties are added as top-level fields */
+  [key: string]: unknown;
 }
+
+/** Fields that can be updated on a Person via the REST API. */
+export type OutsetaPersonUpdate = {
+  Uid: string;
+  Email?: string;
+  FirstName?: string;
+  LastName?: string;
+  PhoneMobile?: string;
+  PhoneWork?: string;
+  Language?: string;
+  MailingAddress?: Partial<OutsetaAddress> | null;
+  Account?: Partial<OutsetaAccountUpdate>;
+  /** Custom properties as top-level key/value pairs */
+  [key: string]: unknown;
+};
 
 export type OutsetaEventName =
   | "subscription.update"
