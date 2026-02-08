@@ -18,6 +18,9 @@ export default function Provider(props: { children: React.ReactNode }) {
   useChatVisibility();
 
   useEffect(() => {
+    if (!projectConfig.analytics.enabled) {
+      return;
+    }
     if (projectConfig.cookieBannerOptions) {
       runCookieConsent(projectConfig.cookieBannerOptions);
     } else {
